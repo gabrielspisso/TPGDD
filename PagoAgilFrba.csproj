@@ -44,41 +44,77 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbmCliente\Form1.cs">
+    <Compile Include="AbmCliente\ABMCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmCliente\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmCliente\ABMCliente.Designer.cs">
+      <DependentUpon>ABMCliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmEmpresa\Form1.cs">
+    <Compile Include="AbmCliente\Eliminar_Modificar_Cliente_Seleccionado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmEmpresa\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmCliente\Eliminar_Modificar_Cliente_Seleccionado.Designer.cs">
+      <DependentUpon>Eliminar_Modificar_Cliente_Seleccionado.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmFactura\Form1.cs">
+    <Compile Include="AbmEmpresa\ABMEmpresa.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmFactura\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmEmpresa\ABMEmpresa.Designer.cs">
+      <DependentUpon>ABMEmpresa.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmRol\Form1.cs">
+    <Compile Include="AbmEmpresa\Eliminar_Modificar_Empresa_Seleccionada.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmRol\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmEmpresa\Eliminar_Modificar_Empresa_Seleccionada.Designer.cs">
+      <DependentUpon>Eliminar_Modificar_Empresa_Seleccionada.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmSucursal\Form1.cs">
+    <Compile Include="AbmFactura\ABMFactura.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmSucursal\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmFactura\ABMFactura.Designer.cs">
+      <DependentUpon>ABMFactura.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="AbmFactura\Eliminar_Modificar_Factura_Seleccionada.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmFactura\Eliminar_Modificar_Factura_Seleccionada.Designer.cs">
+      <DependentUpon>Eliminar_Modificar_Factura_Seleccionada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRol\ABMRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRol\ABMRol.Designer.cs">
+      <DependentUpon>ABMRol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmSucursal\ABMSucursal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmSucursal\ABMSucursal.Designer.cs">
+      <DependentUpon>ABMSucursal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmSucursal\Eliminar_Modificar_Sucursal_Seleccionada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmSucursal\Eliminar_Modificar_Sucursal_Seleccionada.Designer.cs">
+      <DependentUpon>Eliminar_Modificar_Sucursal_Seleccionada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IniciarSesion\Acciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IniciarSesion\Acciones.Designer.cs">
+      <DependentUpon>Acciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IniciarSesion\Acciones_Admin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IniciarSesion\Acciones_Admin.Designer.cs">
+      <DependentUpon>Acciones_Admin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IniciarSesion\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IniciarSesion\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="ListadoEstadistico\Form1.cs">
       <SubType>Form</SubType>
@@ -100,8 +136,41 @@
     <Compile Include="Rendicion\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AbmCliente\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="AbmCliente\ABMCliente.resx">
+      <DependentUpon>ABMCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCliente\Eliminar_Modificar_Cliente_Seleccionado.resx">
+      <DependentUpon>Eliminar_Modificar_Cliente_Seleccionado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmEmpresa\ABMEmpresa.resx">
+      <DependentUpon>ABMEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmEmpresa\Eliminar_Modificar_Empresa_Seleccionada.resx">
+      <DependentUpon>Eliminar_Modificar_Empresa_Seleccionada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmFactura\ABMFactura.resx">
+      <DependentUpon>ABMFactura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmFactura\Eliminar_Modificar_Factura_Seleccionada.resx">
+      <DependentUpon>Eliminar_Modificar_Factura_Seleccionada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\ABMRol.resx">
+      <DependentUpon>ABMRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmSucursal\ABMSucursal.resx">
+      <DependentUpon>ABMSucursal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmSucursal\Eliminar_Modificar_Sucursal_Seleccionada.resx">
+      <DependentUpon>Eliminar_Modificar_Sucursal_Seleccionada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IniciarSesion\Acciones.resx">
+      <DependentUpon>Acciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IniciarSesion\Acciones_Admin.resx">
+      <DependentUpon>Acciones_Admin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IniciarSesion\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
