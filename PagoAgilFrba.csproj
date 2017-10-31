@@ -98,23 +98,30 @@
     <Compile Include="AbmSucursal\Eliminar_Modificar_Sucursal_Seleccionada.Designer.cs">
       <DependentUpon>Eliminar_Modificar_Sucursal_Seleccionada.cs</DependentUpon>
     </Compile>
+    <Compile Include="BD.cs" />
     <Compile Include="IniciarSesion\Acciones.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="IniciarSesion\Acciones.Designer.cs">
       <DependentUpon>Acciones.cs</DependentUpon>
     </Compile>
-    <Compile Include="IniciarSesion\Acciones_Admin.cs">
+    <Compile Include="IniciarSesion\AccionesAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="IniciarSesion\Acciones_Admin.Designer.cs">
-      <DependentUpon>Acciones_Admin.cs</DependentUpon>
+    <Compile Include="IniciarSesion\AccionesAdmin.Designer.cs">
+      <DependentUpon>AccionesAdmin.cs</DependentUpon>
     </Compile>
     <Compile Include="IniciarSesion\Login.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="IniciarSesion\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IniciarSesion\SeleccionarRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IniciarSesion\SeleccionarRol.Designer.cs">
+      <DependentUpon>SeleccionarRol.cs</DependentUpon>
     </Compile>
     <Compile Include="ListadoEstadistico\Form1.cs">
       <SubType>Form</SubType>
@@ -166,11 +173,14 @@
     <EmbeddedResource Include="IniciarSesion\Acciones.resx">
       <DependentUpon>Acciones.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IniciarSesion\Acciones_Admin.resx">
-      <DependentUpon>Acciones_Admin.cs</DependentUpon>
+    <EmbeddedResource Include="IniciarSesion\AccionesAdmin.resx">
+      <DependentUpon>AccionesAdmin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IniciarSesion\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IniciarSesion\SeleccionarRol.resx">
+      <DependentUpon>SeleccionarRol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

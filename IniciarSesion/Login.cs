@@ -19,11 +19,17 @@ namespace PagoAgilFrba.IniciarSesion
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Acciones_Admin accion_ADMIN = new Acciones_Admin();
-            Acciones accion = new Acciones();
-            accion_ADMIN.Show();
-            accion.Show();
+            String username = txtUsername.Text;
+            String password = txtPassword.Text;
+
+            if (BD.autenticacionCorrecta(username, password))
+            {
+                MessageBox.Show("todo bien", "Login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Hide();
+                new SeleccionarRol(username).Show();
+            }
+            else
+                MessageBox.Show("Invalid username", "Login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

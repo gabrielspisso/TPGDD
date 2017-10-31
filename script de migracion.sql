@@ -109,7 +109,7 @@ CREATE TABLE [EL_JAPONES_SANGRANDO].[Devoluciones](
 GO
 CREATE TABLE [EL_JAPONES_SANGRANDO].[Usuarios](
 	[usr_name] [nvarchar](50) not null,
-	[usr_pass] [nvarchar](50),
+	[usr_pass] [varbinary](100),
 	[usr_estado] [bit] default 1
 )
 GO
@@ -302,4 +302,5 @@ values('administrador',1),('administrador',2),('administrador',3),('administrado
 --Le asigno el perfil de administrador al admin
 INSERT INTO EL_JAPONES_SANGRANDO.RolUsuario(rolusr_usr, rolusr_rol) values ('admin', 'administrador')
 
-
+Use GD2C2017
+select * from EL_JAPONES_SANGRANDO.Usuarios;

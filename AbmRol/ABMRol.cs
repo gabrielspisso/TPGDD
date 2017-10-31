@@ -15,33 +15,15 @@ namespace PagoAgilFrba.AbmRol
         public ABMRol()
         {
             InitializeComponent();
+            string query = "select * from EL_JAPONES_SANGRANDO.Funcionalidades";
+            DataTable ds = BD.busqueda(query);
+            funcionalidadesDGV.DataSource = ds;
         }
 
-        private void btnVolver_Click(object sender, EventArgs e)
+        private void btnAceptar_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            IniciarSesion.Acciones_Admin accion_ADMIN = new IniciarSesion.Acciones_Admin();
-            IniciarSesion.Acciones accion = new IniciarSesion.Acciones();
-            accion_ADMIN.Show();
-            accion.Show();
+
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            IniciarSesion.Acciones_Admin accion_ADMIN = new IniciarSesion.Acciones_Admin();
-            IniciarSesion.Acciones accion = new IniciarSesion.Acciones();
-            accion_ADMIN.Show();
-            accion.Show();
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            IniciarSesion.Acciones_Admin accion_ADMIN = new IniciarSesion.Acciones_Admin();
-            IniciarSesion.Acciones accion = new IniciarSesion.Acciones();
-            accion_ADMIN.Show();
-            accion.Show();
-        }
     }
 }

@@ -20,7 +20,7 @@ namespace PagoAgilFrba.AbmEmpresa
         private void btnVolver_Click(object sender, EventArgs e)
         {
             this.Hide();
-            IniciarSesion.Acciones_Admin accion_ADMIN = new IniciarSesion.Acciones_Admin();
+            IniciarSesion.AccionesAdmin accion_ADMIN = new IniciarSesion.AccionesAdmin();
             IniciarSesion.Acciones accion = new IniciarSesion.Acciones();
             accion_ADMIN.Show();
             accion.Show();
@@ -29,7 +29,7 @@ namespace PagoAgilFrba.AbmEmpresa
         private void button1_Click(object sender, EventArgs e)
         {
             this.Hide();
-            IniciarSesion.Acciones_Admin accion_ADMIN = new IniciarSesion.Acciones_Admin();
+            IniciarSesion.AccionesAdmin accion_ADMIN = new IniciarSesion.AccionesAdmin();
             IniciarSesion.Acciones accion = new IniciarSesion.Acciones();
             accion_ADMIN.Show();
             accion.Show();
@@ -38,7 +38,7 @@ namespace PagoAgilFrba.AbmEmpresa
         private void button3_Click(object sender, EventArgs e)
         {
             this.Hide();
-            IniciarSesion.Acciones_Admin accion_ADMIN = new IniciarSesion.Acciones_Admin();
+            IniciarSesion.AccionesAdmin accion_ADMIN = new IniciarSesion.AccionesAdmin();
             IniciarSesion.Acciones accion = new IniciarSesion.Acciones();
             accion_ADMIN.Show();
             accion.Show();

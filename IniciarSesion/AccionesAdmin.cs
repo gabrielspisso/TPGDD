@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace PagoAgilFrba.IniciarSesion
 {
-    public partial class Acciones_Admin : Form
+    public partial class AccionesAdmin : Form
     {
-        public Acciones_Admin()
+        public AccionesAdmin()
         {
             InitializeComponent();
         }

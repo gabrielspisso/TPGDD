@@ -1,6 +1,6 @@
 ﻿namespace PagoAgilFrba.IniciarSesion
 {
-    partial class Acciones_Admin
+    partial class AccionesAdmin
     {
         /// <summary>
         /// Required designer variable.
