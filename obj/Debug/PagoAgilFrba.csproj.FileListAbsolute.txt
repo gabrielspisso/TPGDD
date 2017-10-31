@@ -19,3 +19,6 @@ C:\Users\Matias\Desktop\Aplicacion Desktop\PagoAgilFrba\obj\Debug\PagoAgilFrba.A
 C:\Users\Matias\Desktop\Aplicacion Desktop\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmFactura.Eliminar_Modificar_Factura_Seleccionada.resources
 C:\Users\Matias\Desktop\Aplicacion Desktop\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmRol.ABMRol.resources
 C:\Users\Matias\Desktop\Aplicacion Desktop\PagoAgilFrba\obj\Debug\PagoAgilFrba.IniciarSesion.Login.resources
+C:\Users\santy\OneDrive\Documents\GitHub\TPGDD\bin\Debug\PagoAgilFrba.exe.config
+C:\Users\santy\OneDrive\Documents\GitHub\TPGDD\obj\Debug\PagoAgilFrba.exe
+C:\Users\santy\OneDrive\Documents\GitHub\TPGDD\obj\Debug\PagoAgilFrba.pdb
