@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.Data.SqlTypes;
 using System.Data;
 using System.Data;
-
+using PagoAgilFrba.Sucursal;
 namespace PagoAgilFrba
 {
     public class BD
@@ -216,19 +216,54 @@ namespace PagoAgilFrba
             connection.Close();
         }
 
-        public static void ABM(string query)
+        public static int ABM(string query)
         {
             SqlConnection connection = getConnection();
             connection.Open();
             SqlCommand command = new SqlCommand(query);
             command.Connection = connection;
-            command.ExecuteNonQuery();
+            int x;
+            try
+            {
+            x =command.ExecuteNonQuery();
+
+            }
+           catch (Exception ex){
+               x = 0;
+            }
             connection.Close();
+            return x;
         }
 
         public static string consultaDeUnSoloResultado(string query)
         {
             return BD.listaDeUnCampo(query)[0];
+        }
+
+        public static sucursal devolverSucursal(String sucursalNombre){
+            SqlConnection connection = getConnection();
+            SqlCommand loginCommand = new SqlCommand("SELECT * FROM EL_JAPONES_SANGRANDO.Sucursales WHERE suc_nombre=@suc_nombre");
+            loginCommand.Parameters.AddWithValue("suc_nombre", sucursalNombre);
+            loginCommand.Connection = connection;
+
+            connection.Open();
+            SqlDataReader reader = loginCommand.ExecuteReader();
+            String nombre = null;
+            String direccion = null;
+            int codigo = 0;
+            bool habilitado = false;
+          
+            while (reader.Read())
+            {
+                nombre = reader["suc_nombre"].ToString();
+                direccion = reader["suc_dir"].ToString();
+                codigo = Int32.Parse(reader["suc_CP"].ToString());
+                habilitado = reader.GetBoolean(3);
+            }
+            sucursal sucursal = new sucursal(nombre, codigo, direccion, habilitado);
+            reader.Close();
+            connection.Close();
+            return sucursal;
         }
 
     }

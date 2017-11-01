@@ -62,7 +62,7 @@ namespace PagoAgilFrba.IniciarSesion
 
         private void button5_Click(object sender, EventArgs e)
         {
-            AbmSucursal.ABMSucursal abmSucursal = new AbmSucursal.ABMSucursal();
+            Sucursal.ABMSucursal abmSucursal = new Sucursal.ABMSucursal();
             this.Hide();
             abmSucursal.Show();
         }

@@ -112,28 +112,49 @@ namespace PagoAgilFrba.AbmCliente
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(textDni.Text, @"^\d+$"))
+            {
+                MessageBox.Show("Sólo se permiten numeros en el DNI", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             
+            if (textNombre.Text.Trim() == "" | textApellido.Text.Trim() == "" | textDni.Text.Trim() == "" | textDireccion.Text.Trim() == "" | textDireccion.Text.Trim() == "" | dateTimePickerFechaNac.Text.Trim() == "")
+            {
+                MessageBox.Show("Faltan completar campos obligatorios", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else
+            {
+                String nombre = textNombre.Text;
+                String apellido = textApellido.Text;
+                String dni = textDni.Text;
+                String mail = textMail.Text;
+                String direccion = textDireccion.Text;
+                String fechanacimiento = dateTimePickerFechaNac.Text;
+                if(BD.ABM("INSERT INTO EL_JAPONES_SANGRANDO.Clientes(cli_DNI,cli_nombre,cli_apellido,cli_fechanac,cli_mail,cli_direccion,cli_CP)values('"+dni+"','"+nombre+"','"+apellido+"','"+fechanacimiento+"','"+mail+"','"+direccion+"','"+textCodigoPostal.Text+"')")>0){
+                    MessageBox.Show("Se ingreso correctamente el cliente", "Insertado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    textNombre.Text = "";
+                    textApellido.Text = "";
+                    textDni.Text = "";
+                    textMail.Text = "";
+                    textCodigoPostal.Text = "";
+                    textDireccion.Text = "";
+                    dateTimePickerFechaNac.Text = "";
+                }
+                else{
+                    MessageBox.Show("Datos erroneos el cliente", "Error en seleccion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
+
+                }
+               
+
+            }
+            
+           
+        }
     
         }
 
-        private void dataViewModificar_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void textBox7_TextChanged(object sender, EventArgs e)
-        {
-            String nombre = textBox7.Text;
-            SqlCommand query = new SqlCommand("select * from EL_JAPONES_SANGRANDO.Clientes where cli_nombre like '"+ nombre +"%'");
-            DataTable ds = BD.busqueda(query);
-            dataViewModificar.DataSource = ds;
-            //dataViewModificar.Refresh();
-        }
-
-        private void btnModificarCliente_Click(object sender, EventArgs e)
-        {
-
-        }
-
+      
     }
-}
+
