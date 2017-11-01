@@ -55,6 +55,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dataViewModificar = new System.Windows.Forms.DataGridView();
             this.label15 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
@@ -75,13 +76,12 @@
             this.label19 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.dataViewModificar = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataViewModificar)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataViewModificar)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -376,6 +376,16 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Modificar";
             // 
+            // dataViewModificar
+            // 
+            this.dataViewModificar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataViewModificar.Location = new System.Drawing.Point(398, 8);
+            this.dataViewModificar.Margin = new System.Windows.Forms.Padding(4);
+            this.dataViewModificar.Name = "dataViewModificar";
+            this.dataViewModificar.Size = new System.Drawing.Size(417, 256);
+            this.dataViewModificar.TabIndex = 34;
+            this.dataViewModificar.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataViewModificar_CellContentClick);
+            // 
             // label15
             // 
             this.label15.AutoSize = true;
@@ -409,6 +419,7 @@
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(195, 22);
             this.textBox7.TabIndex = 20;
+            this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
             // 
             // label12
             // 
@@ -585,15 +596,6 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // dataViewModificar
-            // 
-            this.dataViewModificar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataViewModificar.Location = new System.Drawing.Point(398, 8);
-            this.dataViewModificar.Margin = new System.Windows.Forms.Padding(4);
-            this.dataViewModificar.Name = "dataViewModificar";
-            this.dataViewModificar.Size = new System.Drawing.Size(417, 256);
-            this.dataViewModificar.TabIndex = 34;
-            // 
             // ABMCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -609,10 +611,10 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataViewModificar)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataViewModificar)).EndInit();
             this.ResumeLayout(false);
 
         }

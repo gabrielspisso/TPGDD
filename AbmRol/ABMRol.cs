@@ -25,5 +25,10 @@ namespace PagoAgilFrba.AbmRol
 
         }
 
+        private void funcionalidadesDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
     }
 }

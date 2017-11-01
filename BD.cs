@@ -83,12 +83,17 @@ namespace PagoAgilFrba
 
         public static DataTable busqueda(string query)
         {
+            var command = new SqlCommand(query);
+            return busqueda(command);
+        }
+
+        public static DataTable busqueda(SqlCommand command)
+        {
             var ds = new DataTable();
 
             SqlConnection connection = getConnection();
             connection.Open();
 
-            var command = new SqlCommand(query);
             command.Connection = connection;
 
             var adapter = new SqlDataAdapter(command);

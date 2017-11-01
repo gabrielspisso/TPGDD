@@ -31,5 +31,10 @@ namespace PagoAgilFrba.IniciarSesion
             else
                 MessageBox.Show("Invalid username", "Login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+        private void txtUsername_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

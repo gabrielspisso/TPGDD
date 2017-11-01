@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlTypes;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace PagoAgilFrba.AbmCliente
 {
@@ -15,6 +18,9 @@ namespace PagoAgilFrba.AbmCliente
         public ABMCliente()
         {
             InitializeComponent();
+            string query = "select * from EL_JAPONES_SANGRANDO.Clientes";
+            DataTable ds = BD.busqueda(query);
+            dataViewModificar.DataSource = ds;
         }
 
         private void label7_Click(object sender, EventArgs e)
@@ -108,6 +114,21 @@ namespace PagoAgilFrba.AbmCliente
         {
             
     
+        }
+
+        private void dataViewModificar_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void textBox7_TextChanged(object sender, EventArgs e)
+        {
+            String nombre = textNombre.Text;
+            SqlCommand query = new SqlCommand("select * from EL_JAPONES_SANGRANDO.Clientes where cli_nombre = @nombre");
+            query.Parameters.AddWithValue("nombre", nombre);
+            DataTable ds = BD.busqueda(query);
+            dataViewModificar.DataSource = ds;
+            //dataViewModificar.Refresh();
         }
 
     }
