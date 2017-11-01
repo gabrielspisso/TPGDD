@@ -24,12 +24,11 @@ namespace PagoAgilFrba.IniciarSesion
 
             if (BD.autenticacionCorrecta(username, password))
             {
-                MessageBox.Show("todo bien", "Login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
                 this.Hide();
                 new SeleccionarRol(username).Show();
             }
-            else
-                MessageBox.Show("Invalid username", "Login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
         }
 
         private void txtUsername_TextChanged(object sender, EventArgs e)

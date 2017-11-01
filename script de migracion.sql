@@ -110,7 +110,7 @@ GO
 CREATE TABLE [EL_JAPONES_SANGRANDO].[Usuarios](
 	[usr_name] [nvarchar](50) not null,
 	[usr_pass] [varbinary](100),
-	[usr_estado] [bit] default 1
+	[usr_cantidadDeIntentos] [int] default 0,
 )
 GO
 CREATE TABLE [EL_JAPONES_SANGRANDO].[SucursalUsuario](

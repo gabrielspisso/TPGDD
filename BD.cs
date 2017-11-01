@@ -34,30 +34,74 @@ namespace PagoAgilFrba
         internal static bool autenticacionCorrecta(string username, string password)
         {
             SqlConnection connection = getConnection();
-            SqlCommand loginCommand = new SqlCommand("SELECT usr_name, usr_pass FROM EL_JAPONES_SANGRANDO.Usuarios WHERE usr_name=@username");
+            SqlCommand loginCommand = new SqlCommand("SELECT usr_name, usr_pass,usr_cantidadDeIntentos FROM EL_JAPONES_SANGRANDO.Usuarios WHERE usr_name=@username");
             loginCommand.Parameters.AddWithValue("username", username);
             loginCommand.Connection = connection;
             connection.Open();
             SqlDataReader reader = loginCommand.ExecuteReader();
             String nombreUsuario = null;
             byte[] dbPassword = null;
+            int intentosFallidos = 0;
             while (reader.Read())
             {
                 nombreUsuario = reader["usr_name"].ToString();
                 dbPassword = reader.GetSqlBytes(reader.GetOrdinal("usr_pass")).Buffer;
+                intentosFallidos = reader.GetInt32(reader.GetOrdinal("usr_cantidadDeIntentos"));
             }
             reader.Close();
             connection.Close();
             if (nombreUsuario != null)
             {
-                if (sha256_hash(password).SequenceEqual(dbPassword))
-                    return true;
-            }
+                if (intentosFallidos >= 3)
+                {
+                    MessageBox.Show("Usuario esta bloqueado", "Login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
+                else if (!sha256_hash(password).SequenceEqual(dbPassword)){
+                    intentosFallidos++;
+                    BD.modificarNumeroDeIntentosPorUsuario(username, intentosFallidos);
+
+                    if(intentosFallidos>=3){
+
+                        MessageBox.Show("Usuario se bloqueo", "Login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else{
+                        MessageBox.Show("Contraseña erronea", "Login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                }
+                else{
+                    MessageBox.Show("todo bien", "Login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    BD.modificarNumeroDeIntentosPorUsuario(username, 0);
+                    return true;
+                }
+            }
+            else{
+                MessageBox.Show("Invalid username", "Login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             
 
             return false;
 
+        }
+
+        internal static int cantidadDeVecesPorUsuario(string username)
+        {
+            SqlConnection connection = getConnection();
+            SqlCommand loginCommand = new SqlCommand("SELECT usr_cantidadDeIntentos FROM EL_JAPONES_SANGRANDO.Usuarios WHERE usr_name=@username");
+            loginCommand.Parameters.AddWithValue("username", username);
+            loginCommand.Connection = connection;
+            connection.Open();
+            SqlDataReader reader = loginCommand.ExecuteReader();
+            string cantidadDeVeces = "0";
+            while (reader.Read())
+            {
+                cantidadDeVeces = reader["usr_name"].ToString();
+            }
+            reader.Close();
+            connection.Close();
+
+            return Int32.Parse(cantidadDeVeces);
         }
 
         public static List<String> roles(string username)
@@ -102,6 +146,31 @@ namespace PagoAgilFrba
             connection.Close();
             return ds;
         }
+        public static void modificarNumeroDeIntentosPorUsuario(string username, int numeroDeIntentos)
+        {
+          
+         SqlConnection connection = getConnection();
+            connection.Open();
+            SqlCommand query = new SqlCommand("UPDATE EL_JAPONES_SANGRANDO.Usuarios SET usr_cantidadDeIntentos = @cantidad WHERE usr_name = @usr_name");
+            query.Parameters.AddWithValue("usr_name",username);
 
+            query.Parameters.AddWithValue("cantidad", numeroDeIntentos);
+            query.Connection = connection;
+            query.ExecuteNonQuery();
+            connection.Close();
+        }
+
+        public static void modificarEstadoUsuario(string username, int estado)
+        {
+
+            SqlConnection connection = getConnection();
+            connection.Open();
+            SqlCommand query = new SqlCommand("UPDATE EL_JAPONES_SANGRANDO.Usuarios SET usr_estado = @estado WHERE usr_name = @usr_name");
+            query.Parameters.AddWithValue("usr_name", username);
+            query.Parameters.AddWithValue("estado", estado);
+            query.Connection = connection;
+            query.ExecuteNonQuery();
+            connection.Close();
+        }
     }
 }
