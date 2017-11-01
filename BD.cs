@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.Data.SqlTypes;
 using System.Data;
 using System.Data;
-using PagoAgilFrba.Clases;
+
 namespace PagoAgilFrba
 {
     public class BD
@@ -72,7 +72,6 @@ namespace PagoAgilFrba
 
                 }
                 else{
-                    MessageBox.Show("todo bien", "Login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     BD.modificarNumeroDeIntentosPorUsuario(username, 0);
                     return true;
                 }
@@ -118,13 +117,31 @@ namespace PagoAgilFrba
             byte[] dbPassword = null;
             while (reader.Read())
             {
-                listaRoles.Add(reader["rol_nombre"].ToString());
+                listaRoles.Add(reader[0].ToString());
             }
             reader.Close();
             connection.Close();
             return listaRoles;
         }
 
+        public static List<String> listaDeUnCampo(string query)
+        {
+            List<String> listaRoles = new List<string>();
+            SqlConnection connection = getConnection();
+            SqlCommand loginCommand = new SqlCommand(query);
+            loginCommand.Connection = connection;
+            connection.Open();
+            SqlDataReader reader = loginCommand.ExecuteReader();
+            String nombreUsuario = null;
+            byte[] dbPassword = null;
+            while (reader.Read())
+            {
+                listaRoles.Add(reader[0].ToString());
+            }
+            reader.Close();
+            connection.Close();
+            return listaRoles;
+        }
 
         public static DataTable busqueda(string query)
         {
@@ -199,25 +216,20 @@ namespace PagoAgilFrba
             connection.Close();
         }
 
-        internal static void actualizarFuncionalidadesPara(Rol rol, List<Funcionalidad> list)
+        public static void ABM(string query)
         {
             SqlConnection connection = getConnection();
             connection.Open();
-            SqlCommand borrarRolesViejos = new SqlCommand("DELETE FROM LA_VIDA_ES_UN_FOR_Y_UN_IF.RolesXFuncionalidades WHERE rolXFuncionalidad_rol = @rol");
-            borrarRolesViejos.Parameters.AddWithValue("rol", rol.id);
-            borrarRolesViejos.Connection = connection;
-            borrarRolesViejos.ExecuteNonQuery();
-            String query = "INSERT INTO LA_VIDA_ES_UN_FOR_Y_UN_IF.RolesXFuncionalidades VALUES ";
-            List<Funcionalidad> filteredList = list.FindAll(func => func.activado);
-            if (filteredList.Count >= 0)
-            {
-                var parameters = filteredList.Select(func => "(" + rol.id + "," + func.id + ")").ToArray();
-                query += string.Join(",", parameters);
-                SqlCommand insertarRolesNuevos = new SqlCommand(query);
-                insertarRolesNuevos.Connection = connection;
-                insertarRolesNuevos.ExecuteNonQuery();
-            }
+            SqlCommand command = new SqlCommand(query);
+            command.Connection = connection;
+            command.ExecuteNonQuery();
             connection.Close();
         }
+
+        public static string consultaDeUnSoloResultado(string query)
+        {
+            return BD.listaDeUnCampo(query)[0];
+        }
+
     }
 }

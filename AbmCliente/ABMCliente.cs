@@ -123,12 +123,16 @@ namespace PagoAgilFrba.AbmCliente
 
         private void textBox7_TextChanged(object sender, EventArgs e)
         {
-            String nombre = textNombre.Text;
-            SqlCommand query = new SqlCommand("select * from EL_JAPONES_SANGRANDO.Clientes where cli_nombre = @nombre");
-            query.Parameters.AddWithValue("nombre", nombre);
+            String nombre = textBox7.Text;
+            SqlCommand query = new SqlCommand("select * from EL_JAPONES_SANGRANDO.Clientes where cli_nombre like '"+ nombre +"%'");
             DataTable ds = BD.busqueda(query);
             dataViewModificar.DataSource = ds;
             //dataViewModificar.Refresh();
+        }
+
+        private void btnModificarCliente_Click(object sender, EventArgs e)
+        {
+
         }
 
     }

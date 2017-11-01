@@ -38,5 +38,10 @@ namespace PagoAgilFrba.IniciarSesion
                     }break;
             }
         }
+
+        private void comboRoles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

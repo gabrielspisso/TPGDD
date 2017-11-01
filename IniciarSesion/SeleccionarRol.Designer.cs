@@ -41,6 +41,7 @@
             this.comboRoles.Name = "comboRoles";
             this.comboRoles.Size = new System.Drawing.Size(121, 24);
             this.comboRoles.TabIndex = 0;
+            this.comboRoles.SelectedIndexChanged += new System.EventHandler(this.comboRoles_SelectedIndexChanged);
             // 
             // label1
             // 
