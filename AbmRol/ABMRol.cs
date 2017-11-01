@@ -22,6 +22,14 @@ namespace PagoAgilFrba.AbmRol
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            String rol = rolNameTextBox.Text;
+            BD.crearRol(rol);
+            
+            foreach (DataGridViewRow r in funcionalidadesDGV.SelectedRows){
+                string funcionalidadId = r.Cells[0].Value.ToString();
+                BD.asignarFuncionalidadAlRol(rol, funcionalidadId);
+            
+            }
 
         }
 

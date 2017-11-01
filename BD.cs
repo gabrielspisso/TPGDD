@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlTypes;
 using System.Data;
-
+using System.Data;
+using PagoAgilFrba.Clases;
 namespace PagoAgilFrba
 {
     public class BD
@@ -170,6 +171,52 @@ namespace PagoAgilFrba
             query.Parameters.AddWithValue("estado", estado);
             query.Connection = connection;
             query.ExecuteNonQuery();
+            connection.Close();
+        }
+       
+
+        public static void crearRol(string rol)
+        {
+            SqlConnection connection = getConnection();
+            connection.Open();
+            SqlCommand query = new SqlCommand("INSERT INTO EL_JAPONES_SANGRANDO.Roles(rol_nombre)values(@rol)");
+            query.Parameters.AddWithValue("rol",rol);
+            query.Connection = connection;
+            query.ExecuteNonQuery();
+            connection.Close();
+        }
+
+        public static void asignarFuncionalidadAlRol(string rol,string funcionalidadId)
+        {
+            SqlConnection connection = getConnection();
+            connection.Open();
+            SqlCommand query = new SqlCommand("INSERT INTO EL_JAPONES_SANGRANDO.[RolFuncionalidades](rolf_rol,rolf_func)values(@rol,@funcionalidad)");
+            query.Parameters.AddWithValue("rol", rol);
+            query.Parameters.AddWithValue("funcionalidad", funcionalidadId);
+
+            query.Connection = connection;
+            query.ExecuteNonQuery();
+            connection.Close();
+        }
+
+        internal static void actualizarFuncionalidadesPara(Rol rol, List<Funcionalidad> list)
+        {
+            SqlConnection connection = getConnection();
+            connection.Open();
+            SqlCommand borrarRolesViejos = new SqlCommand("DELETE FROM LA_VIDA_ES_UN_FOR_Y_UN_IF.RolesXFuncionalidades WHERE rolXFuncionalidad_rol = @rol");
+            borrarRolesViejos.Parameters.AddWithValue("rol", rol.id);
+            borrarRolesViejos.Connection = connection;
+            borrarRolesViejos.ExecuteNonQuery();
+            String query = "INSERT INTO LA_VIDA_ES_UN_FOR_Y_UN_IF.RolesXFuncionalidades VALUES ";
+            List<Funcionalidad> filteredList = list.FindAll(func => func.activado);
+            if (filteredList.Count >= 0)
+            {
+                var parameters = filteredList.Select(func => "(" + rol.id + "," + func.id + ")").ToArray();
+                query += string.Join(",", parameters);
+                SqlCommand insertarRolesNuevos = new SqlCommand(query);
+                insertarRolesNuevos.Connection = connection;
+                insertarRolesNuevos.ExecuteNonQuery();
+            }
             connection.Close();
         }
     }
