@@ -99,12 +99,6 @@
     <Compile Include="AbmSucursal\Eliminar_Modificar_Sucursal_Seleccionada.Designer.cs">
       <DependentUpon>Eliminar_Modificar_Sucursal_Seleccionada.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmSucursal\ModificarSucursal.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AbmSucursal\ModificarSucursal.Designer.cs">
-      <DependentUpon>ModificarSucursal.cs</DependentUpon>
-    </Compile>
     <Compile Include="BD.cs" />
     <Compile Include="IniciarSesion\Acciones.cs">
       <SubType>Form</SubType>

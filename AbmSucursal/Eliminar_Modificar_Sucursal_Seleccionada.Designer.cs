@@ -126,9 +126,10 @@
             this.TextModificarCodigoPostal.AutoSize = true;
             this.TextModificarCodigoPostal.Location = new System.Drawing.Point(139, 137);
             this.TextModificarCodigoPostal.Name = "TextModificarCodigoPostal";
-            this.TextModificarCodigoPostal.Size = new System.Drawing.Size(35, 13);
+            this.TextModificarCodigoPostal.Size = new System.Drawing.Size(10, 13);
             this.TextModificarCodigoPostal.TabIndex = 57;
-            this.TextModificarCodigoPostal.Text = "label2";
+            this.TextModificarCodigoPostal.Text = " ";
+            this.TextModificarCodigoPostal.Click += new System.EventHandler(this.TextModificarCodigoPostal_Click);
             // 
             // Eliminar_Modificar_Sucursal_Seleccionada
             // 

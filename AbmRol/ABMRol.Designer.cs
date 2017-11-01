@@ -61,10 +61,9 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(1, 0);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(776, 315);
+            this.tabControl1.Size = new System.Drawing.Size(582, 256);
             this.tabControl1.TabIndex = 3;
             // 
             // tabPage1
@@ -75,11 +74,10 @@
             this.tabPage1.Controls.Add(this.txtRolAgregar);
             this.tabPage1.Controls.Add(this.btnAceptar);
             this.tabPage1.Controls.Add(this.btnVolver);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage1.Size = new System.Drawing.Size(768, 286);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Size = new System.Drawing.Size(574, 230);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Agregar";
             // 
@@ -87,38 +85,34 @@
             // 
             this.funcionalidadesDGV.AllowUserToAddRows = false;
             this.funcionalidadesDGV.AllowUserToDeleteRows = false;
-            this.funcionalidadesDGV.Location = new System.Drawing.Point(27, 89);
-            this.funcionalidadesDGV.Margin = new System.Windows.Forms.Padding(4);
+            this.funcionalidadesDGV.Location = new System.Drawing.Point(20, 72);
             this.funcionalidadesDGV.Name = "funcionalidadesDGV";
             this.funcionalidadesDGV.ReadOnly = true;
-            this.funcionalidadesDGV.Size = new System.Drawing.Size(461, 185);
+            this.funcionalidadesDGV.Size = new System.Drawing.Size(346, 150);
             this.funcionalidadesDGV.TabIndex = 37;
             this.funcionalidadesDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.funcionalidadesDGV_CellContentClick);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 37);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(17, 30);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(165, 17);
+            this.label1.Size = new System.Drawing.Size(122, 13);
             this.label1.TabIndex = 36;
             this.label1.Text = "Ingrese el nombre del rol";
             // 
             // txtRolAgregar
             // 
-            this.txtRolAgregar.Location = new System.Drawing.Point(211, 37);
-            this.txtRolAgregar.Margin = new System.Windows.Forms.Padding(4);
+            this.txtRolAgregar.Location = new System.Drawing.Point(158, 30);
             this.txtRolAgregar.Name = "txtRolAgregar";
-            this.txtRolAgregar.Size = new System.Drawing.Size(204, 22);
+            this.txtRolAgregar.Size = new System.Drawing.Size(154, 20);
             this.txtRolAgregar.TabIndex = 35;
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(661, 241);
-            this.btnAceptar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAceptar.Location = new System.Drawing.Point(496, 196);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(100, 28);
+            this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 34;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
@@ -126,10 +120,9 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(525, 241);
-            this.btnVolver.Margin = new System.Windows.Forms.Padding(4);
+            this.btnVolver.Location = new System.Drawing.Point(394, 196);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(100, 28);
+            this.btnVolver.Size = new System.Drawing.Size(75, 23);
             this.btnVolver.TabIndex = 33;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
@@ -143,30 +136,29 @@
             this.tabPage2.Controls.Add(this.label2);
             this.tabPage2.Controls.Add(this.button1);
             this.tabPage2.Controls.Add(this.button2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage2.Size = new System.Drawing.Size(768, 286);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Size = new System.Drawing.Size(574, 230);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Modificar";
             // 
             // comboModificar
             // 
             this.comboModificar.FormattingEnabled = true;
-            this.comboModificar.Location = new System.Drawing.Point(195, 34);
+            this.comboModificar.Location = new System.Drawing.Point(146, 28);
+            this.comboModificar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboModificar.Name = "comboModificar";
-            this.comboModificar.Size = new System.Drawing.Size(152, 24);
+            this.comboModificar.Size = new System.Drawing.Size(115, 21);
             this.comboModificar.TabIndex = 39;
             // 
             // checkBox2
             // 
             this.checkBox2.AllowDrop = true;
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(491, 33);
-            this.checkBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox2.Location = new System.Drawing.Point(368, 27);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(93, 21);
+            this.checkBox2.Size = new System.Drawing.Size(73, 17);
             this.checkBox2.TabIndex = 38;
             this.checkBox2.Text = "Habilitado";
             this.checkBox2.UseVisualStyleBackColor = true;
@@ -176,28 +168,26 @@
             this.dataGridFuncModificar.AllowUserToAddRows = false;
             this.dataGridFuncModificar.AllowUserToDeleteRows = false;
             this.dataGridFuncModificar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridFuncModificar.Location = new System.Drawing.Point(27, 89);
-            this.dataGridFuncModificar.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridFuncModificar.Location = new System.Drawing.Point(20, 72);
             this.dataGridFuncModificar.Name = "dataGridFuncModificar";
-            this.dataGridFuncModificar.Size = new System.Drawing.Size(461, 185);
+            this.dataGridFuncModificar.Size = new System.Drawing.Size(346, 150);
             this.dataGridFuncModificar.TabIndex = 37;
+            this.dataGridFuncModificar.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridFuncModificar_CellContentClick);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(23, 37);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(17, 30);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(165, 17);
+            this.label2.Size = new System.Drawing.Size(122, 13);
             this.label2.TabIndex = 36;
             this.label2.Text = "Ingrese el nombre del rol";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(661, 241);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Location = new System.Drawing.Point(496, 196);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 28);
+            this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 34;
             this.button1.Text = "Aceptar";
             this.button1.UseVisualStyleBackColor = true;
@@ -205,10 +195,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(525, 241);
-            this.button2.Margin = new System.Windows.Forms.Padding(4);
+            this.button2.Location = new System.Drawing.Point(394, 196);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(100, 28);
+            this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 33;
             this.button2.Text = "Volver";
             this.button2.UseVisualStyleBackColor = true;
@@ -220,11 +209,10 @@
             this.tabPage3.Controls.Add(this.label3);
             this.tabPage3.Controls.Add(this.button3);
             this.tabPage3.Controls.Add(this.button4);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage3.Size = new System.Drawing.Size(768, 286);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage3.Size = new System.Drawing.Size(574, 230);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Eliminar";
             // 
@@ -233,29 +221,26 @@
             this.comboEliminar.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboEliminar.FormattingEnabled = true;
-            this.comboEliminar.Location = new System.Drawing.Point(206, 118);
-            this.comboEliminar.Margin = new System.Windows.Forms.Padding(4);
+            this.comboEliminar.Location = new System.Drawing.Point(154, 96);
             this.comboEliminar.Name = "comboEliminar";
-            this.comboEliminar.Size = new System.Drawing.Size(211, 33);
+            this.comboEliminar.Size = new System.Drawing.Size(159, 28);
             this.comboEliminar.TabIndex = 40;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(134, 49);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(100, 40);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(225, 25);
+            this.label3.Size = new System.Drawing.Size(183, 20);
             this.label3.TabIndex = 36;
             this.label3.Text = "Ingrese el nombre del rol";
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(661, 241);
-            this.button3.Margin = new System.Windows.Forms.Padding(4);
+            this.button3.Location = new System.Drawing.Point(496, 196);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(100, 28);
+            this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 34;
             this.button3.Text = "Aceptar";
             this.button3.UseVisualStyleBackColor = true;
@@ -263,21 +248,19 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(525, 241);
-            this.button4.Margin = new System.Windows.Forms.Padding(4);
+            this.button4.Location = new System.Drawing.Point(394, 196);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(100, 28);
+            this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 33;
             this.button4.Text = "Volver";
             this.button4.UseVisualStyleBackColor = true;
             // 
             // ABMRol
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(775, 315);
+            this.ClientSize = new System.Drawing.Size(581, 256);
             this.Controls.Add(this.tabControl1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ABMRol";
             this.Text = "ABMRol";
             this.Load += new System.EventHandler(this.ABMRol_Load);

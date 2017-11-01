@@ -18,9 +18,36 @@ namespace PagoAgilFrba.AbmCliente
         public ABMCliente()
         {
             InitializeComponent();
-            string query = "select * from EL_JAPONES_SANGRANDO.Clientes";
+            string query = "select cli_nombre,cli_apellido,cli_DNI from EL_JAPONES_SANGRANDO.Clientes";
             DataTable ds = BD.busqueda(query);
             dataViewModificar.DataSource = ds;
+            DataGridViewButtonColumn buttons = new DataGridViewButtonColumn();
+            {
+                buttons.HeaderText = "Modificar";
+                buttons.Text = "Modificar";
+                buttons.UseColumnTextForButtonValue = true;
+                buttons.AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.AllCells;
+                buttons.FlatStyle = FlatStyle.Standard;
+                buttons.CellTemplate.Style.BackColor = Color.Honeydew;
+                buttons.DisplayIndex = 3;
+            }
+            dataViewModificar.Columns.Add(buttons);
+
+            query = "select cli_nombre,cli_apellido,cli_DNI from EL_JAPONES_SANGRANDO.Clientes where cli_estado = 1";
+            datagridEliminar.DataSource = BD.busqueda(query);
+            DataGridViewButtonColumn buttons2 = new DataGridViewButtonColumn();
+            {
+                buttons2.HeaderText = "Eliminar";
+                buttons2.Text = "Eliminar";
+                buttons2.UseColumnTextForButtonValue = true;
+                buttons2.AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.AllCells;
+                buttons2.FlatStyle = FlatStyle.Standard;
+                buttons2.CellTemplate.Style.BackColor = Color.Honeydew;
+                buttons2.DisplayIndex = 3;
+            }
+            datagridEliminar.Columns.Add(buttons2);
         }
 
         private void label7_Click(object sender, EventArgs e)
@@ -55,9 +82,25 @@ namespace PagoAgilFrba.AbmCliente
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            var senderGrid = (DataGridView)sender;
 
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
+                e.RowIndex >= 0)
+            {
+                string x = datagridEliminar.Rows[e.RowIndex].Cells["cli_DNI"].Value.ToString();
+                if(BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Clientes SET cli_estado = 0 WHERE cli_DNI = '"+x+"'")>0){
+                    MessageBox.Show("cliente eliminado", "Al pique quique", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    String query = "select cli_nombre,cli_apellido,cli_DNI from EL_JAPONES_SANGRANDO.Clientes where cli_estado = 1";
+                    datagridEliminar.DataSource = BD.busqueda(query);
+                    query = "select cli_nombre,cli_apellido,cli_DNI from EL_JAPONES_SANGRANDO.Clientes";
+                    DataTable ds = BD.busqueda(query);
+                    dataViewModificar.DataSource = ds;
+                }
+
+                //string rol = dataGridViewModificarC.Rows[e.ColumnIndex].Cells[2].Value.ToString();
+                //BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Roles SET rol_estado = 0 WHERE rol_nombre ='" +rol+ "'");
+            }
         }
-
         private void textBox9_TextChanged(object sender, EventArgs e)
         {
 
@@ -140,6 +183,11 @@ namespace PagoAgilFrba.AbmCliente
                     textCodigoPostal.Text = "";
                     textDireccion.Text = "";
                     dateTimePickerFechaNac.Text = "";
+                    string query = "select cli_nombre,cli_apellido,cli_DNI from EL_JAPONES_SANGRANDO.Clientes";
+                    DataTable ds = BD.busqueda(query);
+                    dataViewModificar.DataSource = ds;
+                    query = "select cli_nombre,cli_apellido,cli_DNI from EL_JAPONES_SANGRANDO.Clientes where cli_estado = 1";
+                    datagridEliminar.DataSource = BD.busqueda(query);
                 }
                 else{
                     MessageBox.Show("Datos erroneos el cliente", "Error en seleccion", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -151,6 +199,24 @@ namespace PagoAgilFrba.AbmCliente
             }
             
            
+        }
+
+        private void dataViewModificar_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
+                e.RowIndex >= 0)
+            {
+                new Eliminar_Modificar_Cliente_Seleccionado(dataViewModificar.Rows[e.RowIndex].Cells["cli_DNI"].Value.ToString()).Show();
+                string query = "select cli_nombre,cli_apellido,cli_DNI from EL_JAPONES_SANGRANDO.Clientes";
+                DataTable ds = BD.busqueda(query);
+                dataViewModificar.DataSource = ds;
+                 query = "select cli_nombre,cli_apellido,cli_DNI from EL_JAPONES_SANGRANDO.Clientes where cli_estado = 1";
+                datagridEliminar.DataSource = BD.busqueda(query);
+                //string rol = dataGridViewModificarC.Rows[e.ColumnIndex].Cells[2].Value.ToString();
+                //BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Roles SET rol_estado = 0 WHERE rol_nombre ='" +rol+ "'");
+            }
         }
     
         }

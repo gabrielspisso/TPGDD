@@ -55,25 +55,23 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.btnModificarCliente = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label16 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.datagridEliminar = new System.Windows.Forms.DataGridView();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.textBox10 = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataViewModificar)).BeginInit();
             this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.datagridEliminar)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -258,7 +256,6 @@
             this.tabPage2.Controls.Add(this.label12);
             this.tabPage2.Controls.Add(this.label13);
             this.tabPage2.Controls.Add(this.label14);
-            this.tabPage2.Controls.Add(this.btnModificarCliente);
             this.tabPage2.Controls.Add(this.button1);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -274,6 +271,7 @@
             this.dataViewModificar.Name = "dataViewModificar";
             this.dataViewModificar.Size = new System.Drawing.Size(313, 208);
             this.dataViewModificar.TabIndex = 34;
+            this.dataViewModificar.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataViewModificar_CellContentClick);
             // 
             // label15
             // 
@@ -332,18 +330,9 @@
             this.label14.TabIndex = 17;
             this.label14.Text = "Nombre : ";
             // 
-            // btnModificarCliente
-            // 
-            this.btnModificarCliente.Location = new System.Drawing.Point(162, 174);
-            this.btnModificarCliente.Name = "btnModificarCliente";
-            this.btnModificarCliente.Size = new System.Drawing.Size(90, 32);
-            this.btnModificarCliente.TabIndex = 16;
-            this.btnModificarCliente.Text = "Modificar";
-            this.btnModificarCliente.UseVisualStyleBackColor = true;
-            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(37, 174);
+            this.button1.Location = new System.Drawing.Point(129, 173);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(86, 32);
             this.button1.TabIndex = 15;
@@ -355,14 +344,13 @@
             // 
             this.tabPage3.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.tabPage3.Controls.Add(this.label16);
-            this.tabPage3.Controls.Add(this.dataGridView1);
+            this.tabPage3.Controls.Add(this.datagridEliminar);
             this.tabPage3.Controls.Add(this.textBox8);
             this.tabPage3.Controls.Add(this.textBox9);
             this.tabPage3.Controls.Add(this.textBox10);
             this.tabPage3.Controls.Add(this.label17);
             this.tabPage3.Controls.Add(this.label18);
             this.tabPage3.Controls.Add(this.label19);
-            this.tabPage3.Controls.Add(this.button2);
             this.tabPage3.Controls.Add(this.button3);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
@@ -381,14 +369,14 @@
             this.label16.Text = "Ingrese datos para filtrar la tabla";
             this.label16.Click += new System.EventHandler(this.label16_Click);
             // 
-            // dataGridView1
+            // datagridEliminar
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(295, 13);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(313, 208);
-            this.dataGridView1.TabIndex = 33;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.datagridEliminar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.datagridEliminar.Location = new System.Drawing.Point(295, 13);
+            this.datagridEliminar.Name = "datagridEliminar";
+            this.datagridEliminar.Size = new System.Drawing.Size(313, 208);
+            this.datagridEliminar.TabIndex = 33;
+            this.datagridEliminar.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // textBox8
             // 
@@ -444,19 +432,9 @@
             this.label19.Text = "Nombre : ";
             this.label19.Click += new System.EventHandler(this.label19_Click);
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(162, 174);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(90, 32);
-            this.button2.TabIndex = 26;
-            this.button2.Text = "Eliminar";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(37, 174);
+            this.button3.Location = new System.Drawing.Point(105, 177);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(86, 32);
             this.button3.TabIndex = 25;
@@ -481,7 +459,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataViewModificar)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.datagridEliminar)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -515,17 +493,15 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Button btnModificarCliente;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView datagridEliminar;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.TextBox textBox10;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.DataGridView dataViewModificar;
     }

@@ -44,5 +44,10 @@ namespace PagoAgilFrba.Sucursal
         {
 
         }
+
+        private void TextModificarCodigoPostal_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

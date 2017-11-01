@@ -69,5 +69,10 @@ namespace PagoAgilFrba.AbmRol
             }
         }
 
+        private void dataGridFuncModificar_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
     }
 }

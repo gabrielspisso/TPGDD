@@ -148,6 +148,11 @@ namespace PagoAgilFrba
             var command = new SqlCommand(query);
             return busqueda(command);
         }
+        public static String devolverColumna(DataTable tabla,string atributo)
+        {
+
+            return tabla.Rows[0][atributo].ToString();
+        }
 
         public static DataTable busqueda(SqlCommand command)
         {
