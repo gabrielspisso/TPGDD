@@ -39,7 +39,9 @@ CREATE TABLE [EL_JAPONES_SANGRANDO].[Facturas](
 	[fact_cliente] [numeric](18,0),
 	[fact_fechaalta] [datetime],
 	[fact_fechavenc] [datetime],
-	[fact_total] [numeric] (18,2)
+	[fact_total] [numeric] (18,2),
+	[fact_estado]  [bit] default 1
+
 )
 GO
 CREATE TABLE [EL_JAPONES_SANGRANDO].[ItemFactura](
@@ -245,6 +247,15 @@ ALTER TABLE [EL_JAPONES_SANGRANDO].[RolFuncionalidades]
     CONSTRAINT [FK_RolFunc_Func] FOREIGN KEY ([rolf_func])
     REFERENCES [EL_JAPONES_SANGRANDO].[Funcionalidades] ([func_id])
 GO
+
+CREATE PROCEDURE EL_JAPONES_SANGRANDO.deletearFactura
+(@numeroFactura [numeric](18,0))
+AS
+BEGIN
+	delete from EL_JAPONES_SANGRANDO.PagoFactura where pagfact_factura = @numeroFactura;
+	delete from EL_JAPONES_SANGRANDO.Facturas where fact_num = @numeroFactura;
+END
+GO
 -- CLIENTES
 INSERT INTO EL_JAPONES_SANGRANDO.Clientes (cli_DNI, cli_apellido, cli_nombre, cli_fechanac, cli_mail, cli_direccion, cli_CP)
 SELECT DISTINCT [Cliente-Dni], [Cliente-Apellido], [Cliente-Nombre], [Cliente-Fecha_Nac], Cliente_Mail, Cliente_Direccion, Cliente_Codigo_Postal from gd_esquema.Maestra
@@ -302,5 +313,4 @@ values('administrador',1),('administrador',2),('administrador',3),('administrado
 --Le asigno el perfil de administrador al admin
 INSERT INTO EL_JAPONES_SANGRANDO.RolUsuario(rolusr_usr, rolusr_rol) values ('admin', 'administrador')
 
-Use GD2C2017
-select * from EL_JAPONES_SANGRANDO.Usuarios;
+

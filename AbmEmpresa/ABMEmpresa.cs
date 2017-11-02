@@ -168,5 +168,10 @@ namespace PagoAgilFrba.AbmEmpresa
             }
         }
 
+        private void comboNuevoRubro_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

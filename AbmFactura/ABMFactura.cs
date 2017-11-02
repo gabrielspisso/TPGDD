@@ -15,10 +15,28 @@ namespace PagoAgilFrba.AbmFactura
         public ABMFactura()
         {
             InitializeComponent();
-            
 
+            cargarGrids();
+            string query = "SELECT rubro_desc FROM EL_JAPONES_SANGRANDO.Rubros";
+            List<String> lista = BD.listaDeUnCampo(query);
+            lista.Insert(0, "");
+            comboboxEliminarEmpresa.DataSource = lista;
+            comboBox2.DataSource = lista;
+           
         }
+        private void cargarGrids(){
+            string query = "select DISTINCT fact_num,fact_empresa,fact_cliente from EL_JAPONES_SANGRANDO.Facturas";
+            DataTable ds = BD.busqueda(query);
+            datagridViewEliminar.Columns.Clear();
+            dataGridViewModificarC.Columns.Clear();
+            dataGridViewModificarC.DataSource = ds;
+            query = "select DISTINCT fact_num,fact_empresa,fact_cliente from EL_JAPONES_SANGRANDO.Facturas where fact_estado = 1";
+            DataTable ds2 = BD.busqueda(query);
+            BD.nuevoBoton(dataGridViewModificarC, "Modificar", 3);
 
+            datagridViewEliminar.DataSource = ds2;
+            BD.nuevoBoton(datagridViewEliminar, "Eliminar", 3);
+        }
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -117,6 +135,50 @@ namespace PagoAgilFrba.AbmFactura
             {
                 MessageBox.Show("todo mal con las facturas");
             }
+            cargarGrids();
         }
+
+        private void datagridViewEliminar_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            {
+                string numeroDeFactura = datagridViewEliminar.Rows[e.RowIndex].Cells["fact_num"].Value.ToString();
+
+                if (BD.consultaDeUnSoloResultado("select * from EL_JAPONES_SANGRANDO.Facturas where fact_num = " + numeroDeFactura + "") == "")
+                    MessageBox.Show("Factura inexistente", "no se pudo eliminar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                if (BD.consultaDeUnSoloResultado("select pagfact_factura from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.PagoFactura on (pagfact_factura = fact_num) WHERE fact_num = '" + numeroDeFactura + "'") == "")
+                {
+                   if((BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Facturas SET fact_estado = 0 WHERE fact_num = '"+numeroDeFactura+"'")>0))
+                   {
+                    MessageBox.Show("Factura eliminada", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    cargarGrids();
+                    }
+                   else{
+                    MessageBox.Show("No se pudo eliminar la factura, revise los datos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                   }
+
+                }
+                else {
+                    MessageBox.Show("Ya estaba paga", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void textEliminarNombre_TextChanged(object sender, EventArgs e)
+        {
+            String query = "SELECT  fact_num,fact_empresa,fact_cliente from EL_JAPONES_SANGRANDO.Facturas WHERE " +
+                          "fact_cliente LIKE '" + textEliminarNumeroCliente.Text + "%' AND " +
+                          "fact_num LIKE '" + textEliminarNumeroFactura.Text + "%'" +
+                          condicionDeEmpresas();
+            datagridViewEliminar.DataSource = BD.busqueda(query);
+        }
+        private String condicionDeEmpresas(){
+            if(comboboxEliminarEmpresa.SelectedText=="")
+                return "";
+            return "AND fact_empresa = " + "(select emp_CUIT from EL_JAPONES_SANGRANDO.Empresas where emp_nombre = '" + comboboxEliminarEmpresa.Text + "')";
+        }      
     }
 }

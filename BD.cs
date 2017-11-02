@@ -226,6 +226,31 @@ namespace PagoAgilFrba
             connection.Close();
             return x;
         }
+        public static int correrStoreProcedure(string query,List<String> listaDeParametros,List<String> listaDeValores)
+        {
+            SqlConnection connection = getConnection();
+            connection.Open();
+            SqlCommand command = new SqlCommand(query);
+            command.CommandType = CommandType.StoredProcedure;
+            listaDeParametros.ForEach(delegate(String name)
+            {
+                int index = listaDeParametros.IndexOf(name);
+                command.Parameters.AddWithValue(name, listaDeValores[index]);
+            });
+            command.Connection = connection;
+            int x;
+            try
+            {
+                x = command.ExecuteNonQuery();
+           
+            }
+            catch (Exception ex)
+            {
+                x = 0;
+            }
+            connection.Close();
+            return x;
+        }
 
         public static int insert(String tabla, String query)
         {
@@ -239,7 +264,13 @@ namespace PagoAgilFrba
 
         public static string consultaDeUnSoloResultado(string query)
         {
+            try{
+
             return BD.listaDeUnCampo(query)[0];
+                }
+            catch (Exception ex){
+                return "";
+            }
         }
 
         public static sucursal devolverSucursal(String sucursalNombre){
