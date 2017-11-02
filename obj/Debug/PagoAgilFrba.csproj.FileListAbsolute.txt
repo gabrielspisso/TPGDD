@@ -33,8 +33,6 @@ D:\GitHub\TPGDD\obj\Debug\PagoAgilFrba.AbmEmpresa.Eliminar_Modificar_Empresa_Sel
 D:\GitHub\TPGDD\obj\Debug\PagoAgilFrba.AbmFactura.ABMFactura.resources
 D:\GitHub\TPGDD\obj\Debug\PagoAgilFrba.AbmFactura.Eliminar_Modificar_Factura_Seleccionada.resources
 D:\GitHub\TPGDD\obj\Debug\PagoAgilFrba.AbmRol.ABMRol.resources
-D:\GitHub\TPGDD\obj\Debug\PagoAgilFrba.AbmSucursal.ABMSucursal.resources
-D:\GitHub\TPGDD\obj\Debug\PagoAgilFrba.AbmSucursal.Eliminar_Modificar_Sucursal_Seleccionada.resources
 D:\GitHub\TPGDD\obj\Debug\PagoAgilFrba.IniciarSesion.Acciones.resources
 D:\GitHub\TPGDD\obj\Debug\PagoAgilFrba.IniciarSesion.Login.resources
 D:\GitHub\TPGDD\obj\Debug\PagoAgilFrba.Properties.Resources.resources
@@ -82,3 +80,5 @@ C:\Users\lukas\Downloads\TPGDD\obj\Debug\PagoAgilFrba.Properties.Resources.resou
 C:\Users\lukas\Downloads\TPGDD\obj\Debug\PagoAgilFrba.csproj.GenerateResource.Cache
 C:\Users\lukas\Downloads\TPGDD\bin\Debug\PagoAgilFrba.exe
 C:\Users\lukas\Downloads\TPGDD\bin\Debug\PagoAgilFrba.pdb
+D:\GitHub\TPGDD\obj\Debug\PagoAgilFrba.Sucursal.ABMSucursal.resources
+D:\GitHub\TPGDD\obj\Debug\PagoAgilFrba.Sucursal.Eliminar_Modificar_Sucursal_Seleccionada.resources
