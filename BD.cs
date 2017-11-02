@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -181,21 +182,7 @@ namespace PagoAgilFrba
             query.Connection = connection;
             query.ExecuteNonQuery();
             connection.Close();
-        }
-
-        public static void modificarEstadoUsuario(string username, int estado)
-        {
-
-            SqlConnection connection = getConnection();
-            connection.Open();
-            SqlCommand query = new SqlCommand("UPDATE EL_JAPONES_SANGRANDO.Usuarios SET usr_estado = @estado WHERE usr_name = @usr_name");
-            query.Parameters.AddWithValue("usr_name", username);
-            query.Parameters.AddWithValue("estado", estado);
-            query.Connection = connection;
-            query.ExecuteNonQuery();
-            connection.Close();
-        }
-       
+        }    
 
         public static void crearRol(string rol)
         {
@@ -240,6 +227,16 @@ namespace PagoAgilFrba
             return x;
         }
 
+        public static int insert(String tabla, String query)
+        {
+            return BD.ABM("INSERT into EL_JAPONES_SANGRANDO." + tabla + " "+ query);
+        }
+
+        public static int update(String tabla, String query)
+        {
+            return BD.ABM("UPDATE EL_JAPONES_SANGRANDO." + tabla + " SET "+ query);
+        }
+
         public static string consultaDeUnSoloResultado(string query)
         {
             return BD.listaDeUnCampo(query)[0];
@@ -271,5 +268,29 @@ namespace PagoAgilFrba
             return sucursal;
         }
 
+        public static void nuevoBoton(DataGridView gdv, String nombre, int index)
+        {
+            DataGridViewButtonColumn buttons = new DataGridViewButtonColumn();
+            {
+                buttons.Name = nombre;
+                buttons.DataPropertyName = nombre;
+                buttons.HeaderText = nombre;
+                buttons.Text = nombre;
+                buttons.UseColumnTextForButtonValue = true;
+                buttons.AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.AllCells;
+                buttons.FlatStyle = FlatStyle.Standard;
+                buttons.CellTemplate.Style.BackColor = Color.Honeydew;
+                buttons.DisplayIndex = index;
+            }
+            gdv.Columns.Add(buttons);
+        }
+
+
+        internal static bool todasRendidas(string emp_cuit)
+        {
+            //TODO 
+            return true;
+        }
     }
 }

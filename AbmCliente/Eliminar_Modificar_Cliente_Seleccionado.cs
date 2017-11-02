@@ -51,11 +51,10 @@ namespace PagoAgilFrba.AbmCliente
                     MessageBox.Show("Se pudo modificar el rol", "Modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             else{
-                MessageBox.Show("Error en los datos", "Error en la modificacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Error en los datos", "Error en la modificacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 
             }
         }
-
 
     }
 }
