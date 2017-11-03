@@ -551,6 +551,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Acciones";
             this.Text = "Acciones";
+            this.Load += new System.EventHandler(this.Acciones_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);

@@ -82,7 +82,10 @@ namespace PagoAgilFrba.RegistroPago
             string query2 = "";
             if (txtDni.Text != "")
             {
-               query2 = queryf + " WHERE " + this.queryDni();
+                query2 = queryf + " WHERE " + this.queryDni();
+            }
+            else
+                query2 = queryf + " WHERE 1 = 1";
                if (dateVenc.Text != "1/1/2017")
                {
                    query2 += conAnd(queryVencimiento());
@@ -97,7 +100,7 @@ namespace PagoAgilFrba.RegistroPago
                }
 
                dataGridFacturas.DataSource = BD.busqueda(query2);
-            }
+            
 
 
         }
@@ -109,6 +112,10 @@ namespace PagoAgilFrba.RegistroPago
             if (txtFactura.Text != "")
             {
                 query2 = queryf + " WHERE " + this.queryFactura();
+            }
+            else{
+                query2 +=queryf +"WHERE 1 = 1";
+            }
                 if (dateVenc.Text != "1/1/2017")
                 {
                     query2 += conAnd(queryVencimiento());
@@ -123,7 +130,7 @@ namespace PagoAgilFrba.RegistroPago
                 }
 
                 dataGridFacturas.DataSource = BD.busqueda(query2);
-            }
+            
 
 
 
@@ -136,6 +143,10 @@ namespace PagoAgilFrba.RegistroPago
             if (comboEmpresas.Text != "")
             {
                 query2 = queryf + " WHERE " + this.queryEmpresa();
+            }
+            else{ 
+                    query2 = queryf + " WHERE 1 = 1"; 
+                }
                 if (dateVenc.Text != "1/1/2017")
                 {
                     query2 += conAnd(queryVencimiento());
@@ -151,7 +162,7 @@ namespace PagoAgilFrba.RegistroPago
 
                 dataGridFacturas.DataSource = BD.busqueda(query2);
 
-            }
+            
         }
 
         private void dateVenc_ValueChanged(object sender, EventArgs e)

@@ -30,6 +30,7 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button9 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -91,7 +92,6 @@
             this.richTextDev = new System.Windows.Forms.RichTextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
-            this.button9 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -133,6 +133,17 @@
             this.tabPage1.Size = new System.Drawing.Size(684, 286);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "ABMs";
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(247, 188);
+            this.button9.Margin = new System.Windows.Forms.Padding(4);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(149, 43);
+            this.button9.TabIndex = 9;
+            this.button9.Text = "PAGOS";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // button7
             // 
@@ -801,17 +812,6 @@
             this.label20.TabIndex = 4;
             this.label20.Text = "Factura";
             // 
-            // button9
-            // 
-            this.button9.Location = new System.Drawing.Point(247, 188);
-            this.button9.Margin = new System.Windows.Forms.Padding(4);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(149, 43);
-            this.button9.TabIndex = 9;
-            this.button9.Text = "PAGOS";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
-            // 
             // AccionesAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -821,6 +821,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AccionesAdmin";
             this.Text = "Acciones";
+            this.Load += new System.EventHandler(this.AccionesAdmin_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);

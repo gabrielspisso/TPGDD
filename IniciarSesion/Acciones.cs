@@ -124,5 +124,10 @@ namespace PagoAgilFrba.IniciarSesion
             dataGridEstadisticas.DataSource = BD.busqueda(query);
         }
 
+        private void Acciones_Load(object sender, EventArgs e)
+        {
+           
+        }
+
     }
 }
