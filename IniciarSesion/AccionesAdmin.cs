@@ -135,5 +135,12 @@ namespace PagoAgilFrba.IniciarSesion
 
             dataGridEstadisticas.DataSource = BD.busqueda(query);
         }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            RegistroPago.Pagos pagos = new RegistroPago.Pagos();
+            this.Hide();
+            pagos.Show();
+        }
     }
 }

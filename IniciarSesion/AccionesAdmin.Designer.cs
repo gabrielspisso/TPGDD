@@ -91,6 +91,7 @@
             this.richTextDev = new System.Windows.Forms.RichTextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
+            this.button9 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -119,6 +120,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.tabPage1.Controls.Add(this.button9);
             this.tabPage1.Controls.Add(this.button7);
             this.tabPage1.Controls.Add(this.button3);
             this.tabPage1.Controls.Add(this.button2);
@@ -799,6 +801,17 @@
             this.label20.TabIndex = 4;
             this.label20.Text = "Factura";
             // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(247, 188);
+            this.button9.Margin = new System.Windows.Forms.Padding(4);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(149, 43);
+            this.button9.TabIndex = 9;
+            this.button9.Text = "PAGOS";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
             // AccionesAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -890,6 +903,7 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox textFacturaDev;
+        private System.Windows.Forms.Button button9;
 
     }
 }
