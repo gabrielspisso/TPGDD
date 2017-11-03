@@ -89,5 +89,40 @@ namespace PagoAgilFrba.IniciarSesion
 
         }
 
+        private void btnConsultar_Click(object sender, EventArgs e)
+        {
+            int tipo = cmbTipo.SelectedIndex;
+            int trimestre = cmbTrimestre.SelectedIndex;
+            string anio = añoNUD.Value.ToString();
+
+            string query = "";
+
+            switch (tipo)
+            {
+                case 0://Porcentaje de facturas cobradas por empresa
+                    {
+                        query = "SELECT TOP 5 emp_nombre, emp_rubro, emp_cuit,isnull((((select count(*) from EL_JAPONES_SANGRANDO.Facturas where fact_empresa = emp_cuit and fact_estado = 2 and YEAR(fact_fechaalta) = " + anio + " and (MONTH(fact_fechaalta) = (" + trimestre + " * 3) OR MONTH(fact_fechaalta) = (" + trimestre + " * 3) -1 OR MONTH(fact_fechaalta) = (" + trimestre + " * 3) -2)) *  100 / NULLIF((select count(*) from EL_JAPONES_SANGRANDO.Facturas where fact_empresa = emp_cuit and YEAR(fact_fechaalta) = " + anio + " and (MONTH(fact_fechaalta) = (" + trimestre + " * 3) OR MONTH(fact_fechaalta) = (" + trimestre + " * 3) -1 OR MONTH(fact_fechaalta) = (" + trimestre + " * 3) -2)), 0))),0) as \"Porcentaje de facturas cobradas\" FROM EL_JAPONES_SANGRANDO.Empresas group by emp_nombre, emp_rubro, emp_CUIT ORDER BY 4 DESC";
+                    };
+                    break;
+                case 1://Empresas con mayor monto rendido
+                    {
+                        query = "";
+                    };
+                    break;
+                case 2://Clientes con mas pagos
+                    {
+                        query = "";
+                    };
+                    break;
+                case 3://Clientes cumplidores
+                    {
+                        query = "";
+                    };
+                    break;
+            }
+
+            dataGridEstadisticas.DataSource = BD.busqueda(query);
+        }
+
     }
 }

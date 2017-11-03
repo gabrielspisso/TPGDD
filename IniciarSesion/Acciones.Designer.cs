@@ -58,7 +58,7 @@
             this.añoNUD = new System.Windows.Forms.NumericUpDown();
             this.label15 = new System.Windows.Forms.Label();
             this.btnConsultar = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridEstadisticas = new System.Windows.Forms.DataGridView();
             this.cmbTrimestre = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
@@ -74,7 +74,7 @@
             this.tabPage4.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.añoNUD)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridEstadisticas)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -346,7 +346,7 @@
             this.groupBox1.Controls.Add(this.añoNUD);
             this.groupBox1.Controls.Add(this.label15);
             this.groupBox1.Controls.Add(this.btnConsultar);
-            this.groupBox1.Controls.Add(this.dataGridView1);
+            this.groupBox1.Controls.Add(this.dataGridEstadisticas);
             this.groupBox1.Controls.Add(this.cmbTrimestre);
             this.groupBox1.Controls.Add(this.label16);
             this.groupBox1.Controls.Add(this.label17);
@@ -426,24 +426,30 @@
             this.btnConsultar.TabIndex = 13;
             this.btnConsultar.Text = "Consultar";
             this.btnConsultar.UseVisualStyleBackColor = true;
+            this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
             // 
-            // dataGridView1
+            // dataGridEstadisticas
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.GridColor = System.Drawing.SystemColors.Window;
-            this.dataGridView1.Location = new System.Drawing.Point(15, 145);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(549, 142);
-            this.dataGridView1.TabIndex = 11;
+            this.dataGridEstadisticas.AllowUserToAddRows = false;
+            this.dataGridEstadisticas.AllowUserToDeleteRows = false;
+            this.dataGridEstadisticas.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dataGridEstadisticas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridEstadisticas.GridColor = System.Drawing.SystemColors.Window;
+            this.dataGridEstadisticas.Location = new System.Drawing.Point(15, 145);
+            this.dataGridEstadisticas.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridEstadisticas.Name = "dataGridEstadisticas";
+            this.dataGridEstadisticas.ReadOnly = true;
+            this.dataGridEstadisticas.Size = new System.Drawing.Size(549, 142);
+            this.dataGridEstadisticas.TabIndex = 11;
             // 
             // cmbTrimestre
             // 
             this.cmbTrimestre.FormattingEnabled = true;
+            this.cmbTrimestre.Items.AddRange(new object[] {
+            "Enero-Marzo",
+            "Abril-Junio",
+            "Julio-Septiembre",
+            "Octubre-Diciembre"});
             this.cmbTrimestre.Location = new System.Drawing.Point(109, 65);
             this.cmbTrimestre.Margin = new System.Windows.Forms.Padding(4);
             this.cmbTrimestre.Name = "cmbTrimestre";
@@ -553,7 +559,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.añoNUD)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridEstadisticas)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
@@ -589,7 +595,7 @@
         private System.Windows.Forms.NumericUpDown añoNUD;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Button btnConsultar;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridEstadisticas;
         private System.Windows.Forms.ComboBox cmbTrimestre;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
