@@ -25,12 +25,12 @@ namespace PagoAgilFrba.IniciarSesion
                 case "administrador":
                     {
                         this.Hide();
-                        new AccionesAdmin().Show();
+                        new AccionesAdmin(comboRoles.SelectedValue.ToString()).Show();
                     } break;
                 case "cobrador":
                     {
                         this.Hide();
-                        new AccionesAdmin().Show();
+                        new AccionesAdmin(comboRoles.SelectedValue.ToString()).Show();
                     } break;
                 default:
                     {

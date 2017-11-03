@@ -12,8 +12,20 @@ namespace PagoAgilFrba.IniciarSesion
 {
     public partial class AccionesAdmin : Form
     {
-        public AccionesAdmin()
+        public AccionesAdmin(string rol)
         {
+            string rolSeleccionado = rol;
+            InitializeComponent();
+            string query = "select (select func_desc from EL_JAPONES_SANGRANDO.Funcionalidades where func_id = rolf_func ) from EL_JAPONES_SANGRANDO.RolFuncionalidades where rolf_rol = '" + rolSeleccionado + "'";
+            List<String> lista = BD.listaDeUnCampo(query);
+            comboAccion.DataSource = lista;
+            Acciones.Controls.Remove(tabPage3);
+            Acciones.Controls.Remove(tabPage4);
+            Acciones.Controls.Remove(tabPage5);
+
+
+        }
+        public AccionesAdmin() {
             InitializeComponent();
         }
 
@@ -154,6 +166,66 @@ namespace PagoAgilFrba.IniciarSesion
         private void AccionesAdmin_Load(object sender, EventArgs e)
         {
            
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            switch (comboAccion.SelectedValue.ToString())
+            {
+                case "ABM_ROL":
+                    {
+                        this.Hide();
+                        new AbmRol.ABMRol().Show();
+                    } break;
+                case "LISTADO_ESTADISTICO":
+                    {
+                        Acciones.Controls.Add(tabPage4);
+
+                    } break;
+                case "RENDICION_DE_FACTURAS_COBRADAS":
+                    {
+                        Acciones.Controls.Add(tabPage3);
+                    } break;
+                case "DEVOLUCION":
+                    {
+
+                        Acciones.Controls.Add(tabPage5);
+                    } break;
+                case "ABM_FACTURA":
+                    {
+                        this.Hide();
+                        new AbmFactura.ABMFactura().Show();
+                    } break;
+                case "ABM_SUCURSAL":
+                    {
+                        this.Hide();
+                        new Sucursal.ABMSucursal().Show();
+                    } break;
+                case "ABM_EMPRESA":
+                    {
+                        this.Hide();
+                        new AbmEmpresa.ABMEmpresa().Show();
+                    } break;
+                case "REGISTRO_DE_PAGO_DE_FACTURAS":
+                    {
+                        this.Hide();
+                        new RegistroPago.Pagos().Show();
+                    } break;
+                case "ABM_CLIENTE":
+                    {
+                        this.Hide();
+                        new AbmCliente.ABMCliente().Show();
+                    } break;
+                default:
+                    {
+                        MessageBox.Show("no se creo la ventana pertinente", "Login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    } break;
+            }
         }
     }
 }
