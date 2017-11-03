@@ -208,8 +208,14 @@ namespace PagoAgilFrba.AbmFactura
 
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
             {
-
-                new Eliminar_Modificar_Factura_Seleccionada(dataGridViewModificarC.Rows[e.RowIndex].Cells["fact_num"].Value.ToString()).Show();
+                string factura = dataGridViewModificarC.Rows[e.RowIndex].Cells["fact_num"].Value.ToString();
+                string estado = BD.consultaDeUnSoloResultado("Select fact_estado from EL_JAPONES_SANGRANDO.Facturas where fact_num = '"+factura+"'");
+                if(estado =="2" || estado =="3"){
+                    MessageBox.Show("No se pueden modificar facturas pagadas o rendidas");
+                }
+                else{
+                    new Eliminar_Modificar_Factura_Seleccionada(factura).Show();
+                }
             }
         }
 

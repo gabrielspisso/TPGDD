@@ -50,6 +50,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.CheckHabilitado = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnVolver
@@ -245,11 +247,33 @@
             this.label4.TextChanged += new System.EventHandler(this.actualizarlabel);
             this.label4.Click += new System.EventHandler(this.actualizarlabel);
             // 
+            // CheckHabilitado
+            // 
+            this.CheckHabilitado.AllowDrop = true;
+            this.CheckHabilitado.AutoSize = true;
+            this.CheckHabilitado.Location = new System.Drawing.Point(429, 94);
+            this.CheckHabilitado.Name = "CheckHabilitado";
+            this.CheckHabilitado.Size = new System.Drawing.Size(73, 17);
+            this.CheckHabilitado.TabIndex = 85;
+            this.CheckHabilitado.Text = "Habilitado";
+            this.CheckHabilitado.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(315, 95);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(54, 13);
+            this.label5.TabIndex = 84;
+            this.label5.Text = "Habilitado";
+            // 
             // Eliminar_Modificar_Factura_Seleccionada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(572, 403);
+            this.Controls.Add(this.CheckHabilitado);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.txtEmpresa);
@@ -301,6 +325,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox CheckHabilitado;
+        private System.Windows.Forms.Label label5;
 
     }
 }

@@ -19,6 +19,7 @@ namespace PagoAgilFrba.AbmFactura
             DataTable tabla = BD.busqueda("select * from EL_JAPONES_SANGRANDO.Facturas where fact_num ='" + numeroDeFactura + "'");
             txtDni.Text = BD.devolverColumna(tabla, "fact_cliente");
             txtCantidad.Text = "";
+            CheckHabilitado.Checked = BD.devolverColumna(tabla, "fact_estado") == "1";
             txtEmpresa.Text = BD.consultaDeUnSoloResultado("Select emp_nombre from EL_JAPONES_SANGRANDO.Empresas where emp_CUIT = '"+BD.devolverColumna(tabla, "fact_empresa")+"'");
             txtFactura.Text = BD.devolverColumna(tabla, "fact_num");
             txtMonto.Text = "";
@@ -62,8 +63,9 @@ namespace PagoAgilFrba.AbmFactura
             formatoFecha.formatoFecha.SetMyCustomFormatYYYYMMDD(dateAlta);
             formatoFecha.formatoFecha.SetMyCustomFormatYYYYMMDD(dateVenc);
             string empresa = BD.consultaDeUnSoloResultado("(select TOP 1 emp_CUIT from EL_JAPONES_SANGRANDO.Empresas where emp_nombre = '" + txtEmpresa.Text + "')");
+            int x = CheckHabilitado.Checked ? 1 : 0;
 
-            string queryFactura = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET fact_empresa = '" + empresa + "', fact_cliente = '" + txtDni.Text + "', fact_fechaalta = '" + dateAlta.Text + "', fact_fechavenc = '" + dateVenc.Text + "', fact_total ='"+ sum+"' where fact_num ='"
+            string queryFactura = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET fact_estado = '"+ x + "', fact_Empresa = '" + empresa + "', fact_cliente = '" + txtDni.Text + "', fact_fechaalta = '" + dateAlta.Text + "', fact_fechavenc = '" + dateVenc.Text + "', fact_total ='"+ sum+"' where fact_num ='"
                                     + txtFactura.Text+"'";
                                     
 
