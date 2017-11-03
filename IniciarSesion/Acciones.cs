@@ -17,21 +17,6 @@ namespace PagoAgilFrba.IniciarSesion
             InitializeComponent();
         }
 
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button2_Click_1(object sender, EventArgs e)
         {
             AbmEmpresa.ABMEmpresa abmEmpresa = new AbmEmpresa.ABMEmpresa();
@@ -39,76 +24,7 @@ namespace PagoAgilFrba.IniciarSesion
             abmEmpresa.Show();
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button4_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label10_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label11_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Acciones_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void button3_Click(object sender, EventArgs e)
         {
             AbmFactura.ABMFactura abmFactura = new AbmFactura.ABMFactura();
@@ -137,5 +53,41 @@ namespace PagoAgilFrba.IniciarSesion
             this.Hide();
             abmSucursal.Show();
         }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            string fact_num = textFacturaDev.Text;
+            string motivo = richTextMotivo.Text;
+
+            if (fact_num != "" && motivo != "")
+            {
+                DataTable dt = BD.busqueda("SELECT fact_estado FROM EL_JAPONES_SANGRANDO.Facturas WHERE fact_num = " + fact_num);
+                int fact_estado = Int32.Parse(BD.devolverColumna(dt, "fact_estado"));
+                if (fact_estado != 2)
+                {
+                    string razon = (fact_estado == 1) ? "no se ha pagado" : (fact_estado == 3) ? "ya se ha rendido" : "se ha eliminado";
+                    MessageBox.Show("Esta factura no puede devolverse debido a que " + razon, "Al pique quique", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    List<string> queries = new List<string>();
+                    string insert ="INSERT INTO EL_JAPONES_SANGRANDO.Devoluciones (dev_desc,dev_fact)values('" + motivo + "'," + fact_num + ")";
+                    string update = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET fact_estado = 1 WHERE fact_num = " + fact_num;
+                    queries.Add(insert);
+                    queries.Add(update);
+                    if ( BD.correrStoreProcedure(queries)> 0)
+                    {
+                        MessageBox.Show("Factura devuelta", "Al pique quique", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe Completar ambos campos", "Al pique quique", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+
+        }
+
     }
 }

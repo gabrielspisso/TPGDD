@@ -45,7 +45,7 @@ CREATE TABLE [EL_JAPONES_SANGRANDO].[Facturas](
 	[fact_fechaalta] [datetime],
 	[fact_fechavenc] [datetime],
 	[fact_total] [numeric] (18,2),
-	[fact_estado]  [bit] default 1
+	[fact_estado]  [tinyint] default 1
 
 )
 GO
