@@ -56,5 +56,10 @@ namespace PagoAgilFrba.AbmCliente
             }
         }
 
+        private void dateTimePickerFechaNac_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

@@ -52,13 +52,13 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboBoxModEmpresa = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.dataGridViewModificarC = new System.Windows.Forms.DataGridView();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.textModNumeroFactura = new System.Windows.Forms.TextBox();
+            this.textModCliente = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.btnModificarCliente = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -129,6 +129,7 @@
             this.txtEmpresa.Name = "txtEmpresa";
             this.txtEmpresa.Size = new System.Drawing.Size(140, 21);
             this.txtEmpresa.TabIndex = 65;
+            this.txtEmpresa.SelectedIndexChanged += new System.EventHandler(this.txtEmpresa_SelectedIndexChanged);
             // 
             // dateVenc
             // 
@@ -137,6 +138,7 @@
             this.dateVenc.Name = "dateVenc";
             this.dateVenc.Size = new System.Drawing.Size(143, 20);
             this.dateVenc.TabIndex = 64;
+            this.dateVenc.ValueChanged += new System.EventHandler(this.dateVenc_ValueChanged);
             // 
             // dateAlta
             // 
@@ -145,6 +147,7 @@
             this.dateAlta.Name = "dateAlta";
             this.dateAlta.Size = new System.Drawing.Size(143, 20);
             this.dateAlta.TabIndex = 63;
+            this.dateAlta.ValueChanged += new System.EventHandler(this.dateAlta_ValueChanged);
             // 
             // button3
             // 
@@ -164,6 +167,7 @@
             this.label8.Size = new System.Drawing.Size(49, 13);
             this.label8.TabIndex = 61;
             this.label8.Text = "Cantidad";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // txtCantidad
             // 
@@ -171,6 +175,7 @@
             this.txtCantidad.Name = "txtCantidad";
             this.txtCantidad.Size = new System.Drawing.Size(143, 20);
             this.txtCantidad.TabIndex = 60;
+            this.txtCantidad.TextChanged += new System.EventHandler(this.txtCantidad_TextChanged);
             // 
             // label7
             // 
@@ -180,6 +185,7 @@
             this.label7.Size = new System.Drawing.Size(37, 13);
             this.label7.TabIndex = 59;
             this.label7.Text = "Monto";
+            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // txtMonto
             // 
@@ -187,6 +193,7 @@
             this.txtMonto.Name = "txtMonto";
             this.txtMonto.Size = new System.Drawing.Size(143, 20);
             this.txtMonto.TabIndex = 58;
+            this.txtMonto.TextChanged += new System.EventHandler(this.txtMonto_TextChanged);
             // 
             // button2
             // 
@@ -210,6 +217,7 @@
             this.listaSeleccionados.TabIndex = 55;
             this.listaSeleccionados.UseCompatibleStateImageBehavior = false;
             this.listaSeleccionados.View = System.Windows.Forms.View.Details;
+            this.listaSeleccionados.SelectedIndexChanged += new System.EventHandler(this.listaSeleccionados_SelectedIndexChanged);
             // 
             // monto
             // 
@@ -229,6 +237,7 @@
             this.label13.Size = new System.Drawing.Size(98, 13);
             this.label13.TabIndex = 44;
             this.label13.Text = "Fecha Vencimiento";
+            this.label13.Click += new System.EventHandler(this.label13_Click);
             // 
             // label3
             // 
@@ -238,6 +247,7 @@
             this.label3.Size = new System.Drawing.Size(58, 13);
             this.label3.TabIndex = 42;
             this.label3.Text = "Fecha Alta";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label2
             // 
@@ -247,6 +257,7 @@
             this.label2.Size = new System.Drawing.Size(48, 13);
             this.label2.TabIndex = 41;
             this.label2.Text = "Empresa";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // btnAceptar
             // 
@@ -274,6 +285,7 @@
             this.txtFactura.Name = "txtFactura";
             this.txtFactura.Size = new System.Drawing.Size(144, 20);
             this.txtFactura.TabIndex = 30;
+            this.txtFactura.TextChanged += new System.EventHandler(this.txtFactura_TextChanged);
             // 
             // txtDni
             // 
@@ -281,6 +293,7 @@
             this.txtDni.Name = "txtDni";
             this.txtDni.Size = new System.Drawing.Size(143, 20);
             this.txtDni.TabIndex = 26;
+            this.txtDni.TextChanged += new System.EventHandler(this.txtDni_TextChanged);
             // 
             // label6
             // 
@@ -290,6 +303,7 @@
             this.label6.Size = new System.Drawing.Size(64, 13);
             this.label6.TabIndex = 24;
             this.label6.Text = "N° Factura :";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label1
             // 
@@ -304,13 +318,13 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.tabPage2.Controls.Add(this.comboBox2);
+            this.tabPage2.Controls.Add(this.comboBoxModEmpresa);
             this.tabPage2.Controls.Add(this.label5);
             this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Controls.Add(this.label15);
             this.tabPage2.Controls.Add(this.dataGridViewModificarC);
-            this.tabPage2.Controls.Add(this.textBox6);
-            this.tabPage2.Controls.Add(this.textBox7);
+            this.tabPage2.Controls.Add(this.textModNumeroFactura);
+            this.tabPage2.Controls.Add(this.textModCliente);
             this.tabPage2.Controls.Add(this.label14);
             this.tabPage2.Controls.Add(this.btnModificarCliente);
             this.tabPage2.Controls.Add(this.button1);
@@ -321,13 +335,14 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Modificar";
             // 
-            // comboBox2
+            // comboBoxModEmpresa
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(129, 85);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(147, 21);
-            this.comboBox2.TabIndex = 45;
+            this.comboBoxModEmpresa.FormattingEnabled = true;
+            this.comboBoxModEmpresa.Location = new System.Drawing.Point(129, 85);
+            this.comboBoxModEmpresa.Name = "comboBoxModEmpresa";
+            this.comboBoxModEmpresa.Size = new System.Drawing.Size(147, 21);
+            this.comboBoxModEmpresa.TabIndex = 45;
+            this.comboBoxModEmpresa.TextChanged += new System.EventHandler(this.textModNumeroFactura_TextChanged);
             // 
             // label5
             // 
@@ -363,20 +378,23 @@
             this.dataGridViewModificarC.Name = "dataGridViewModificarC";
             this.dataGridViewModificarC.Size = new System.Drawing.Size(313, 208);
             this.dataGridViewModificarC.TabIndex = 23;
+            this.dataGridViewModificarC.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewModificarC_CellContentClick);
             // 
-            // textBox6
+            // textModNumeroFactura
             // 
-            this.textBox6.Location = new System.Drawing.Point(129, 126);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(147, 20);
-            this.textBox6.TabIndex = 21;
+            this.textModNumeroFactura.Location = new System.Drawing.Point(129, 126);
+            this.textModNumeroFactura.Name = "textModNumeroFactura";
+            this.textModNumeroFactura.Size = new System.Drawing.Size(147, 20);
+            this.textModNumeroFactura.TabIndex = 21;
+            this.textModNumeroFactura.TextChanged += new System.EventHandler(this.textModNumeroFactura_TextChanged);
             // 
-            // textBox7
+            // textModCliente
             // 
-            this.textBox7.Location = new System.Drawing.Point(129, 42);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(147, 20);
-            this.textBox7.TabIndex = 20;
+            this.textModCliente.Location = new System.Drawing.Point(129, 42);
+            this.textModCliente.Name = "textModCliente";
+            this.textModCliente.Size = new System.Drawing.Size(147, 20);
+            this.textModCliente.TabIndex = 20;
+            this.textModCliente.TextChanged += new System.EventHandler(this.textModNumeroFactura_TextChanged);
             // 
             // label14
             // 
@@ -548,13 +566,13 @@
         private System.Windows.Forms.TextBox txtDni;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox comboBoxModEmpresa;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.DataGridView dataGridViewModificarC;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox textModNumeroFactura;
+        private System.Windows.Forms.TextBox textModCliente;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button btnModificarCliente;
         private System.Windows.Forms.Button button1;

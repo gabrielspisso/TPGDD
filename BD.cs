@@ -230,7 +230,8 @@ namespace PagoAgilFrba
         {
             SqlConnection connection = getConnection();
             connection.Open();
-            SqlCommand command = new SqlCommand(query);
+            SqlCommand command = new SqlCommand();
+            command.CommandText = query;
             command.CommandType = CommandType.StoredProcedure;
             listaDeParametros.ForEach(delegate(String name)
             {

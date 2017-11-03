@@ -1,5 +1,6 @@
 USE [GD2C2017]
-
+SET QUOTED_IDENTIFIER OFF
+ SET ANSI_NULLS ON 
 -- para limpiar y volver a crear todo. Borrar a la mierda para la entrega
 DROP TABLE EL_JAPONES_SANGRANDO.SucursalUsuario
 DROP TABLE EL_JAPONES_SANGRANDO.RolFuncionalidades
@@ -19,6 +20,9 @@ DROP TABLE EL_JAPONES_SANGRANDO.Empresas
 DROP TABLE EL_JAPONES_SANGRANDO.Rubros
 DROP TABLE EL_JAPONES_SANGRANDO.Sucursales
 DROP TABLE EL_JAPONES_SANGRANDO.Clientes
+
+IF OBJECT_ID('EL_JAPONES_SANGRANDO.cambiarItems', 'P') IS NOT NULL
+DROP PROCEDURE EL_JAPONES_SANGRANDO.cambiarItems
 GO
 CREATE SCHEMA [EL_JAPONES_SANGRANDO] AUTHORIZATION [gd]
 GO
@@ -44,6 +48,7 @@ CREATE TABLE [EL_JAPONES_SANGRANDO].[Facturas](
 
 )
 GO
+
 CREATE TABLE [EL_JAPONES_SANGRANDO].[ItemFactura](
 	[itemfact_id] [numeric](18,0) not null identity,
 	[itemfact_monto] [numeric](18,2),
@@ -248,12 +253,13 @@ ALTER TABLE [EL_JAPONES_SANGRANDO].[RolFuncionalidades]
     REFERENCES [EL_JAPONES_SANGRANDO].[Funcionalidades] ([func_id])
 GO
 
-CREATE PROCEDURE EL_JAPONES_SANGRANDO.deletearFactura
-(@numeroFactura [numeric](18,0))
+CREATE PROCEDURE EL_JAPONES_SANGRANDO.cambiarItems
+(@query varchar(8000),@query2 varchar(8000),@query3 varchar(8000))
 AS
 BEGIN
-	delete from EL_JAPONES_SANGRANDO.PagoFactura where pagfact_factura = @numeroFactura;
-	delete from EL_JAPONES_SANGRANDO.Facturas where fact_num = @numeroFactura;
+	EXECUTE( @query);
+	EXECUTE( @query2);
+	EXECUTE( @query3);
 END
 GO
 -- CLIENTES

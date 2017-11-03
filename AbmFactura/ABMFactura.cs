@@ -21,18 +21,18 @@ namespace PagoAgilFrba.AbmFactura
             List<String> lista = BD.listaDeUnCampo(query);
             lista.Insert(0, "");
             comboboxEliminarEmpresa.DataSource = lista;
-            comboBox2.DataSource = lista;
+            comboBoxModEmpresa.DataSource = lista;
            
         }
         private void cargarGrids(){
-            string query = "select DISTINCT fact_num,fact_empresa,fact_cliente from EL_JAPONES_SANGRANDO.Facturas";
+            string query = "select DISTINCT fact_num,(select emp_nombre from EL_JAPONES_SANGRANDO.EMPRESAS where emp_CUIT = fact_empresa),fact_cliente from EL_JAPONES_SANGRANDO.Facturas";
             DataTable ds = BD.busqueda(query);
             datagridViewEliminar.Columns.Clear();
             dataGridViewModificarC.Columns.Clear();
             dataGridViewModificarC.DataSource = ds;
             query = "select DISTINCT fact_num,fact_empresa,fact_cliente from EL_JAPONES_SANGRANDO.Facturas where fact_estado = 1";
             DataTable ds2 = BD.busqueda(query);
-            BD.nuevoBoton(dataGridViewModificarC, "Modificar", 3);
+            BD.nuevoBoton(dataGridViewModificarC, "Modificar", 8);
 
             datagridViewEliminar.DataSource = ds2;
             BD.nuevoBoton(datagridViewEliminar, "Eliminar", 3);
@@ -179,6 +179,107 @@ namespace PagoAgilFrba.AbmFactura
             if(comboboxEliminarEmpresa.SelectedText=="")
                 return "";
             return "AND fact_empresa = " + "(select emp_CUIT from EL_JAPONES_SANGRANDO.Empresas where emp_nombre = '" + comboboxEliminarEmpresa.Text + "')";
-        }      
+        }
+
+       
+        private String condicionDeEmpresas2()
+        {
+            if (comboboxEliminarEmpresa.SelectedText == "")
+                return "";
+            return "AND fact_empresa = " + "(select emp_CUIT from EL_JAPONES_SANGRANDO.Empresas where emp_nombre = '" + comboBoxModEmpresa.Text + "')";
+        }
+
+        private void textModNumeroFactura_TextChanged(object sender, EventArgs e)
+        {
+            String query = "SELECT  fact_num,fact_empresa,fact_cliente from EL_JAPONES_SANGRANDO.Facturas WHERE " +
+                         "fact_cliente LIKE '" + textModCliente.Text + "%' AND " +
+                         "fact_num LIKE '" + textModNumeroFactura.Text + "%'" +
+                         condicionDeEmpresas2();
+            dataGridViewModificarC.Columns.Clear();
+            dataGridViewModificarC.DataSource = BD.busqueda(query);
+            BD.nuevoBoton(dataGridViewModificarC,"Modificar",3);
+            
+        }
+
+        private void dataGridViewModificarC_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+             var senderGrid = (DataGridView)sender;
+
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            {
+
+                new Eliminar_Modificar_Factura_Seleccionada(dataGridViewModificarC.Rows[e.RowIndex].Cells["fact_num"].Value.ToString()).Show();
+            }
+        }
+
+        private void listaSeleccionados_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateVenc_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateAlta_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtCantidad_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtMonto_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtEmpresa_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtFactura_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtDni_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
