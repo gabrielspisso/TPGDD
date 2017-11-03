@@ -56,6 +56,7 @@
     <Compile Include="AbmCliente\Eliminar_Modificar_Cliente_Seleccionado.Designer.cs">
       <DependentUpon>Eliminar_Modificar_Cliente_Seleccionado.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmCliente\formatoFecha.cs" />
     <Compile Include="AbmEmpresa\ABMEmpresa.cs">
       <SubType>Form</SubType>
     </Compile>

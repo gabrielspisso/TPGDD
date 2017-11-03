@@ -99,7 +99,8 @@ namespace PagoAgilFrba.AbmFactura
 
 
 
-
+            formatoFecha.formatoFecha.SetMyCustomFormatYYYYMMDD(dateVenc);
+            formatoFecha.formatoFecha.SetMyCustomFormatYYYYMMDD(dateAlta);
             double sum = 0;
             string query = "INSERT INTO EL_JAPONES_SANGRANDO.ItemFactura (itemfact_monto, itemfact_cantidad, itemfact_factura) VALUES "; 
             foreach (ListViewItem eachItem in listaSeleccionados.Items)

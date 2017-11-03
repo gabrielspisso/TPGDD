@@ -1,4 +1,5 @@
 USE [GD2C2017]
+
 SET QUOTED_IDENTIFIER OFF
  SET ANSI_NULLS ON 
 -- para limpiar y volver a crear todo. Borrar a la mierda para la entrega
@@ -253,13 +254,12 @@ ALTER TABLE [EL_JAPONES_SANGRANDO].[RolFuncionalidades]
     REFERENCES [EL_JAPONES_SANGRANDO].[Funcionalidades] ([func_id])
 GO
 
-CREATE PROCEDURE EL_JAPONES_SANGRANDO.cambiarItems
-(@query varchar(8000),@query2 varchar(8000),@query3 varchar(8000))
+CREATE PROCEDURE EL_JAPONES_SANGRANDO.ejecutarProcedure
+(@query varchar(8000))
 AS
 BEGIN
 	EXECUTE( @query);
-	EXECUTE( @query2);
-	EXECUTE( @query3);
+
 END
 GO
 -- CLIENTES

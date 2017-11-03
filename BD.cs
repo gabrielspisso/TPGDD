@@ -226,19 +226,21 @@ namespace PagoAgilFrba
             connection.Close();
             return x;
         }
-        public static int correrStoreProcedure(string query,List<String> listaDeParametros,List<String> listaDeValores)
+        public static int correrStoreProcedure(List<String> listaDeValores)
         {
             SqlConnection connection = getConnection();
             connection.Open();
             SqlCommand command = new SqlCommand();
-            command.CommandText = query;
+          
             command.CommandType = CommandType.StoredProcedure;
-            listaDeParametros.ForEach(delegate(String name)
+            String y = "";
+            listaDeValores.ForEach(delegate(String name)
             {
-                int index = listaDeParametros.IndexOf(name);
-                command.Parameters.AddWithValue(name, listaDeValores[index]);
+                y += name +";";
             });
+            command.Parameters.AddWithValue("@query", y);
             command.Connection = connection;
+            command.CommandText = "EL_JAPONES_SANGRANDO.ejecutarProcedure";
             int x;
             try
             {

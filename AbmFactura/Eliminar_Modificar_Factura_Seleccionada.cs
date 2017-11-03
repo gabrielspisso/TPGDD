@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using PagoAgilFrba.formatoFecha;
 namespace PagoAgilFrba.AbmFactura
 {
     public partial class Eliminar_Modificar_Factura_Seleccionada : Form
@@ -59,10 +59,11 @@ namespace PagoAgilFrba.AbmFactura
                 sum += Double.Parse(eachItem.SubItems[0].Text) * Double.Parse(eachItem.SubItems[1].Text);
             }
             query = query.Substring(0, query.Length - 1);
-
+            formatoFecha.formatoFecha.SetMyCustomFormatYYYYMMDD(dateAlta);
+            formatoFecha.formatoFecha.SetMyCustomFormatYYYYMMDD(dateVenc);
             string empresa = BD.consultaDeUnSoloResultado("(select TOP 1 emp_CUIT from EL_JAPONES_SANGRANDO.Empresas where emp_nombre = '" + txtEmpresa.Text + "')");
 
-            string queryFactura = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET fact_empresa = '" + empresa + "', fact_cliente = '" + txtDni.Text + "', fact_fechaalta = " + dateAlta.Text + ", fact_fechavenc = " + dateVenc.Text + ", fact_total ='"+ sum+"' where fact_num ='"
+            string queryFactura = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET fact_empresa = '" + empresa + "', fact_cliente = '" + txtDni.Text + "', fact_fechaalta = '" + dateAlta.Text + "', fact_fechavenc = '" + dateVenc.Text + "', fact_total ='"+ sum+"' where fact_num ='"
                                     + txtFactura.Text+"'";
                                     
 
@@ -71,11 +72,7 @@ namespace PagoAgilFrba.AbmFactura
                 listaDeStrings.Add(queryFactura);
                 listaDeStrings.Add(queryEliminarfacturas);
                 listaDeStrings.Add(query);
-                List<String> listaDeStrings2 = new List<string>();
-                listaDeStrings2.Add("@query");
-                listaDeStrings2.Add("@query2");
-                listaDeStrings2.Add("@query3");
-                if (BD.correrStoreProcedure("EL_JAPONES_SANGRANDO.cambiarItems",listaDeStrings2,listaDeStrings) > 0)
+                if (BD.correrStoreProcedure(listaDeStrings) > 0)
                 {
                         MessageBox.Show("Todo bien papu");
                    
