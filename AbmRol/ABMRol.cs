@@ -21,15 +21,30 @@ namespace PagoAgilFrba.AbmRol
         {
             String rol = txtRolAgregar.Text;
             if(rol=="")
-                MessageBox.Show("No selecciono rol", "Error en seleccion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No selecciono rol", "Error en seleccion", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            BD.crearRol(rol);
-            
+            //BD.crearRol(rol);
+
+            string queryInsert = "INSERT INTO EL_JAPONES_SANGRANDO.Roles (rol_nombre) values ('" + rol +"')";
+            string queryUpdate = "INSERT INTO EL_JAPONES_SANGRANDO.RolFuncionalidades (rolf_rol,rolf_func) values ";
+            string funcionalidades = "";
             foreach (DataGridViewRow r in funcionalidadesDGV.SelectedRows){
                 string funcionalidadId = r.Cells[0].Value.ToString();
-                BD.asignarFuncionalidadAlRol(rol, funcionalidadId);
+                funcionalidades += "('"+rol+"',"+funcionalidadId+"),";
             }
-
+            funcionalidades = funcionalidades.Substring(0, funcionalidades.Length - 1);
+            queryUpdate += funcionalidades;
+            List<string> queries = new List<string>();
+            queries.Add(queryInsert);
+            queries.Add(queryUpdate);
+            if (BD.correrStoreProcedure(queries) > 0)
+            {
+                MessageBox.Show("Rol cargado correctamente", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Error al cargar el rol", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void funcionalidadesDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)

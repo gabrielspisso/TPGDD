@@ -101,7 +101,8 @@ CREATE TABLE [EL_JAPONES_SANGRANDO].[Rendiciones](
 	[rend_importe] [numeric](18,0),
 	[rend_porcomision] [numeric](18,0),
 	[rend_cantfacturas] [numeric](18,0),
-	[rend_fecha] [datetime]
+	[rend_fecha] [datetime],
+	[rend_importeFinal] [numeric](18,2)
 )
 CREATE TABLE [EL_JAPONES_SANGRANDO].[ItemRendicion](
 	[itemrend_rend] [numeric](18,0) not null,
@@ -303,6 +304,15 @@ ORDER BY M.Pago_nro
 --Insertar roles
 INSERT INTO EL_JAPONES_SANGRANDO.Roles (rol_nombre) values('administrador')
 INSERT INTO EL_JAPONES_SANGRANDO.Roles (rol_nombre) values('cobrador')
+
+--Migracion de rendiciones
+INSERT INTO EL_JAPONES_SANGRANDO.Rendiciones (rend_nro, rend_empresa, rend_importe, rend_porcomision, rend_cantfacturas, rend_fecha, rend_importeFinal)
+ SELECT DISTINCT Rendicion_Nro, (SELECT emp_CUIT FROM EL_JAPONES_SANGRANDO.Empresas WHERE emp_nombre = Empresa_Nombre), itemRendicion_Importe, (itemRendicion_Importe*100/Factura_Total), 1, Rendicion_Fecha, (Factura_Total - itemRendicion_Importe) from gd_esquema.Maestra
+ WHERE Rendicion_Nro IS NOT NULL order by Rendicion_Nro
+ INSERT INTO EL_JAPONES_SANGRANDO.ItemRendicion(itemrend_rend, itemrend_factura, itemrend_importe)
+ SELECT DISTINCT Rendicion_Nro, Nro_Factura, Factura_Total from gd_esquema.Maestra
+ WHERE Rendicion_Nro IS NOT NULL order by Rendicion_Nro
+
 -- CREACION USUARIO ADMIN
 INSERT INTO EL_JAPONES_SANGRANDO.Usuarios (usr_name, usr_pass) values('admin',HASHBYTES('SHA2_256', 'w23e'))
 
