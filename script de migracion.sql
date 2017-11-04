@@ -1,68 +1,73 @@
 USE [GD2C2017]
 
 SET QUOTED_IDENTIFIER OFF
- SET ANSI_NULLS ON 
+SET ANSI_NULLS ON 
+
+IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'EL_JAPONES_SANGRANDO')
+BEGIN
+ EXEC ('CREATE SCHEMA [EL_JAPONES_SANGRANDO] AUTHORIZATION [gd]')
+END
+
 -- para limpiar y volver a crear todo. Borrar a la mierda para la entrega
-DROP TABLE EL_JAPONES_SANGRANDO.SucursalUsuario
-DROP TABLE EL_JAPONES_SANGRANDO.RolFuncionalidades
-DROP TABLE EL_JAPONES_SANGRANDO.ItemRendicion
-DROP TABLE EL_JAPONES_SANGRANDO.ItemFactura
-DROP TABLE EL_JAPONES_SANGRANDO.PagoFactura
+DROP TABLE EL_JAPONES_SANGRANDO.Usuario_Sucursal
+DROP TABLE EL_JAPONES_SANGRANDO.Rol_Funcionalidad
+DROP TABLE EL_JAPONES_SANGRANDO.Item_Rendicion
+DROP TABLE EL_JAPONES_SANGRANDO.Item_Factura
+DROP TABLE EL_JAPONES_SANGRANDO.Pago_Factura
 DROP TABLE EL_JAPONES_SANGRANDO.Funcionalidades
-DROP TABLE EL_JAPONES_SANGRANDO.RolUsuario
+DROP TABLE EL_JAPONES_SANGRANDO.Usuario_Rol
 DROP TABLE EL_JAPONES_SANGRANDO.Roles
 DROP TABLE EL_JAPONES_SANGRANDO.Usuarios
 DROP TABLE EL_JAPONES_SANGRANDO.Devoluciones
 DROP TABLE EL_JAPONES_SANGRANDO.Rendiciones
 DROP TABLE EL_JAPONES_SANGRANDO.Facturas
 DROP TABLE EL_JAPONES_SANGRANDO.Pagos
-DROP TABLE EL_JAPONES_SANGRANDO.MediosDePago
+DROP TABLE EL_JAPONES_SANGRANDO.Formas_De_Pago
 DROP TABLE EL_JAPONES_SANGRANDO.Empresas
 DROP TABLE EL_JAPONES_SANGRANDO.Rubros
 DROP TABLE EL_JAPONES_SANGRANDO.Sucursales
 DROP TABLE EL_JAPONES_SANGRANDO.Clientes
 
-IF OBJECT_ID('EL_JAPONES_SANGRANDO.cambiarItems', 'P') IS NOT NULL
-DROP PROCEDURE EL_JAPONES_SANGRANDO.cambiarItems
+IF OBJECT_ID('EL_JAPONES_SANGRANDO.ejecutarProcedure', 'P') IS NOT NULL
+DROP PROCEDURE EL_JAPONES_SANGRANDO.ejecutarProcedure
 GO
-CREATE SCHEMA [EL_JAPONES_SANGRANDO] AUTHORIZATION [gd]
-GO
+
 CREATE TABLE [EL_JAPONES_SANGRANDO].[Clientes](
-	[cli_DNI] [numeric](18,0) not null,
-	[cli_nombre] [nvarchar](255),
-	[cli_apellido] [nvarchar](255),
-	[cli_fechanac] [datetime],
-	[cli_mail] [nvarchar] (255),
-	[cli_direccion] [nvarchar] (255),
-	[cli_CP] [nvarchar] (255),
-	[cli_estado] [bit] default 1
+	[cliente_DNI] [numeric](18,0) not null,
+	[cliente_nombre] [nvarchar](255),
+	[cliente_apellido] [nvarchar](255),
+	[cliente_fecha_nacimiento] [datetime],
+	[cliente_mail] [nvarchar] (255),
+	[cliente_direccion] [nvarchar] (255),
+	[cliente_codigo_postal] [nvarchar] (255),
+	[cliente_estado] [bit] default 1
 )
 GO
 CREATE TABLE [EL_JAPONES_SANGRANDO].[Facturas](
-	[fact_num] [numeric](18,0) not null,
-	[fact_empresa] [nvarchar](50),
-	[fact_cliente] [numeric](18,0),
-	[fact_fechaalta] [datetime],
-	[fact_fechavenc] [datetime],
-	[fact_total] [numeric] (18,2),
-	[fact_estado]  [tinyint] default 1
+	[factura_numero] [numeric](18,0) not null,
+	[factura_empresa] [nvarchar](50),
+	[factura_cliente] [numeric](18,0),
+	[factura_fecha] [datetime],
+	[factura_fecha_vencimiento] [datetime],
+	[factura_total] [numeric] (18,2),
+	[factura_estado]  [tinyint] default 1
 
 )
 GO
 
-CREATE TABLE [EL_JAPONES_SANGRANDO].[ItemFactura](
-	[itemfact_id] [numeric](18,0) not null identity,
-	[itemfact_monto] [numeric](18,2),
-	[itemfact_cantidad] [numeric](18,0),
-	[itemfact_factura] [numeric](18,0)
+CREATE TABLE [EL_JAPONES_SANGRANDO].[Item_Factura](
+	[item_id] [numeric](18,0) not null identity,
+	[item_monto] [numeric](18,2),
+	[item_cantidad] [numeric](18,0),
+	[item_factura] [numeric](18,0)
 )
 GO
 CREATE TABLE [EL_JAPONES_SANGRANDO].[Empresas](
-	[emp_CUIT] [nvarchar](50) not null,
-	[emp_nombre] [nvarchar](255),
-	[emp_direccion] [nvarchar](255),
-	[emp_rubro] [numeric](18,0),
-	[emp_estado] [bit] default 1
+	[empresa_cuit] [nvarchar](50) not null,
+	[empresa_nombre] [nvarchar](255),
+	[empresa_direccion] [nvarchar](255),
+	[empresa_rubro] [numeric](18,0),
+	[empresa_estado] [bit] default 1
 )
 GO
 CREATE TABLE [EL_JAPONES_SANGRANDO].[Rubros](
@@ -72,191 +77,190 @@ CREATE TABLE [EL_JAPONES_SANGRANDO].[Rubros](
 GO
 CREATE TABLE [EL_JAPONES_SANGRANDO].[Pagos](
 	[pago_nro] [numeric](18,0) not null,
-	[pago_suc] [numeric](18,0),
+	[pago_sucursal] [numeric](18,0),
 	[pago_importe] [numeric](18,2),
-	[pago_medio] [numeric] (18,0),
+	[pago_formaDePago] [numeric] (18,0),
 	[pago_fecha] [datetime],
 	[pago_cliente] [numeric](18,0) not null
 )
 GO
-CREATE TABLE [EL_JAPONES_SANGRANDO].[PagoFactura](
-	[pagfact_factura] [numeric](18,0) not null,
-	[pagfact_pago] [numeric](18,0) not null
+CREATE TABLE [EL_JAPONES_SANGRANDO].[Pago_Factura](
+	[pago_Factura_factura] [numeric](18,0) not null,
+	[pago_Factura_pago] [numeric](18,0) not null
 )
 GO
-CREATE TABLE [EL_JAPONES_SANGRANDO].[MediosDePago](
-	[medio_id] [numeric](18,0) not null identity,
-	[medio_desc] [nvarchar](255)
+CREATE TABLE [EL_JAPONES_SANGRANDO].[Formas_De_Pago](
+	[formaDePago_id] [numeric](18,0) not null identity,
+	[formaDePago_desc] [nvarchar](255)
 )
 GO
 CREATE TABLE [EL_JAPONES_SANGRANDO].[Sucursales](
-	[suc_CP] [numeric](18,0) not null,
-	[suc_nombre] [nvarchar](50),
-	[suc_dir] [nvarchar](50),
-	[suc_estado] [bit] default 1
+	[sucursal_codigo_postal] [numeric](18,0) not null,
+	[sucursal_nombre] [nvarchar](50),
+	[sucursal_direccion] [nvarchar](50),
+	[sucursal_estado] [bit] default 1
 )
 GO
 CREATE TABLE [EL_JAPONES_SANGRANDO].[Rendiciones](
-	[rend_nro] [numeric](18,0) not null,
-	[rend_empresa] [nvarchar](50),
-	[rend_importe] [numeric](18,0),
-	[rend_porcomision] [numeric](18,0),
-	[rend_cantfacturas] [numeric](18,0),
-	[rend_fecha] [datetime],
-	[rend_importeFinal] [numeric](18,2)
+	[rendicion_nro] [numeric](18,0) not null,
+	[rendicion_empresa] [nvarchar](50),
+	[rendicion_importe] [numeric](18,0),
+	[rendicion_porcentaje_comision] [numeric](18,0),
+	[rendicion_cantfacturas] [numeric](18,0),
+	[rendicion_fecha] [datetime],
+	[rendicion_importeFinal] [numeric](18,2)
 )
-CREATE TABLE [EL_JAPONES_SANGRANDO].[ItemRendicion](
-	[itemrend_rend] [numeric](18,0) not null,
-	[itemrend_factura] [numeric](18,0) not null,
-	[itemrend_importe] [numeric](18,2)
+CREATE TABLE [EL_JAPONES_SANGRANDO].[Item_Rendicion](
+	[itemr_rendicion] [numeric](18,0) not null,
+	[itemr_factura] [numeric](18,0) not null,
+	[itemr_importe] [numeric](18,2)
 )
 GO
 CREATE TABLE [EL_JAPONES_SANGRANDO].[Devoluciones](
-	[dev_id] [numeric](18,0) not null identity,
-	[dev_desc] [nvarchar](100),
-	[dev_fact] [numeric](18,0)
+	[devolucion_id] [numeric](18,0) not null identity,
+	[devolucion_descripcion] [nvarchar](100),
+	[devolucion_factura] [numeric](18,0)
 )
 GO
 CREATE TABLE [EL_JAPONES_SANGRANDO].[Usuarios](
-	[usr_name] [nvarchar](50) not null,
-	[usr_pass] [varbinary](100),
-	[usr_cantidadDeIntentos] [int] default 0,
+	[usuario_nombre] [nvarchar](50) not null,
+	[usuario_contrasena] [varbinary](100),
+	[usuario_cantidadDeIntentos] [int] default 0,
 )
 GO
-CREATE TABLE [EL_JAPONES_SANGRANDO].[SucursalUsuario](
-	[sucusr_suc] [numeric](18,0) not null,
-	[sucusr_usr] [nvarchar](50) not null
+CREATE TABLE [EL_JAPONES_SANGRANDO].[Usuario_Sucursal](
+	[usuario_Sucursal_sucursal] [numeric](18,0) not null,
+	[usuario_Sucursal_usuario] [nvarchar](50) not null
 )
 GO
 CREATE TABLE [EL_JAPONES_SANGRANDO].[Roles](
 	[rol_nombre] [nvarchar](50) not null,
-	[rol_desc] [nvarchar](100),
 	[rol_estado] [bit] default 1
 )
 GO
-CREATE TABLE [EL_JAPONES_SANGRANDO].[RolUsuario](
-	[rolusr_usr] [nvarchar](50) not null,
-	[rolusr_rol] [nvarchar](50) not null
+CREATE TABLE [EL_JAPONES_SANGRANDO].[Usuario_Rol](
+	[usuario_Rol_usuario] [nvarchar](50) not null,
+	[usuario_Rol_rol] [nvarchar](50) not null
 )
 GO
 CREATE TABLE [EL_JAPONES_SANGRANDO].[Funcionalidades](
-	[func_id] [numeric](18,0) not null identity,
-	[func_desc] [nvarchar](100)
+	[funcionalidad_id] [numeric](18,0) not null identity,
+	[funcionalidad_descripcion] [nvarchar](100)
 )
 GO
-CREATE TABLE [EL_JAPONES_SANGRANDO].[RolFuncionalidades](
-	[rolf_rol] [nvarchar](50) not null,
-	[rolf_func] [numeric](18,0) not null
+CREATE TABLE [EL_JAPONES_SANGRANDO].[Rol_Funcionalidad](
+	[rol_Funcionalidad_rol] [nvarchar](50) not null,
+	[rol_Funcionalidad_funcionalidad] [numeric](18,0) not null
 )
 GO
-ALTER TABLE [EL_JAPONES_SANGRANDO].[MediosDePago] 
-	ADD CONSTRAINT [PK_MediosDePago] PRIMARY KEY ([medio_id])
+ALTER TABLE [EL_JAPONES_SANGRANDO].[Formas_De_Pago] 
+	ADD CONSTRAINT [PK_Formas_De_Pago] PRIMARY KEY ([formaDePago_id])
 
 GO
 ALTER TABLE [EL_JAPONES_SANGRANDO].[Sucursales] 
-	ADD CONSTRAINT [PK_Sucursal] PRIMARY KEY ([suc_CP])
+	ADD CONSTRAINT [PK_Sucursal] PRIMARY KEY ([sucursal_codigo_postal])
 
 GO
-ALTER TABLE [EL_JAPONES_SANGRANDO].[Clientes] ADD CONSTRAINT [PK_Cliente] PRIMARY KEY ([cli_DNI])
+ALTER TABLE [EL_JAPONES_SANGRANDO].[Clientes] ADD CONSTRAINT [PK_Cliente] PRIMARY KEY ([cliente_DNI])
 GO
 ALTER TABLE [EL_JAPONES_SANGRANDO].[Rubros] 
 	ADD CONSTRAINT [PK_Rubro] PRIMARY KEY ([rubro_id])
 
 GO
 ALTER TABLE [EL_JAPONES_SANGRANDO].[Empresas]
-	ADD CONSTRAINT [PK_Empresa] PRIMARY KEY ([emp_CUIT]),
-	CONSTRAINT [FK_Emp_Rubro] FOREIGN KEY ([emp_rubro])
+	ADD CONSTRAINT [PK_Empresa] PRIMARY KEY ([empresa_cuit]),
+	CONSTRAINT [FK_empresa_Rubro] FOREIGN KEY ([empresa_rubro])
     REFERENCES [EL_JAPONES_SANGRANDO].[Rubros] ([rubro_id])
 
 GO
 ALTER TABLE [EL_JAPONES_SANGRANDO].[Facturas] 
-	ADD CONSTRAINT [PK_Factura] PRIMARY KEY ([fact_num]),
-	CONSTRAINT [FK_Fact_Cli] FOREIGN KEY ([fact_cliente])
-    REFERENCES [EL_JAPONES_SANGRANDO].[Clientes] ([cli_DNI]),
-    CONSTRAINT [FK_Fact_Emp] FOREIGN KEY ([fact_empresa])
-    REFERENCES [EL_JAPONES_SANGRANDO].[Empresas] ([emp_CUIT])
+	ADD CONSTRAINT [PK_Factura] PRIMARY KEY ([factura_numero]),
+	CONSTRAINT [FK_factura_Cli] FOREIGN KEY ([factura_cliente])
+    REFERENCES [EL_JAPONES_SANGRANDO].[Clientes] ([cliente_DNI]),
+    CONSTRAINT [FK_factura_Emp] FOREIGN KEY ([factura_empresa])
+    REFERENCES [EL_JAPONES_SANGRANDO].[Empresas] ([empresa_cuit])
 
 GO
-ALTER TABLE [EL_JAPONES_SANGRANDO].[ItemFactura]
-	ADD CONSTRAINT [PK_ItemFactura] PRIMARY KEY ([itemfact_id]),
-	CONSTRAINT [FK_Item_Fact] FOREIGN KEY (itemfact_factura)
-    REFERENCES [EL_JAPONES_SANGRANDO].[Facturas] ([fact_num])
+ALTER TABLE [EL_JAPONES_SANGRANDO].[Item_Factura]
+	ADD CONSTRAINT [PK_Item_Factura] PRIMARY KEY ([item_id]),
+	CONSTRAINT [FK_Item_Fact] FOREIGN KEY (item_factura)
+    REFERENCES [EL_JAPONES_SANGRANDO].[Facturas] ([factura_numero])
 GO
 
 ALTER TABLE [EL_JAPONES_SANGRANDO].[Pagos] 
 	ADD CONSTRAINT [PK_Pago] PRIMARY KEY ([pago_nro]),
-	CONSTRAINT [FK_Pago_Suc] FOREIGN KEY ([pago_suc])
-    REFERENCES [EL_JAPONES_SANGRANDO].[Sucursales] ([suc_CP]),
-    CONSTRAINT [FK_Pago_Medio] FOREIGN KEY ([pago_medio])
-    REFERENCES [EL_JAPONES_SANGRANDO].[MediosDePago] ([medio_id]),
+	CONSTRAINT [FK_pago_sucursal] FOREIGN KEY ([pago_sucursal])
+    REFERENCES [EL_JAPONES_SANGRANDO].[Sucursales] ([sucursal_codigo_postal]),
+    CONSTRAINT [FK_pago_formaDePago] FOREIGN KEY ([pago_formaDePago])
+    REFERENCES [EL_JAPONES_SANGRANDO].[Formas_De_Pago] ([formaDePago_id]),
 	CONSTRAINT [FK_Pago_Cliente] FOREIGN KEY ([pago_cliente])
-    REFERENCES [EL_JAPONES_SANGRANDO].[Clientes] ([cli_DNI])
+    REFERENCES [EL_JAPONES_SANGRANDO].[Clientes] ([cliente_DNI])
 	
 
 
 GO
-ALTER TABLE [EL_JAPONES_SANGRANDO].[PagoFactura] 
-	ADD CONSTRAINT [PK_PagoFactura] PRIMARY KEY ([pagfact_pago], [pagfact_factura]),
-	CONSTRAINT [FK_PagoFact_Fact] FOREIGN KEY ([pagfact_factura])
-    REFERENCES [EL_JAPONES_SANGRANDO].[Facturas] ([fact_num]),
-    CONSTRAINT [FK_PagoFact_Pago] FOREIGN KEY ([pagfact_pago])
+ALTER TABLE [EL_JAPONES_SANGRANDO].[Pago_Factura] 
+	ADD CONSTRAINT [PK_Pago_Factura] PRIMARY KEY ([pago_Factura_pago], [pago_Factura_factura]),
+	CONSTRAINT [FK_Pago_Factura_Fact] FOREIGN KEY ([pago_Factura_factura])
+    REFERENCES [EL_JAPONES_SANGRANDO].[Facturas] ([factura_numero]),
+    CONSTRAINT [FK_Pago_Factura_Pago] FOREIGN KEY ([pago_Factura_pago])
     REFERENCES [EL_JAPONES_SANGRANDO].[Pagos] ([pago_nro])
 
 GO
 ALTER TABLE [EL_JAPONES_SANGRANDO].[Rendiciones] 
-	ADD CONSTRAINT [PK_Rendicion] PRIMARY KEY ([rend_nro]),
-	CONSTRAINT [FK_Rend_Emp] FOREIGN KEY ([rend_empresa])
-    REFERENCES [EL_JAPONES_SANGRANDO].[Empresas] ([emp_CUIT])
+	ADD CONSTRAINT [PK_Rendicion] PRIMARY KEY ([rendicion_nro]),
+	CONSTRAINT [FK_rendicion_Emp] FOREIGN KEY ([rendicion_empresa])
+    REFERENCES [EL_JAPONES_SANGRANDO].[Empresas] ([empresa_cuit])
 
 GO
-ALTER TABLE [EL_JAPONES_SANGRANDO].[ItemRendicion] 
-	ADD CONSTRAINT [PK_ItemRendicion] PRIMARY KEY ([itemrend_rend],[itemrend_factura]),
-	CONSTRAINT [FK_ItemRend_Rend] FOREIGN KEY ([itemrend_rend])
-    REFERENCES [EL_JAPONES_SANGRANDO].[Rendiciones] ([rend_nro]),
-    CONSTRAINT [FK_ItemRend_Fact] FOREIGN KEY ([itemrend_factura])
-    REFERENCES [EL_JAPONES_SANGRANDO].[Facturas] ([fact_num])
+ALTER TABLE [EL_JAPONES_SANGRANDO].[Item_Rendicion] 
+	ADD CONSTRAINT [PK_Item_Rendicion] PRIMARY KEY ([itemr_rendicion],[itemr_factura]),
+	CONSTRAINT [FK_itemr_rendicion] FOREIGN KEY ([itemr_rendicion])
+    REFERENCES [EL_JAPONES_SANGRANDO].[Rendiciones] ([rendicion_nro]),
+    CONSTRAINT [FK_itemr_Fact] FOREIGN KEY ([itemr_factura])
+    REFERENCES [EL_JAPONES_SANGRANDO].[Facturas] ([factura_numero])
 
 GO
 ALTER TABLE [EL_JAPONES_SANGRANDO].[Devoluciones] 
-	ADD CONSTRAINT [PK_Devolucion] PRIMARY KEY ([dev_id]),
-	CONSTRAINT [FK_Dev_Fact] FOREIGN KEY ([dev_fact])
-    REFERENCES [EL_JAPONES_SANGRANDO].[Facturas] ([fact_num])
+	ADD CONSTRAINT [PK_Devolucion] PRIMARY KEY ([devolucion_id]),
+	CONSTRAINT [FK_devolucion_factura] FOREIGN KEY ([devolucion_factura])
+    REFERENCES [EL_JAPONES_SANGRANDO].[Facturas] ([factura_numero])
 
 GO
 ALTER TABLE [EL_JAPONES_SANGRANDO].[Usuarios] 
-	ADD CONSTRAINT [PK_Usuario] PRIMARY KEY ([usr_name])
+	ADD CONSTRAINT [PK_Usuario] PRIMARY KEY ([usuario_nombre])
 
 GO
-ALTER TABLE [EL_JAPONES_SANGRANDO].[SucursalUsuario] 
-	ADD CONSTRAINT [PK_SucursalUsuario] PRIMARY KEY ([sucusr_usr], [sucusr_suc]),
-	CONSTRAINT [FK_SucUsr_Usr] FOREIGN KEY ([sucusr_usr])
-    REFERENCES [EL_JAPONES_SANGRANDO].[Usuarios] ([usr_name]),
-    CONSTRAINT [FK_SucUsr_Suc] FOREIGN KEY ([sucusr_suc])
-    REFERENCES [EL_JAPONES_SANGRANDO].[Sucursales] ([suc_CP])
+ALTER TABLE [EL_JAPONES_SANGRANDO].[Usuario_Sucursal] 
+	ADD CONSTRAINT [PK_Usuario_Sucursal] PRIMARY KEY ([usuario_Sucursal_usuario], [usuario_Sucursal_sucursal]),
+	CONSTRAINT [FK_usuario_Sucursal_usuario] FOREIGN KEY ([usuario_Sucursal_usuario])
+    REFERENCES [EL_JAPONES_SANGRANDO].[Usuarios] ([usuario_nombre]),
+    CONSTRAINT [FK_usuario_Sucursal_sucursal] FOREIGN KEY ([usuario_Sucursal_sucursal])
+    REFERENCES [EL_JAPONES_SANGRANDO].[Sucursales] ([sucursal_codigo_postal])
 
 GO
 ALTER TABLE [EL_JAPONES_SANGRANDO].[Roles] 
 	ADD CONSTRAINT [PK_Rol] PRIMARY KEY ([rol_nombre])
 
 GO
-ALTER TABLE [EL_JAPONES_SANGRANDO].[RolUsuario] 
-	ADD CONSTRAINT [PK_RolUsuario] PRIMARY KEY ([rolusr_rol], [rolusr_usr]),
-	CONSTRAINT [FK_RolUsr_Rol] FOREIGN KEY ([rolusr_rol])
+ALTER TABLE [EL_JAPONES_SANGRANDO].[Usuario_Rol] 
+	ADD CONSTRAINT [PK_Usuario_Rol] PRIMARY KEY ([usuario_Rol_rol], [usuario_Rol_usuario]),
+	CONSTRAINT [FK_usuario_Rol_Rol] FOREIGN KEY ([usuario_Rol_rol])
     REFERENCES [EL_JAPONES_SANGRANDO].[Roles] ([rol_nombre]),
-    CONSTRAINT [FK_RolUsr_Usr] FOREIGN KEY ([rolusr_usr])
-    REFERENCES [EL_JAPONES_SANGRANDO].[Usuarios] ([usr_name])
+    CONSTRAINT [FK_usuario_Rol_usuario] FOREIGN KEY ([usuario_Rol_usuario])
+    REFERENCES [EL_JAPONES_SANGRANDO].[Usuarios] ([usuario_nombre])
 
 GO
 ALTER TABLE [EL_JAPONES_SANGRANDO].[Funcionalidades] 
-	ADD CONSTRAINT [PK_Funcionalidad] PRIMARY KEY ([func_id])
+	ADD CONSTRAINT [PK_Funcionalidad] PRIMARY KEY ([funcionalidad_id])
 
 GO
-ALTER TABLE [EL_JAPONES_SANGRANDO].[RolFuncionalidades]
-	ADD CONSTRAINT [PK_RolFuncionalidad] PRIMARY KEY ([rolf_func], rolf_rol),
-	CONSTRAINT [FK_RolFunc_Rol] FOREIGN KEY ([rolf_rol])
+ALTER TABLE [EL_JAPONES_SANGRANDO].[Rol_Funcionalidad]
+	ADD CONSTRAINT [PK_RolFuncionalidad] PRIMARY KEY ([rol_Funcionalidad_funcionalidad], rol_Funcionalidad_rol),
+	CONSTRAINT [FK_Rolfuncionalidad_Rol] FOREIGN KEY ([rol_Funcionalidad_rol])
     REFERENCES [EL_JAPONES_SANGRANDO].[Roles] ([rol_nombre]),
-    CONSTRAINT [FK_RolFunc_Func] FOREIGN KEY ([rolf_func])
-    REFERENCES [EL_JAPONES_SANGRANDO].[Funcionalidades] ([func_id])
+    CONSTRAINT [FK_Rolfuncionalidad_Func] FOREIGN KEY ([rol_Funcionalidad_funcionalidad])
+    REFERENCES [EL_JAPONES_SANGRANDO].[Funcionalidades] ([funcionalidad_id])
 GO
 
 CREATE PROCEDURE EL_JAPONES_SANGRANDO.ejecutarProcedure
@@ -268,7 +272,7 @@ BEGIN
 END
 GO
 -- CLIENTES
-INSERT INTO EL_JAPONES_SANGRANDO.Clientes (cli_DNI, cli_apellido, cli_nombre, cli_fechanac, cli_mail, cli_direccion, cli_CP)
+INSERT INTO EL_JAPONES_SANGRANDO.Clientes (cliente_DNI, cliente_apellido, cliente_nombre, cliente_fecha_nacimiento, cliente_mail, cliente_direccion, cliente_codigo_postal)
 SELECT DISTINCT [Cliente-Dni], [Cliente-Apellido], [Cliente-Nombre], [Cliente-Fecha_Nac], Cliente_Mail, Cliente_Direccion, Cliente_Codigo_Postal from gd_esquema.Maestra
 -- RUBROS
 SET IDENTITY_INSERT EL_JAPONES_SANGRANDO.Rubros ON
@@ -276,61 +280,62 @@ INSERT INTO EL_JAPONES_SANGRANDO.Rubros (rubro_id, rubro_desc)
 SELECT DISTINCT Empresa_Rubro, Rubro_Descripcion from gd_esquema.Maestra
 SET IDENTITY_INSERT EL_JAPONES_SANGRANDO.Rubros OFF
 -- EMPRESAS
-INSERT INTO EL_JAPONES_SANGRANDO.Empresas(emp_CUIT, emp_nombre, emp_direccion, emp_rubro)
-SELECT DISTINCT Empresa_Cuit, Empresa_Nombre, Empresa_Direccion, Empresa_Rubro from gd_esquema.Maestra ORDER BY Empresa_Cuit
+INSERT INTO EL_JAPONES_SANGRANDO.Empresas(empresa_cuit, empresa_nombre, empresa_direccion, empresa_rubro)
+SELECT DISTINCT empresa_cuit, Empresa_Nombre, Empresa_Direccion, Empresa_Rubro from gd_esquema.Maestra ORDER BY empresa_cuit
 -- FACTURAS
-INSERT INTO EL_JAPONES_SANGRANDO.Facturas (fact_num, fact_empresa, fact_cliente, fact_fechaalta, fact_fechavenc, fact_total)
-SELECT DISTINCT Nro_Factura, Empresa_Cuit, [Cliente-DNI], Factura_Fecha, Factura_Fecha_Vencimiento, Factura_Total from gd_esquema.Maestra M
-join EL_JAPONES_SANGRANDO.Clientes C on C.cli_DNI = M.[Cliente-Dni] order by Nro_Factura
+INSERT INTO EL_JAPONES_SANGRANDO.Facturas (factura_numero, factura_empresa, factura_cliente, factura_fecha, factura_fecha_vencimiento, factura_total)
+SELECT DISTINCT Nro_Factura, empresa_cuit, [Cliente-DNI], Factura_Fecha, Factura_Fecha_Vencimiento, Factura_Total from gd_esquema.Maestra M
+join EL_JAPONES_SANGRANDO.Clientes C on C.cliente_DNI = M.[Cliente-Dni] order by Nro_Factura
 -- ITEMS FACTURAS
-INSERT INTO EL_JAPONES_SANGRANDO.ItemFactura (itemfact_monto, itemfact_cantidad, itemfact_factura)
+INSERT INTO EL_JAPONES_SANGRANDO.Item_Factura (item_monto, item_cantidad, item_factura)
 SELECT DISTINCT ItemFactura_Cantidad, ItemFactura_Monto, Nro_Factura FROM gd_esquema.Maestra ORDER BY Nro_Factura
 -- MEDIOS DE PAGO
-INSERT INTO EL_JAPONES_SANGRANDO.MediosDePago (medio_desc)
+INSERT INTO EL_JAPONES_SANGRANDO.Formas_De_Pago (formaDePago_desc)
 SELECT DISTINCT FormaPagoDescripcion FROM gd_esquema.Maestra WHERE FormaPagoDescripcion IS NOT NULL
 -- SUCURSALES
-INSERT INTO EL_JAPONES_SANGRANDO.Sucursales (suc_CP, suc_nombre, suc_dir)
+INSERT INTO EL_JAPONES_SANGRANDO.Sucursales (sucursal_codigo_postal, sucursal_nombre, sucursal_direccion)
 SELECT DISTINCT Sucursal_Codigo_Postal, Sucursal_Nombre, Sucursal_Dirección FROM gd_esquema.Maestra
 WHERE Sucursal_Codigo_Postal IS NOT NULL
 -- PAGOS. SI BIEN LA RELACION CON FACTURAS ES MUCHOS A MUCHOS, EN LOS DATOS DE LA TABLA MAESTRA SOLO HAY PAGOS QUE PAGAN UNA UNICA FACTURA, POR LO QUE
 -- EL IMPORTE DE ESE PAGO ES EL MISMO QUE EL DE LA FACTURA CON EL QUE SE RELACIONA, ENTONCES NO ES NECESARIO SUMAR TODOS LOS IMPORTES DE LAS FACTURAS
 -- DEL PAGO DENTRO DE ESTE SCRIPT
-INSERT INTO EL_JAPONES_SANGRANDO.Pagos (pago_nro, pago_suc, pago_importe, pago_medio, pago_fecha,pago_cliente)
-SELECT DISTINCT Pago_nro, Sucursal_Codigo_Postal, Factura_Total, (SELECT medio_id FROM EL_JAPONES_SANGRANDO.MediosDePago WHERE medio_desc = FormaPagoDescripcion), Pago_Fecha,[Cliente-Dni] FROM gd_esquema.Maestra
+INSERT INTO EL_JAPONES_SANGRANDO.Pagos (pago_nro, pago_sucursal, pago_importe, pago_formaDePago, pago_fecha,pago_cliente)
+SELECT DISTINCT Pago_nro, Sucursal_Codigo_Postal, Factura_Total, (SELECT formaDePago_id FROM EL_JAPONES_SANGRANDO.Formas_De_Pago WHERE formaDePago_desc = FormaPagoDescripcion), Pago_Fecha,[Cliente-Dni] FROM gd_esquema.Maestra
 WHERE Pago_nro IS NOT NULL
 ORDER BY Pago_nro
 -- PAGOSFACTURAS
-INSERT INTO EL_JAPONES_SANGRANDO.PagoFactura (pagfact_factura, pagfact_pago)
+INSERT INTO EL_JAPONES_SANGRANDO.Pago_Factura (pago_Factura_factura, pago_Factura_pago)
 SELECT DISTINCT Nro_Factura, M.Pago_nro FROM gd_esquema.Maestra M
 WHERE M.Pago_nro IS NOT NULL
-ORDER BY M.Pago_nro 
+ORDER BY M.Pago_nro
+UPDATE EL_JAPONES_SANGRANDO.Facturas SET factura_estado = 2 WHERE factura_numero IN (SELECT pago_Factura_factura FROM EL_JAPONES_SANGRANDO.Pago_Factura)
 
 --Insertar roles
 INSERT INTO EL_JAPONES_SANGRANDO.Roles (rol_nombre) values('administrador')
 INSERT INTO EL_JAPONES_SANGRANDO.Roles (rol_nombre) values('cobrador')
 
 --Migracion de rendiciones
-INSERT INTO EL_JAPONES_SANGRANDO.Rendiciones (rend_nro, rend_empresa, rend_importe, rend_porcomision, rend_cantfacturas, rend_fecha, rend_importeFinal)
- SELECT DISTINCT Rendicion_Nro, (SELECT emp_CUIT FROM EL_JAPONES_SANGRANDO.Empresas WHERE emp_nombre = Empresa_Nombre), itemRendicion_Importe, (itemRendicion_Importe*100/Factura_Total), 1, Rendicion_Fecha, (Factura_Total - itemRendicion_Importe) from gd_esquema.Maestra
+INSERT INTO EL_JAPONES_SANGRANDO.Rendiciones (rendicion_nro, rendicion_empresa, rendicion_importe, rendicion_porcentaje_comision, rendicion_cantfacturas, rendicion_fecha, rendicion_importeFinal)
+ SELECT DISTINCT Rendicion_Nro, (SELECT empresa_cuit FROM EL_JAPONES_SANGRANDO.Empresas WHERE empresa_nombre = Empresa_Nombre), ItemRendicion_Importe, (ItemRendicion_Importe*100/Factura_Total), 1, Rendicion_Fecha, (Factura_Total - ItemRendicion_Importe) from gd_esquema.Maestra
  WHERE Rendicion_Nro IS NOT NULL order by Rendicion_Nro
- INSERT INTO EL_JAPONES_SANGRANDO.ItemRendicion(itemrend_rend, itemrend_factura, itemrend_importe)
+ INSERT INTO EL_JAPONES_SANGRANDO.Item_Rendicion(itemr_rendicion, itemr_factura, itemr_importe)
  SELECT DISTINCT Rendicion_Nro, Nro_Factura, Factura_Total from gd_esquema.Maestra
  WHERE Rendicion_Nro IS NOT NULL order by Rendicion_Nro
 
 -- CREACION USUARIO ADMIN
-INSERT INTO EL_JAPONES_SANGRANDO.Usuarios (usr_name, usr_pass) values('admin',HASHBYTES('SHA2_256', 'w23e'))
+INSERT INTO EL_JAPONES_SANGRANDO.Usuarios (usuario_nombre, usuario_contrasena) values('admin',HASHBYTES('SHA2_256', 'w23e'))
 
 
 
 --
-INSERT INTO EL_JAPONES_SANGRANDO.Funcionalidades(func_desc)
+INSERT INTO EL_JAPONES_SANGRANDO.Funcionalidades(funcionalidad_descripcion)
 values('ABM_ROL'),('ABM_CLIENTE'),('ABM_EMPRESA'),('ABM_SUCURSAL'),('ABM_FACTURA'),('REGISTRO_DE_PAGO_DE_FACTURAS'),('LISTADO_ESTADISTICO'),('RENDICION_DE_FACTURAS_COBRADAS'),('DEVOLUCION')
 
 --Vinculo los roles con la funcionalidades que tienen
-INSERT INTO EL_JAPONES_SANGRANDO.RolFuncionalidades(rolf_rol, rolf_func)
+INSERT INTO EL_JAPONES_SANGRANDO.Rol_Funcionalidad(rol_Funcionalidad_rol, rol_Funcionalidad_funcionalidad)
 values('administrador',1),('administrador',2),('administrador',3),('administrador',4),('administrador',5),('administrador',6),('administrador',7),('administrador',8),('administrador',9)
 
 --Le asigno el perfil de administrador al admin
-INSERT INTO EL_JAPONES_SANGRANDO.RolUsuario(rolusr_usr, rolusr_rol) values ('admin', 'administrador')
+INSERT INTO EL_JAPONES_SANGRANDO.Usuario_Rol(usuario_Rol_usuario, usuario_Rol_rol) values ('admin', 'administrador')
 
 

@@ -53,7 +53,7 @@ namespace PagoAgilFrba.AbmEmpresa
             string cuit = textNuevoCuit.Text;
 
             string subquery = "(SELECT rubro_id FROM EL_JAPONES_SANGRANDO.Rubros WHERE rubro_desc = '" + rubro + "')";
-            int x = BD.insert("Empresas", "(emp_rubro,emp_CUIT,emp_nombre,emp_direccion)values(" +
+            int x = BD.insert("Empresas", "(empresa_rubro,empresa_cuit,empresa_nombre,empresa_direccion)values(" +
                 subquery + ", '" +
                 cuit + "', '" +
                 nombre + "', '" +
@@ -86,13 +86,13 @@ namespace PagoAgilFrba.AbmEmpresa
             comboModRubro.DataSource = lista;
             comboElimRubro.DataSource = lista;
 
-            string queryModificar = "SELECT emp_nombre,rubro_desc,emp_CUIT,emp_direccion FROM EL_JAPONES_SANGRANDO.Empresas join EL_JAPONES_SANGRANDO.Rubros on emp_rubro = rubro_id ";
+            string queryModificar = "SELECT empresa_nombre,rubro_desc,empresa_cuit,empresa_direccion FROM EL_JAPONES_SANGRANDO.Empresas join EL_JAPONES_SANGRANDO.Rubros on empresa_rubro = rubro_id ";
             DataTable dt = BD.busqueda(queryModificar + "ORDER BY 1");
             dataGridViewModificarC.Columns.Clear();
             dataGridViewModificarC.DataSource = dt;
             BD.nuevoBoton(dataGridViewModificarC, "Modificar", 5);
 
-            string queryEliminar = queryModificar + " WHERE emp_estado = 1 ORDER BY 1";
+            string queryEliminar = queryModificar + " WHERE empresa_estado = 1 ORDER BY 1";
             DataTable dt2 = BD.busqueda(queryEliminar);
             dataGridEliminar.Columns.Clear();
             dataGridEliminar.DataSource = dt2;
@@ -103,10 +103,10 @@ namespace PagoAgilFrba.AbmEmpresa
 
         private void textElimNombre_TextChanged(object sender, EventArgs e)
         {
-            String query = "SELECT emp_nombre,rubro_desc,emp_CUIT FROM EL_JAPONES_SANGRANDO.Empresas join EL_JAPONES_SANGRANDO.Rubros on emp_rubro = rubro_id WHERE " +
-                         "emp_estado = 1 AND " +
-                         "emp_nombre LIKE '" + textElimNombre.Text + "%' AND " +
-                         "emp_CUIT LIKE '" + textElimCuit.Text + "%' " +
+            String query = "SELECT empresa_nombre,rubro_desc,empresa_cuit FROM EL_JAPONES_SANGRANDO.Empresas join EL_JAPONES_SANGRANDO.Rubros on empresa_rubro = rubro_id WHERE " +
+                         "empresa_estado = 1 AND " +
+                         "empresa_nombre LIKE '" + textElimNombre.Text + "%' AND " +
+                         "empresa_cuit LIKE '" + textElimCuit.Text + "%' " +
                          condicionRubro(comboElimRubro.Text);
             dataGridEliminar.DataSource = BD.busqueda(query);
         }
@@ -119,9 +119,9 @@ namespace PagoAgilFrba.AbmEmpresa
 
         private void actualizarGrid(DataGridView dgv , string nombre, string cuit, string rubro)
         {
-            String query = "SELECT emp_nombre,rubro_desc,emp_CUIT FROM EL_JAPONES_SANGRANDO.Empresas join EL_JAPONES_SANGRANDO.Rubros on emp_rubro = rubro_id WHERE " +
-                         "emp_nombre LIKE '" + nombre + "%' AND " +
-                         "emp_CUIT LIKE '" + cuit + "%' " +
+            String query = "SELECT empresa_nombre,rubro_desc,empresa_cuit FROM EL_JAPONES_SANGRANDO.Empresas join EL_JAPONES_SANGRANDO.Rubros on empresa_rubro = rubro_id WHERE " +
+                         "empresa_nombre LIKE '" + nombre + "%' AND " +
+                         "empresa_cuit LIKE '" + cuit + "%' " +
                          condicionRubro(rubro);
             dgv.DataSource = BD.busqueda(query);
         }
@@ -137,10 +137,10 @@ namespace PagoAgilFrba.AbmEmpresa
 
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
             {
-                string x = dataGridEliminar.Rows[e.RowIndex].Cells["emp_CUIT"].Value.ToString();
+                string x = dataGridEliminar.Rows[e.RowIndex].Cells["empresa_cuit"].Value.ToString();
                 if (BD.todasRendidas(x))
                 {
-                    if (BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Empresas SET emp_estado = 0 WHERE emp_CUIT = '" + x + "'") > 0)
+                    if (BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Empresas SET empresa_estado = 0 WHERE empresa_cuit = '" + x + "'") > 0)
                     {
                         MessageBox.Show("Empresa eliminada", "Al pique quique", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         cargarGrids();
@@ -160,7 +160,7 @@ namespace PagoAgilFrba.AbmEmpresa
 
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
             {
-                string cuit = dataGridViewModificarC.Rows[e.RowIndex].Cells["emp_CUIT"].Value.ToString();
+                string cuit = dataGridViewModificarC.Rows[e.RowIndex].Cells["empresa_cuit"].Value.ToString();
                 this.Hide();
                 new Eliminar_Modificar_Empresa_Seleccionada(cuit).ShowDialog();
                 this.Show();

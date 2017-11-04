@@ -26,7 +26,7 @@ namespace PagoAgilFrba.AbmRol
             //BD.crearRol(rol);
 
             string queryInsert = "INSERT INTO EL_JAPONES_SANGRANDO.Roles (rol_nombre) values ('" + rol +"')";
-            string queryUpdate = "INSERT INTO EL_JAPONES_SANGRANDO.RolFuncionalidades (rolf_rol,rolf_func) values ";
+            string queryUpdate = "INSERT INTO EL_JAPONES_SANGRANDO.Rol_Funcionalidad (rol_Funcionalidad_rol,rol_Funcionalidad_funcionalidad) values ";
             string funcionalidades = "";
             foreach (DataGridViewRow r in funcionalidadesDGV.SelectedRows){
                 string funcionalidadId = r.Cells[0].Value.ToString();
@@ -75,7 +75,7 @@ namespace PagoAgilFrba.AbmRol
             int valor = checkBox2.Checked ? 1 : 0;
             string rol = comboModificar.SelectedValue.ToString();
             BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Roles SET rol_estado = " + valor + " WHERE rol_nombre = '" + rol+ "'");
-            BD.ABM("DELETE FROM EL_JAPONES_SANGRANDO.RolFuncionalidades where rolf_rol = '" + rol + "'");
+            BD.ABM("DELETE FROM EL_JAPONES_SANGRANDO.Rol_Funcionalidad where rol_Funcionalidad_rol = '" + rol + "'");
 
             foreach (DataGridViewRow r in dataGridFuncModificar.SelectedRows)
             {

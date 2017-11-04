@@ -16,20 +16,20 @@ namespace PagoAgilFrba.AbmFactura
         {
             InitializeComponent();
 
-            DataTable tabla = BD.busqueda("select * from EL_JAPONES_SANGRANDO.Facturas where fact_num ='" + numeroDeFactura + "'");
-            txtDni.Text = BD.devolverColumna(tabla, "fact_cliente");
+            DataTable tabla = BD.busqueda("select * from EL_JAPONES_SANGRANDO.Facturas where factura_numero ='" + numeroDeFactura + "'");
+            txtDni.Text = BD.devolverColumna(tabla, "factura_cliente");
             txtCantidad.Text = "";
-            CheckHabilitado.Checked = BD.devolverColumna(tabla, "fact_estado") == "1";
-            txtEmpresa.Text = BD.consultaDeUnSoloResultado("Select emp_nombre from EL_JAPONES_SANGRANDO.Empresas where emp_CUIT = '"+BD.devolverColumna(tabla, "fact_empresa")+"'");
-            txtFactura.Text = BD.devolverColumna(tabla, "fact_num");
+            CheckHabilitado.Checked = BD.devolverColumna(tabla, "factura_estado") == "1";
+            txtEmpresa.Text = BD.consultaDeUnSoloResultado("Select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_cuit = '"+BD.devolverColumna(tabla, "factura_empresa")+"'");
+            txtFactura.Text = BD.devolverColumna(tabla, "factura_numero");
             txtMonto.Text = "";
-            dateVenc.Text = BD.devolverColumna(tabla, "fact_fechavenc");
-            dateAlta.Text = BD.devolverColumna(tabla, "fact_fechaalta");
-            DataTable tabla2 = BD.busqueda("select * from EL_JAPONES_SANGRANDO.ItemFactura where itemfact_factura ='" + numeroDeFactura + "'");
+            dateVenc.Text = BD.devolverColumna(tabla, "factura_fecha_vencimiento");
+            dateAlta.Text = BD.devolverColumna(tabla, "factura_fecha");
+            DataTable tabla2 = BD.busqueda("select * from EL_JAPONES_SANGRANDO.Item_Factura where item_factura ='" + numeroDeFactura + "'");
             foreach (DataRow eachItem in tabla2.Rows)
             {
                
-                string[] row = { eachItem["itemfact_cantidad"].ToString(), eachItem["itemfact_monto"].ToString()};
+                string[] row = { eachItem["item_cantidad"].ToString(), eachItem["item_monto"].ToString()};
                 var listViewItem = new ListViewItem(row);
                 listaSeleccionados.Items.Add(listViewItem);
             }
@@ -50,9 +50,9 @@ namespace PagoAgilFrba.AbmFactura
         private void btnAceptar_Click(object sender, EventArgs e)
         {
 
-            string queryEliminarfacturas = "Delete from EL_JAPONES_SANGRANDO.ItemFactura where itemfact_factura = " + txtFactura.Text;
+            string queryEliminarfacturas = "Delete from EL_JAPONES_SANGRANDO.Item_Factura where item_factura = " + txtFactura.Text;
             double sum = 0;
-            string query = "INSERT INTO EL_JAPONES_SANGRANDO.ItemFactura (itemfact_monto, itemfact_cantidad, itemfact_factura) VALUES "; 
+            string query = "INSERT INTO EL_JAPONES_SANGRANDO.Item_Factura (item_monto, item_cantidad, item_factura) VALUES "; 
             foreach (ListViewItem eachItem in listaSeleccionados.Items)
             {
                 double cantidad = Double.Parse(eachItem.SubItems[1].Text);
@@ -62,10 +62,10 @@ namespace PagoAgilFrba.AbmFactura
             query = query.Substring(0, query.Length - 1);
             formatoFecha.formatoFecha.SetMyCustomFormatYYYYMMDD(dateAlta);
             formatoFecha.formatoFecha.SetMyCustomFormatYYYYMMDD(dateVenc);
-            string empresa = BD.consultaDeUnSoloResultado("(select TOP 1 emp_CUIT from EL_JAPONES_SANGRANDO.Empresas where emp_nombre = '" + txtEmpresa.Text + "')");
+            string empresa = BD.consultaDeUnSoloResultado("(select TOP 1 empresa_cuit from EL_JAPONES_SANGRANDO.Empresas where empresa_nombre = '" + txtEmpresa.Text + "')");
             int x = CheckHabilitado.Checked ? 1 : 0;
 
-            string queryFactura = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET fact_estado = '"+ x + "', fact_Empresa = '" + empresa + "', fact_cliente = '" + txtDni.Text + "', fact_fechaalta = '" + dateAlta.Text + "', fact_fechavenc = '" + dateVenc.Text + "', fact_total ='"+ sum+"' where fact_num ='"
+            string queryFactura = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET factura_estado = '"+ x + "', factura_Empresa = '" + empresa + "', factura_cliente = '" + txtDni.Text + "', factura_fecha = '" + dateAlta.Text + "', factura_fecha_vencimiento = '" + dateVenc.Text + "', factura_total ='"+ sum+"' where factura_numero ='"
                                     + txtFactura.Text+"'";
                                     
 

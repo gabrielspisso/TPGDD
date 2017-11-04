@@ -16,14 +16,14 @@ namespace PagoAgilFrba.AbmCliente
         public Eliminar_Modificar_Cliente_Seleccionado(string dni)
         {
             InitializeComponent();
-            DataTable tabla = BD.busqueda("select * from EL_JAPONES_SANGRANDO.Clientes where cli_DNI ='"+dni+"'");
-            textDNI.Text = BD.devolverColumna(tabla, "cli_DNI");
-            textCodigoPostal.Text = BD.devolverColumna(tabla, "cli_CP");
-            textMailN.Text = BD.devolverColumna(tabla, "cli_mail");
-            textDireccionN.Text = BD.devolverColumna(tabla, "cli_direccion");
-            textNombreN.Text = BD.devolverColumna(tabla, "cli_nombre");
-            textApellidoN.Text = BD.devolverColumna(tabla, "cli_apellido");
-            CheckHabilitado.Checked = BD.devolverColumna(tabla, "cli_estado") == "True";
+            DataTable tabla = BD.busqueda("select * from EL_JAPONES_SANGRANDO.Clientes where cliente_DNI ='"+dni+"'");
+            textDNI.Text = BD.devolverColumna(tabla, "cliente_DNI");
+            textCodigoPostal.Text = BD.devolverColumna(tabla, "cliente_codigo_postal");
+            textMailN.Text = BD.devolverColumna(tabla, "cliente_mail");
+            textDireccionN.Text = BD.devolverColumna(tabla, "cliente_direccion");
+            textNombreN.Text = BD.devolverColumna(tabla, "cliente_nombre");
+            textApellidoN.Text = BD.devolverColumna(tabla, "cliente_apellido");
+            CheckHabilitado.Checked = BD.devolverColumna(tabla, "cliente_estado") == "True";
             
             
 
@@ -39,14 +39,14 @@ namespace PagoAgilFrba.AbmCliente
         private void button3_Click(object sender, EventArgs e)
         {
             int x = CheckHabilitado.Checked ? 1 : 0;
-            if (BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Clientes SET cli_direccion = '" + textDireccionN.Text +
-                "',cli_CP = '" + textCodigoPostal.Text +
-                "',cli_mail = '" + textMailN.Text +
-                "',cli_nombre = '" + textNombreN.Text +
-                "',cli_apellido = '" + textApellidoN.Text +
-                "',cli_fechanac = '" + dateTimePickerFechaNac.Text +
-                "',cli_estado = '" + x +
-                "' WHERE cli_DNI = '" + textDNI.Text + "'") > 0){
+            if (BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Clientes SET cliente_direccion = '" + textDireccionN.Text +
+                "',cliente_codigo_postal = '" + textCodigoPostal.Text +
+                "',cliente_mail = '" + textMailN.Text +
+                "',cliente_nombre = '" + textNombreN.Text +
+                "',cliente_apellido = '" + textApellidoN.Text +
+                "',cliente_fecha_nacimiento = '" + dateTimePickerFechaNac.Text +
+                "',cliente_estado = '" + x +
+                "' WHERE cliente_DNI = '" + textDNI.Text + "'") > 0){
                     this.Close();
                     MessageBox.Show("Se pudo modificar el rol", "Modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

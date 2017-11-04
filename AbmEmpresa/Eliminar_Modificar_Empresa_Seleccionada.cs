@@ -16,12 +16,12 @@ namespace PagoAgilFrba.AbmEmpresa
         public Eliminar_Modificar_Empresa_Seleccionada(string cuit)
         {
             InitializeComponent();
-            DataTable tabla = BD.busqueda("select * from EL_JAPONES_SANGRANDO.Empresas where emp_CUIT ='" + cuit + "'");
-            textNombre.Text = BD.devolverColumna(tabla, "emp_nombre");
-            textDireccion.Text = BD.devolverColumna(tabla, "emp_direccion");
-            comboBox1.Text = BD.devolverColumna(tabla, "emp_rubro");
-            textCuit.Text = BD.devolverColumna(tabla, "emp_CUIT");
-            CheckHabilitado.Checked = BD.devolverColumna(tabla, "emp_estado") == "True";
+            DataTable tabla = BD.busqueda("select * from EL_JAPONES_SANGRANDO.Empresas where empresa_cuit ='" + cuit + "'");
+            textNombre.Text = BD.devolverColumna(tabla, "empresa_nombre");
+            textDireccion.Text = BD.devolverColumna(tabla, "empresa_direccion");
+            comboBox1.Text = BD.devolverColumna(tabla, "empresa_rubro");
+            textCuit.Text = BD.devolverColumna(tabla, "empresa_cuit");
+            CheckHabilitado.Checked = BD.devolverColumna(tabla, "empresa_estado") == "True";
             
         }
 
@@ -44,11 +44,11 @@ namespace PagoAgilFrba.AbmEmpresa
             {
                 string subquery = "(SELECT rubro_id FROM EL_JAPONES_SANGRANDO.Rubros WHERE rubro_desc = '" + comboBox1.Text + "')";
                 if (BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Empresas SET " +
-                    "emp_nombre = '" + textNombre.Text +
-                    "',emp_direccion = '" + textDireccion.Text +
-                    "',emp_rubro = " + subquery +
-                    ",emp_estado = " + x +
-                    " WHERE emp_CUIT = '" + textCuit.Text + "'") > 0)
+                    "empresa_nombre = '" + textNombre.Text +
+                    "',empresa_direccion = '" + textDireccion.Text +
+                    "',empresa_rubro = " + subquery +
+                    ",empresa_estado = " + x +
+                    " WHERE empresa_cuit = '" + textCuit.Text + "'") > 0)
                 {
                     this.Close();
                     MessageBox.Show("Se pudo modificar la Empresa", "Modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);

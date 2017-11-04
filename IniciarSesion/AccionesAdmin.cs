@@ -16,7 +16,7 @@ namespace PagoAgilFrba.IniciarSesion
         {
             string rolSeleccionado = rol;
             InitializeComponent();
-            string query = "select (select func_desc from EL_JAPONES_SANGRANDO.Funcionalidades where func_id = rolf_func ) from EL_JAPONES_SANGRANDO.RolFuncionalidades where rolf_rol = '" + rolSeleccionado + "'";
+            string query = "select (select funcionalidad_descripcion from EL_JAPONES_SANGRANDO.Funcionalidades where funcionalidad_id = rol_Funcionalidad_funcionalidad ) from EL_JAPONES_SANGRANDO.Rol_Funcionalidad where rol_Funcionalidad_rol = '" + rolSeleccionado + "'";
             List<String> lista = BD.listaDeUnCampo(query);
             comboAccion.DataSource = lista;
             Acciones.Controls.Remove(tabPage3);
@@ -41,23 +41,23 @@ namespace PagoAgilFrba.IniciarSesion
 
         private void button8_Click(object sender, EventArgs e)
         {
-            string fact_num = textFacturaDev.Text;
+            string factura_numero = textFacturaDev.Text;
             string motivo = richTextDev.Text;
 
-            if (fact_num != "" && motivo != "")
+            if (factura_numero != "" && motivo != "")
             {
-                DataTable dt = BD.busqueda("SELECT fact_estado FROM EL_JAPONES_SANGRANDO.Facturas WHERE fact_num = " + fact_num);
-                int fact_estado = Int32.Parse(BD.devolverColumna(dt, "fact_estado"));
-                if (fact_estado != 2)
+                DataTable dt = BD.busqueda("SELECT factura_estado FROM EL_JAPONES_SANGRANDO.Facturas WHERE factura_numero = " + factura_numero);
+                int factura_estado = Int32.Parse(BD.devolverColumna(dt, "factura_estado"));
+                if (factura_estado != 2)
                 {
-                    string razon = (fact_estado == 1) ? "no se ha pagado" : (fact_estado == 3) ? "ya se ha rendido" : "se ha eliminado";
+                    string razon = (factura_estado == 1) ? "no se ha pagado" : (factura_estado == 3) ? "ya se ha rendido" : "se ha eliminado";
                     MessageBox.Show("Esta factura no puede devolverse debido a que " + razon, "Al pique quique", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
                     List<string> queries = new List<string>();
-                    string insert = "INSERT INTO EL_JAPONES_SANGRANDO.Devoluciones (dev_desc,dev_fact)values('" + motivo + "'," + fact_num + ")";
-                    string update = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET fact_estado = 1 WHERE fact_num = " + fact_num;
+                    string insert = "INSERT INTO EL_JAPONES_SANGRANDO.Devoluciones (devolucion_descripcion,devolucion_factura)values('" + motivo + "'," + factura_numero + ")";
+                    string update = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET factura_estado = 1 WHERE factura_numero = " + factura_numero;
                     queries.Add(insert);
                     queries.Add(update);
                     if (BD.correrStoreProcedure(queries) > 0)
@@ -131,22 +131,22 @@ namespace PagoAgilFrba.IniciarSesion
                 {
                     case 0://Porcentaje de facturas cobradas por empresa
                         {
-                            query = "SELECT TOP 5 emp_nombre, (select rubro_desc from EL_JAPONES_SANGRANDO.Rubros where rubro_id = emp_rubro) as empresa_rubro, emp_cuit,isnull((((select count(*) from EL_JAPONES_SANGRANDO.Facturas where fact_empresa = emp_cuit and fact_estado = 2 and YEAR(fact_fechaalta) = " + anio + " and (MONTH(fact_fechaalta) = (" + trimestre + " * 3) OR MONTH(fact_fechaalta) = (" + trimestre + " * 3) -1 OR MONTH(fact_fechaalta) = (" + trimestre + " * 3) -2)) *  100 / NULLIF((select count(*) from EL_JAPONES_SANGRANDO.Facturas where fact_empresa = emp_cuit and YEAR(fact_fechaalta) = " + anio + " and (MONTH(fact_fechaalta) = (" + trimestre + " * 3) OR MONTH(fact_fechaalta) = (" + trimestre + " * 3) -1 OR MONTH(fact_fechaalta) = (" + trimestre + " * 3) -2)), 0))),0) as \"Porcentaje de facturas cobradas\" FROM EL_JAPONES_SANGRANDO.Empresas group by emp_nombre, emp_rubro, emp_CUIT ORDER BY 4 DESC";
+                            query = "SELECT TOP 5 empresa_nombre, (select rubro_desc from EL_JAPONES_SANGRANDO.Rubros where rubro_id = empresa_rubro) as empresa_rubro, empresa_cuit,isnull((((select count(*) from EL_JAPONES_SANGRANDO.Facturas where factura_empresa = empresa_cuit and factura_estado = 2 and YEAR(factura_fecha) = " + anio + " and (MONTH(factura_fecha) = (" + trimestre + " * 3) OR MONTH(factura_fecha) = (" + trimestre + " * 3) -1 OR MONTH(factura_fecha) = (" + trimestre + " * 3) -2)) *  100 / NULLIF((select count(*) from EL_JAPONES_SANGRANDO.Facturas where factura_empresa = empresa_cuit and YEAR(factura_fecha) = " + anio + " and (MONTH(factura_fecha) = (" + trimestre + " * 3) OR MONTH(factura_fecha) = (" + trimestre + " * 3) -1 OR MONTH(factura_fecha) = (" + trimestre + " * 3) -2)), 0))),0) as \"Porcentaje de facturas cobradas\" FROM EL_JAPONES_SANGRANDO.Empresas group by empresa_nombre, empresa_rubro, empresa_cuit ORDER BY 4 DESC";
                         };
                         break;
                     case 1://Empresas con mayor monto rendido
                         {
-                            query = "SELECT TOP 5 emp_nombre, (select rubro_desc from EL_JAPONES_SANGRANDO.Rubros where rubro_id = emp_rubro) as empresa_rubro, emp_cuit, SUM(rend_importe) as Monto_total_rendido FROM EL_JAPONES_SANGRANDO.Empresas join EL_JAPONES_SANGRANDO.Rendiciones ON rend_empresa = emp_CUIT where YEAR(rend_fecha) = " + anio + " and (MONTH(rend_fecha) = (" + trimestre + " * 3) OR MONTH(rend_fecha) = (" + trimestre + " * 3) -1 	OR MONTH(rend_fecha) = (" + trimestre + " * 3) -2) GROUP BY emp_CUIT, emp_nombre, emp_rubro ORDER BY 4 DESC";
+                            query = "SELECT TOP 5 empresa_nombre, (select rubro_desc from EL_JAPONES_SANGRANDO.Rubros where rubro_id = empresa_rubro) as empresa_rubro, empresa_cuit, SUM(rendicion_importe) as Monto_total_rendido FROM EL_JAPONES_SANGRANDO.Empresas join EL_JAPONES_SANGRANDO.Rendiciones ON rendicion_empresa = empresa_cuit where YEAR(rendicion_fecha) = " + anio + " and (MONTH(rendicion_fecha) = (" + trimestre + " * 3) OR MONTH(rendicion_fecha) = (" + trimestre + " * 3) -1 	OR MONTH(rendicion_fecha) = (" + trimestre + " * 3) -2) GROUP BY empresa_cuit, empresa_nombre, empresa_rubro ORDER BY 4 DESC";
                         };
                         break;
                     case 2://Clientes con mas pagos
                         {
-                            query = "SELECT TOP 5 cli_nombre, cli_apellido, cli_DNI, cli_mail, (SELECT COUNT(*) FROM EL_JAPONES_SANGRANDO.Pagos  WHERE pago_cliente = cli_DNI 	and YEAR(pago_fecha) = " + anio + "and (MONTH(pago_fecha) = (" + trimestre + " * 3) OR MONTH(pago_fecha) = (" + trimestre + " * 3) -1 	OR MONTH(pago_fecha) = (" + trimestre + " * 3) -2)) as Cantidad_de_Pagos FROM EL_JAPONES_SANGRANDO.Clientes GROUP BY cli_nombre, cli_apellido, cli_DNI, cli_mail ORDER BY 5 DESC;";
+                            query = "SELECT TOP 5 cliente_nombre, cliente_apellido, cliente_DNI, cliente_mail, (SELECT COUNT(*) FROM EL_JAPONES_SANGRANDO.Pagos  WHERE pago_cliente = cliente_DNI 	and YEAR(pago_fecha) = " + anio + "and (MONTH(pago_fecha) = (" + trimestre + " * 3) OR MONTH(pago_fecha) = (" + trimestre + " * 3) -1 	OR MONTH(pago_fecha) = (" + trimestre + " * 3) -2)) as Cantidad_de_Pagos FROM EL_JAPONES_SANGRANDO.Clientes GROUP BY cliente_nombre, cliente_apellido, cliente_DNI, cliente_mail ORDER BY 5 DESC;";
                         };
                         break;
                     case 3://Clientes cumplidores
                         {
-                            query = "SELECT TOP 5 emp_nombre, (select rubro_desc from EL_JAPONES_SANGRANDO.Rubros where rubro_id = emp_rubro), emp_cuit, SUM(rend_importeFinal) as Monto_total_rendido FROM EL_JAPONES_SANGRANDO.Empresas join EL_JAPONES_SANGRANDO.Rendiciones ON rend_empresa = emp_CUIT where YEAR(rend_fecha) = " + anio + "	and (MONTH(rend_fecha) = (" + trimestre + " * 3) 	OR MONTH(rend_fecha) = (" + trimestre + " * 3) -1 OR MONTH(rend_fecha) = (" + trimestre + " * 3) -2) GROUP BY emp_nombre, emp_rubro, emp_CUIT ORDER BY 4 DESC";
+                            query = "SELECT TOP 5 empresa_nombre, (select rubro_desc from EL_JAPONES_SANGRANDO.Rubros where rubro_id = empresa_rubro), empresa_cuit, SUM(rendicion_importeFinal) as Monto_total_rendido FROM EL_JAPONES_SANGRANDO.Empresas join EL_JAPONES_SANGRANDO.Rendiciones ON rendicion_empresa = empresa_cuit where YEAR(rendicion_fecha) = " + anio + "	and (MONTH(rendicion_fecha) = (" + trimestre + " * 3) 	OR MONTH(rendicion_fecha) = (" + trimestre + " * 3) -1 OR MONTH(rendicion_fecha) = (" + trimestre + " * 3) -2) GROUP BY empresa_nombre, empresa_rubro, empresa_cuit ORDER BY 4 DESC";
                         };
                         break;
                 }

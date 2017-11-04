@@ -26,11 +26,11 @@ namespace PagoAgilFrba.RegistroPago
 
         private void Pagos_Load(object sender, EventArgs e)
         {
-            List<string> lista = BD.listaDeUnCampo("select emp_nombre from EL_JAPONES_SANGRANDO.Empresas");
+            List<string> lista = BD.listaDeUnCampo("select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas");
             lista.Insert(0,"");
             comboEmpresas.DataSource = lista;
-            comboMedioDePago.DataSource = BD.listaDeUnCampo("select medio_desc from EL_JAPONES_SANGRANDO.MediosDePago");
-            comboSucursal.DataSource = BD.listaDeUnCampo("select suc_nombre from EL_JAPONES_SANGRANDO.Sucursales");
+            comboMedioDePago.DataSource = BD.listaDeUnCampo("select formaDePago_desc from EL_JAPONES_SANGRANDO.Formas_De_Pago");
+            comboSucursal.DataSource = BD.listaDeUnCampo("select sucursal_nombre from EL_JAPONES_SANGRANDO.Sucursales");
         }
         /// <summary>
         /// 
@@ -56,23 +56,23 @@ namespace PagoAgilFrba.RegistroPago
 
         private string queryFactura()
         {
-            return txtFactura.Text == "" ? "" : ("fact_num =" + txtFactura.Text);
+            return txtFactura.Text == "" ? "" : ("factura_numero =" + txtFactura.Text);
         }
         private string queryVencimiento()
         {
-            return dateVenc.Text == "" ? "" : ("YEAR(fact_fechavenc) = "+ dateVenc.Value.Year +"and MONTH(fact_fechavenc) = "+dateVenc.Value.Month+" and DAY(fact_fechavenc) = " + dateVenc.Value.Day +" ");
+            return dateVenc.Text == "" ? "" : ("YEAR(factura_fecha_vencimiento) = "+ dateVenc.Value.Year +"and MONTH(factura_fecha_vencimiento) = "+dateVenc.Value.Month+" and DAY(factura_fecha_vencimiento) = " + dateVenc.Value.Day +" ");
         }
         private string queryDni()
         {
-            return txtDni.Text == "" ? "" : ("fact_cliente =" + txtDni.Text);
+            return txtDni.Text == "" ? "" : ("factura_cliente =" + txtDni.Text);
         }
 
         private string queryEmpresa()
         {
             if (comboEmpresas.Text != "")
             {
-                string empresaCuit = BD.consultaDeUnSoloResultado("select emp_CUIT from EL_JAPONES_SANGRANDO.Empresas where emp_nombre='" + comboEmpresas.Text + "'");
-                return "fact_empresa = '" + empresaCuit + "'";
+                string empresaCuit = BD.consultaDeUnSoloResultado("select empresa_cuit from EL_JAPONES_SANGRANDO.Empresas where empresa_nombre='" + comboEmpresas.Text + "'");
+                return "factura_empresa = '" + empresaCuit + "'";
             }
             return "";
         }
@@ -194,7 +194,7 @@ namespace PagoAgilFrba.RegistroPago
             double valor = 0;
             foreach (DataGridViewRow row in dataGridFacturas.SelectedRows)
             {
-                valor += double.Parse(row.Cells["fact_total"].Value.ToString());
+                valor += double.Parse(row.Cells["factura_total"].Value.ToString());
             }
             lblImporte.Text = valor.ToString();
         }
@@ -217,11 +217,11 @@ namespace PagoAgilFrba.RegistroPago
         private void insertarPago()
         {
             string idPago = BD.consultaDeUnSoloResultado("select top 1 pago_nro+1 from EL_JAPONES_SANGRANDO.Pagos ORDER BY pago_nro desc");
-            string sucursal = BD.consultaDeUnSoloResultado("SELECT suc_CP from EL_JAPONES_SANGRANDO.Sucursales where suc_nombre='" + comboSucursal.Text +"'");
-            string medio = BD.consultaDeUnSoloResultado("SELECT medio_id from EL_JAPONES_SANGRANDO.MediosDePago where medio_desc='" + comboMedioDePago.Text + "'");
+            string sucursal = BD.consultaDeUnSoloResultado("SELECT sucursal_codigo_postal from EL_JAPONES_SANGRANDO.Sucursales where sucursal_nombre='" + comboSucursal.Text +"'");
+            string medio = BD.consultaDeUnSoloResultado("SELECT formaDePago_id from EL_JAPONES_SANGRANDO.Formas_De_Pago where formaDePago_desc='" + comboMedioDePago.Text + "'");
             string fecha = dateVenc.Value.Date.ToString("MM/dd/yyyy");
             SqlConnection con = BD.getConnection();
-            using (SqlCommand cmd = new SqlCommand("INSERT INTO EL_JAPONES_SANGRANDO.Pagos (pago_nro, pago_suc,pago_importe,pago_medio,pago_fecha) VALUES(@idpago,@sucursal,@importe,@medio,@fecha)", con))
+            using (SqlCommand cmd = new SqlCommand("INSERT INTO EL_JAPONES_SANGRANDO.Pagos (pago_nro, pago_sucursal,pago_importe,pago_formaDePago,pago_fecha) VALUES(@idpago,@sucursal,@importe,@medio,@fecha)", con))
             {
                 cmd.Parameters.AddWithValue("@idpago", idPago);
                 cmd.Parameters.AddWithValue("@sucursal", sucursal);
@@ -238,8 +238,8 @@ namespace PagoAgilFrba.RegistroPago
             MessageBox.Show(idPago.ToString());
             foreach (DataGridViewRow row in dataGridFacturas.SelectedRows)
             {
-                string factura = row.Cells["fact_num"].Value.ToString();
-                BD.ABM("INSERT INTO EL_JAPONES_SANGRANDO.PagoFactura(pagfact_factura,pagfact_pago) values (" + factura + "," + idPago+")");
+                string factura = row.Cells["factura_numero"].Value.ToString();
+                BD.ABM("INSERT INTO EL_JAPONES_SANGRANDO.Pago_Factura(pago_Factura_factura,pago_Factura_pago) values (" + factura + "," + idPago+")");
 
 
 

@@ -36,7 +36,7 @@ namespace PagoAgilFrba
         internal static bool autenticacionCorrecta(string username, string password)
         {
             SqlConnection connection = getConnection();
-            SqlCommand loginCommand = new SqlCommand("SELECT usr_name, usr_pass,usr_cantidadDeIntentos FROM EL_JAPONES_SANGRANDO.Usuarios WHERE usr_name=@username");
+            SqlCommand loginCommand = new SqlCommand("SELECT usuario_nombre, usuario_contrasena,usuario_cantidadDeIntentos FROM EL_JAPONES_SANGRANDO.Usuarios WHERE usuario_nombre=@username");
             loginCommand.Parameters.AddWithValue("username", username);
             loginCommand.Connection = connection;
             connection.Open();
@@ -46,9 +46,9 @@ namespace PagoAgilFrba
             int intentosFallidos = 0;
             while (reader.Read())
             {
-                nombreUsuario = reader["usr_name"].ToString();
-                dbPassword = reader.GetSqlBytes(reader.GetOrdinal("usr_pass")).Buffer;
-                intentosFallidos = reader.GetInt32(reader.GetOrdinal("usr_cantidadDeIntentos"));
+                nombreUsuario = reader["usuario_nombre"].ToString();
+                dbPassword = reader.GetSqlBytes(reader.GetOrdinal("usuario_contrasena")).Buffer;
+                intentosFallidos = reader.GetInt32(reader.GetOrdinal("usuario_cantidadDeIntentos"));
             }
             reader.Close();
             connection.Close();
@@ -89,7 +89,7 @@ namespace PagoAgilFrba
         internal static int cantidadDeVecesPorUsuario(string username)
         {
             SqlConnection connection = getConnection();
-            SqlCommand loginCommand = new SqlCommand("SELECT usr_cantidadDeIntentos FROM EL_JAPONES_SANGRANDO.Usuarios WHERE usr_name=@username");
+            SqlCommand loginCommand = new SqlCommand("SELECT usuario_cantidadDeIntentos FROM EL_JAPONES_SANGRANDO.Usuarios WHERE usuario_nombre=@username");
             loginCommand.Parameters.AddWithValue("username", username);
             loginCommand.Connection = connection;
             connection.Open();
@@ -97,7 +97,7 @@ namespace PagoAgilFrba
             string cantidadDeVeces = "0";
             while (reader.Read())
             {
-                cantidadDeVeces = reader["usr_name"].ToString();
+                cantidadDeVeces = reader["usuario_nombre"].ToString();
             }
             reader.Close();
             connection.Close();
@@ -109,7 +109,7 @@ namespace PagoAgilFrba
         {
             List<String> listaRoles = new List<string>();
             SqlConnection connection = getConnection();
-            SqlCommand loginCommand = new SqlCommand("SELECT rol_nombre FROM EL_JAPONES_SANGRANDO.Roles JOIN EL_JAPONES_SANGRANDO.RolUsuario on rol_nombre=rolusr_rol WHERE rolusr_usr=@username and rol_estado=1");
+            SqlCommand loginCommand = new SqlCommand("SELECT rol_nombre FROM EL_JAPONES_SANGRANDO.Roles JOIN EL_JAPONES_SANGRANDO.Usuario_Rol on rol_nombre=usuario_Rol_rol WHERE Usuario_Rol_usuario=@username and rol_estado=1");
             loginCommand.Parameters.AddWithValue("username", username);
             loginCommand.Connection = connection;
             connection.Open();
@@ -175,8 +175,8 @@ namespace PagoAgilFrba
           
          SqlConnection connection = getConnection();
             connection.Open();
-            SqlCommand query = new SqlCommand("UPDATE EL_JAPONES_SANGRANDO.Usuarios SET usr_cantidadDeIntentos = @cantidad WHERE usr_name = @usr_name");
-            query.Parameters.AddWithValue("usr_name",username);
+            SqlCommand query = new SqlCommand("UPDATE EL_JAPONES_SANGRANDO.Usuarios SET usuario_cantidadDeIntentos = @cantidad WHERE usuario_nombre = @usuario_nombre");
+            query.Parameters.AddWithValue("usuario_nombre",username);
 
             query.Parameters.AddWithValue("cantidad", numeroDeIntentos);
             query.Connection = connection;
@@ -199,7 +199,7 @@ namespace PagoAgilFrba
         {
             SqlConnection connection = getConnection();
             connection.Open();
-            SqlCommand query = new SqlCommand("INSERT INTO EL_JAPONES_SANGRANDO.[RolFuncionalidades](rolf_rol,rolf_func)values(@rol,@funcionalidad)");
+            SqlCommand query = new SqlCommand("INSERT INTO EL_JAPONES_SANGRANDO.[Rol_Funcionalidad](rol_Funcionalidad_rol,rol_Funcionalidad_funcionalidad)values(@rol,@funcionalidad)");
             query.Parameters.AddWithValue("rol", rol);
             query.Parameters.AddWithValue("funcionalidad", funcionalidadId);
 
@@ -278,8 +278,8 @@ namespace PagoAgilFrba
 
         public static sucursal devolverSucursal(String sucursalNombre){
             SqlConnection connection = getConnection();
-            SqlCommand loginCommand = new SqlCommand("SELECT * FROM EL_JAPONES_SANGRANDO.Sucursales WHERE suc_nombre=@suc_nombre");
-            loginCommand.Parameters.AddWithValue("suc_nombre", sucursalNombre);
+            SqlCommand loginCommand = new SqlCommand("SELECT * FROM EL_JAPONES_SANGRANDO.Sucursales WHERE sucursal_nombre=@sucursal_nombre");
+            loginCommand.Parameters.AddWithValue("sucursal_nombre", sucursalNombre);
             loginCommand.Connection = connection;
 
             connection.Open();
@@ -291,9 +291,9 @@ namespace PagoAgilFrba
           
             while (reader.Read())
             {
-                nombre = reader["suc_nombre"].ToString();
-                direccion = reader["suc_dir"].ToString();
-                codigo = Int32.Parse(reader["suc_CP"].ToString());
+                nombre = reader["sucursal_nombre"].ToString();
+                direccion = reader["sucursal_direccion"].ToString();
+                codigo = Int32.Parse(reader["sucursal_codigo_postal"].ToString());
                 habilitado = reader.GetBoolean(3);
             }
             sucursal sucursal = new sucursal(nombre, codigo, direccion, habilitado);
@@ -321,7 +321,7 @@ namespace PagoAgilFrba
         }
 
 
-        internal static bool todasRendidas(string emp_cuit)
+        internal static bool todasRendidas(string empresa_cuit)
         {
             //TODO 
             return true;
