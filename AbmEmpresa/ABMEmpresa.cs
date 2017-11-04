@@ -51,7 +51,10 @@ namespace PagoAgilFrba.AbmEmpresa
             string nombre = textNuevoNombre.Text;
             string direccion = textNuevoDirec.Text;
             string cuit = textNuevoCuit.Text;
-
+            if( rubro == "" ||nombre == ""|| direccion == "" ||cuit == ""){
+                MessageBox.Show("Complete todos los campos");
+                return;
+            }
             string subquery = "(SELECT rubro_id FROM EL_JAPONES_SANGRANDO.Rubros WHERE rubro_desc = '" + rubro + "')";
             int x = BD.insert("Empresas", "(empresa_rubro,empresa_cuit,empresa_nombre,empresa_direccion)values(" +
                 subquery + ", '" +

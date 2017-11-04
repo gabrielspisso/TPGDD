@@ -34,6 +34,12 @@ namespace PagoAgilFrba.AbmEmpresa
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+
+            if (textNombre.Text == "" || textDireccion.Text == "" || comboBox1.Text == "" || textCuit.Text == "")
+            {
+                MessageBox.Show("Complete todos los campos");
+                return;
+            }
             int x = CheckHabilitado.Checked ? 1 : 0;
             if (cambio && !CheckHabilitado.Checked && !BD.todasRendidas(textCuit.Text))
             {

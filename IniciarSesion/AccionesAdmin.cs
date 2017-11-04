@@ -261,7 +261,11 @@ namespace PagoAgilFrba.IniciarSesion
             string idrendicion = "(select top 1 rendicion_nro from EL_JAPONES_SANGRANDO.Rendiciones order by rendicion_nro desc)";
             string idEmpresa = "(select empresa_cuit from EL_JAPONES_SANGRANDO.Empresas where empresa_nombre ='" + comboEmpresa.Text+ "')";
             string fecha = dateRendicion.Value.Date.ToString("MM/dd/yyyy");
-            BD.ABM("insert into EL_JAPONES_SANGRANDO.Rendiciones (rendicion_nro,rendicion_empresa,rendicion_importe,rendicion_porcentaje_comision,rendicion_cantfacturas,rendicion_fecha,rendicion_importeFinal) values (" + idrendicion + "+1," + idEmpresa + "," + lblImporte.Text + "," + comboPorcentaje.Text + "," + lblCantFacturas.Text + ",'" + fecha+"',"+lblGanancia.Text + ")");
+
+            List<String> lista = new List<string>();
+            
+            string insert = ("insert into EL_JAPONES_SANGRANDO.Rendiciones (rendicion_nro,rendicion_empresa,rendicion_importe,rendicion_porcentaje_comision,rendicion_cantfacturas,rendicion_fecha,rendicion_importeFinal) values (" + idrendicion + "+1," + idEmpresa + "," + lblImporte.Text.Replace(',', '.') + "," + comboPorcentaje.Text + "," + lblCantFacturas.Text + ",'" + fecha + "'," + lblGanancia.Text.Replace(',', '.') + ")");
+            lista.Add(insert);
             foreach (DataGridViewRow row in dataGridRendiciones.Rows)
             {
                 if (row.Cells[0].Value != null)
@@ -270,14 +274,17 @@ namespace PagoAgilFrba.IniciarSesion
                     double valor = double.Parse(row.Cells["factura_total"].Value.ToString());
                     double porcentaje = double.Parse(comboPorcentaje.Text) / 100;
                     valor = valor - valor * porcentaje;
-                    String insert = "INSERT INTO EL_JAPONES_SANGRANDO.Item_Rendicion(itemr_rendicion,itemr_factura,itemr_importe) values (" + idrendicion + "," + factura + "," + valor + ")";
-                    String update = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET factura_estado = 3 where factura_numero = '" + factura + "'";
-                    BD.ABM(insert);
-                    BD.ABM(update);
+                    String update = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET factura_estado = 3, factura_rendicion = "+idrendicion+" where factura_numero = '" + factura + "'";
+                    lista.Add(update);
 
                 }
             }
-
+           if(BD.correrStoreProcedure(lista)>0){
+            MessageBox.Show("Rendicion registrada");
+           }
+            else{
+                MessageBox.Show("No se pudo realizar la rendicion");
+            }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -285,7 +292,7 @@ namespace PagoAgilFrba.IniciarSesion
             dataGridRendiciones.DataSource = BD.busqueda("select factura_numero, factura_cliente, factura_fecha, factura_fecha_vencimiento, factura_total from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Empresas on factura_empresa = empresa_cuit where empresa_nombre = '" + comboEmpresa.Text + "' and month(factura_fecha) =  month(GETDATE()) and factura_estado = 2");
 
             double porcentaje = double.Parse(comboPorcentaje.Text)/100;
-            string query = "select count(*) as cantidad_facturas, sum(factura_total) as total, sum(factura_total * ( 1 - " + porcentaje + " )  ) as ganancia from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Empresas on factura_empresa = empresa_cuit where empresa_nombre = '" + comboEmpresa.Text + "' and month(factura_fecha) =  month(GETDATE()) and factura_estado = 2 group by empresa_cuit";
+            string query = "select count(*) as cantidad_facturas, sum(factura_total) as total, sum(factura_total * ( 1 - " + porcentaje.ToString().Replace(',','.') + " )  ) as ganancia from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Empresas on factura_empresa = empresa_cuit where empresa_nombre = '" + comboEmpresa.Text + "' and month(factura_fecha) =  month(GETDATE()) and factura_estado = 2 group by empresa_cuit";
 
             DataTable dt = BD.busqueda(query);
             if (dt.Rows.Count > 0)

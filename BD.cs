@@ -230,17 +230,17 @@ namespace PagoAgilFrba
         {
             SqlConnection connection = getConnection();
             connection.Open();
-            SqlCommand command = new SqlCommand();
+           
           
-            command.CommandType = CommandType.StoredProcedure;
-            String y = "";
+            String y = "BEGIN TRANSACTION;";
             listaDeValores.ForEach(delegate(String name)
             {
                 y += name +";";
             });
-            command.Parameters.AddWithValue("@query", y);
+            y+= "COMMIT;";
+             SqlCommand command = new SqlCommand(y);
             command.Connection = connection;
-            command.CommandText = "EL_JAPONES_SANGRANDO.ejecutarProcedure";
+            
             int x;
             try
             {

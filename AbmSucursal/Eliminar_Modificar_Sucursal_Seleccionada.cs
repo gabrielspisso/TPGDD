@@ -33,10 +33,18 @@ namespace PagoAgilFrba.Sucursal
         private void button3_Click(object sender, EventArgs e)
         {
             Boolean habilitado = CheckHabilitado.Checked;
-            
-            if(BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Sucursales SET sucursal_nombre = '"+textNombre.Text+"',sucursal_direccion = '"+textDireccion.Text+"',sucursal_estado = '"+habilitado+"' WHERE sucursal_nombre = '" + sucursalNombreViejo + "'") > 0)
+
+            if (textDireccion.Text == "" || textNombre.Text == "" || TextModificarCodigoPostal.Text == "")
+            {
+                MessageBox.Show("Complete todos los campos");
+                return;
+            }
+            if(BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Sucursales SET sucursal_nombre = '"+textNombre.Text+"',sucursal_direccion = '"+textDireccion.Text+"',sucursal_estado = '"+habilitado+"' WHERE sucursal_nombre = '" + sucursalNombreViejo + "'") > 0){
+
+
                 MessageBox.Show("Se pudo modificar el rol por datos erroneos", "Error en seleccion", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        
+            
+            }
         }
 
 

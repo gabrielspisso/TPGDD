@@ -48,7 +48,7 @@ namespace PagoAgilFrba.AbmCliente
                 "',cliente_estado = '" + x +
                 "' WHERE cliente_DNI = '" + textDNI.Text + "'") > 0){
                     this.Close();
-                    MessageBox.Show("Se pudo modificar el rol", "Modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Se pudo modificar el cliente", "Modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             else{
                 MessageBox.Show("Error en los datos", "Error en la modificacion", MessageBoxButtons.OK, MessageBoxIcon.Error);

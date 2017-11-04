@@ -20,7 +20,8 @@ namespace PagoAgilFrba.AbmFactura
             txtDni.Text = BD.devolverColumna(tabla, "factura_cliente");
             txtCantidad.Text = "";
             CheckHabilitado.Checked = BD.devolverColumna(tabla, "factura_estado") == "1";
-            txtEmpresa.Text = BD.consultaDeUnSoloResultado("Select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_cuit = '"+BD.devolverColumna(tabla, "factura_empresa")+"'");
+            txtEmpresa.DataSource = BD.listaDeUnCampo("Select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_estado = 1 ");
+            txtEmpresa.SelectedItem = BD.consultaDeUnSoloResultado("Select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_cuit = '" + BD.devolverColumna(tabla, "factura_empresa") + "'");
             txtFactura.Text = BD.devolverColumna(tabla, "factura_numero");
             txtMonto.Text = "";
             dateVenc.Text = BD.devolverColumna(tabla, "factura_fecha_vencimiento");
@@ -33,6 +34,7 @@ namespace PagoAgilFrba.AbmFactura
                 var listViewItem = new ListViewItem(row);
                 listaSeleccionados.Items.Add(listViewItem);
             }
+            actualizarlabel(null,null);
 
             
         }
@@ -76,12 +78,12 @@ namespace PagoAgilFrba.AbmFactura
                 listaDeStrings.Add(query);
                 if (BD.correrStoreProcedure(listaDeStrings) > 0)
                 {
-                        MessageBox.Show("Todo bien papu");
+                        MessageBox.Show("Se modifico correctamente");
                    
                 }
                 else
                 {
-                       MessageBox.Show("todo mal con los items");
+                       MessageBox.Show("No se pudo modificar la factura, revise los datos ingresados");
                 }
            
             this.Close();
@@ -135,6 +137,11 @@ namespace PagoAgilFrba.AbmFactura
         }
 
         private void listaSeleccionados_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtEmpresa_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

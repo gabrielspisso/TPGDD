@@ -30,7 +30,7 @@ namespace PagoAgilFrba.AbmCliente
 
         private void textBox10_TextChanged(object sender, EventArgs e)
         {
-            String query = "SELECT cliente_nombre,cliente_apellido,cliente_DNI FROM EL_JAPONES_SANGRANDO.Clientes WHERE " +
+            String query = "SELECT cliente_nombre,cliente_apellido,cliente_DNI FROM EL_JAPONES_SANGRANDO.Clientes WHERE cliente_estado = 1 AND " +
                            "cliente_nombre LIKE '" + textElimNombre.Text + "%' AND " +
                            "cliente_apellido LIKE '" + textElimApellido.Text + "%' " +
                            condicionDNI(textElimDNI.Text);

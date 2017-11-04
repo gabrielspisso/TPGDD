@@ -19,6 +19,11 @@ namespace PagoAgilFrba.Sucursal
 
             
             InitializeComponent();
+            actualizar();
+        }
+
+        private void actualizar()
+        {
             DataGridViewButtonColumn buttons = new DataGridViewButtonColumn();
             {
                 buttons.HeaderText = "Modificar";
@@ -44,7 +49,7 @@ namespace PagoAgilFrba.Sucursal
             dataGridViewModificarC.DataSource = BD.busqueda("select sucursal_nombre,sucursal_codigo_postal,sucursal_direccion from EL_JAPONES_SANGRANDO.Sucursales");
             DatagridViewEliminar.DataSource = BD.busqueda("select sucursal_nombre,sucursal_codigo_postal,sucursal_direccion from EL_JAPONES_SANGRANDO.Sucursales where sucursal_estado = 1");
             DatagridViewEliminar.Columns.Add(buttons2);
-          
+
             dataGridViewModificarC.Columns.Add(buttons);
         }
 
@@ -55,12 +60,18 @@ namespace PagoAgilFrba.Sucursal
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+           
             string codigo_postal = textAgregarCodigoPostal.Text;
             string nombre = textAgregarNombre.Text;
             string direccion = textAgregarDireccion.Text;
+            if(codigo_postal == "" || nombre == "" || direccion == ""){
+                MessageBox.Show("Complete todos los campos");
+                return;
+}
             if (BD.ABM("INSERT INTO [EL_JAPONES_SANGRANDO].[Sucursales](sucursal_codigo_postal,sucursal_direccion,sucursal_nombre)values('" + codigo_postal + "','" + nombre + "','" + direccion + "')") != 0)
             {
                 MessageBox.Show("La sucursal fue creada", "Estado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                actualizar();
             }
             else{
                  MessageBox.Show("Ya existe una sucursal con el mismo codigo postal o nombre", "Estado", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -107,7 +118,7 @@ namespace PagoAgilFrba.Sucursal
                 e.RowIndex >= 0)
             {
                 new Eliminar_Modificar_Sucursal_Seleccionada(dataGridViewModificarC.Rows[e.RowIndex].Cells["sucursal_nombre"].Value.ToString()).ShowDialog();
-                DatagridViewEliminar.DataSource = BD.busqueda("select sucursal_nombre,sucursal_codigo_postal,sucursal_direccion from EL_JAPONES_SANGRANDO.Sucursales where sucursal_estado = 1");
+                actualizar();
                 //string rol = dataGridViewModificarC.Rows[e.ColumnIndex].Cells[2].Value.ToString();
                 //BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Roles SET rol_estado = 0 WHERE rol_nombre ='" +rol+ "'");
             }
@@ -132,8 +143,7 @@ namespace PagoAgilFrba.Sucursal
                 if (BD.correrStoreProcedure(lista) > 0)
                 {
                     MessageBox.Show("Se elimino la sucursal " + sucursalNombre, "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    DatagridViewEliminar.DataSource = BD.busqueda("select sucursal_nombre,sucursal_codigo_postal,sucursal_direccion from EL_JAPONES_SANGRANDO.Sucursales where sucursal_estado = 1");
-                    dataGridViewModificarC.DataSource = BD.busqueda("select sucursal_nombre,sucursal_codigo_postal,sucursal_direccion from EL_JAPONES_SANGRANDO.Sucursales");
+                    actualizar();
                 }
                 else
                 {

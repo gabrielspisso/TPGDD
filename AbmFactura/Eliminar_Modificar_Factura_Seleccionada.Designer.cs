@@ -71,6 +71,7 @@
             this.txtEmpresa.Name = "txtEmpresa";
             this.txtEmpresa.Size = new System.Drawing.Size(140, 21);
             this.txtEmpresa.TabIndex = 81;
+            this.txtEmpresa.SelectedIndexChanged += new System.EventHandler(this.txtEmpresa_SelectedIndexChanged);
             this.txtEmpresa.TextChanged += new System.EventHandler(this.actualizarlabel);
             // 
             // dateVenc

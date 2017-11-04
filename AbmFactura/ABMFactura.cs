@@ -29,9 +29,10 @@ namespace PagoAgilFrba.AbmFactura
             DataTable ds = BD.busqueda(query);
             datagridViewEliminar.Columns.Clear();
             dataGridViewModificarC.Columns.Clear();
-            dataGridViewModificarC.DataSource = ds;
+            
             query = "select DISTINCT factura_numero,factura_empresa,factura_cliente from EL_JAPONES_SANGRANDO.Facturas where factura_estado = 1";
             DataTable ds2 = BD.busqueda(query);
+            dataGridViewModificarC.DataSource = ds2;
             BD.nuevoBoton(dataGridViewModificarC, "Modificar", 8);
 
             datagridViewEliminar.DataSource = ds2;
@@ -79,7 +80,7 @@ namespace PagoAgilFrba.AbmFactura
 
         private void ABMFactura_Load(object sender, EventArgs e)
         {
-            txtEmpresa.DataSource = BD.listaDeUnCampo("select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas");
+            txtEmpresa.DataSource = BD.listaDeUnCampo("select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_estado = 1");
         }
 
         private void button3_Click(object sender, EventArgs e)
