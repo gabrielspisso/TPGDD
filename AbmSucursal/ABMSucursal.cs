@@ -106,7 +106,7 @@ namespace PagoAgilFrba.Sucursal
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
                 e.RowIndex >= 0)
             {
-                new Eliminar_Modificar_Sucursal_Seleccionada(dataGridViewModificarC.Rows[e.RowIndex].Cells["sucursal_nombre"].Value.ToString()).Show();
+                new Eliminar_Modificar_Sucursal_Seleccionada(dataGridViewModificarC.Rows[e.RowIndex].Cells["sucursal_nombre"].Value.ToString()).ShowDialog();
                 //string rol = dataGridViewModificarC.Rows[e.ColumnIndex].Cells[2].Value.ToString();
                 //BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Roles SET rol_estado = 0 WHERE rol_nombre ='" +rol+ "'");
             }

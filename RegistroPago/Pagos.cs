@@ -41,7 +41,7 @@ namespace PagoAgilFrba.RegistroPago
         /// 
         /// 
         /// </summary>
-        string queryf = "Select * from EL_JAPONES_SANGRANDO.Facturas ";
+        string queryf = "Select factura_numero, (select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_cuit = factura_empresa) as Empresa, factura_cliente,factura_fecha,factura_fecha_vencimiento,factura_total from EL_JAPONES_SANGRANDO.Facturas where factura_estado  = 1 ";
         string queryBusqueda;
 
         private bool los4estanvacios()
@@ -56,7 +56,7 @@ namespace PagoAgilFrba.RegistroPago
 
         private string queryFactura()
         {
-            return txtFactura.Text == "" ? "" : ("factura_numero =" + txtFactura.Text);
+            return txtFactura.Text == "" ? "" : ("factura_numero like '" + txtFactura.Text+"%'");
         }
         private string queryVencimiento()
         {
@@ -64,7 +64,7 @@ namespace PagoAgilFrba.RegistroPago
         }
         private string queryDni()
         {
-            return txtDni.Text == "" ? "" : ("factura_cliente =" + txtDni.Text);
+            return txtDni.Text == "" ? "" : ("factura_cliente like '" + txtDni.Text+"%'");
         }
 
         private string queryEmpresa()
@@ -82,10 +82,10 @@ namespace PagoAgilFrba.RegistroPago
             string query2 = "";
             if (txtDni.Text != "")
             {
-                query2 = queryf + " WHERE " + this.queryDni();
+                query2 = queryf + " AND " + this.queryDni();
             }
             else
-                query2 = queryf + " WHERE 1 = 1";
+                query2 = queryf + " AND 1 = 1";
                if (dateVenc.Text != "1/1/2017")
                {
                    query2 += conAnd(queryVencimiento());
@@ -111,10 +111,10 @@ namespace PagoAgilFrba.RegistroPago
             string query2 = "";
             if (txtFactura.Text != "")
             {
-                query2 = queryf + " WHERE " + this.queryFactura();
+                query2 = queryf + " AND " + this.queryFactura();
             }
             else{
-                query2 +=queryf +"WHERE 1 = 1";
+                query2 +=queryf +"AND 1 = 1";
             }
                 if (dateVenc.Text != "1/1/2017")
                 {
@@ -142,10 +142,10 @@ namespace PagoAgilFrba.RegistroPago
             string query2 = "";
             if (comboEmpresas.Text != "")
             {
-                query2 = queryf + " WHERE " + this.queryEmpresa();
+                query2 = queryf + " AND " + this.queryEmpresa();
             }
             else{ 
-                    query2 = queryf + " WHERE 1 = 1"; 
+                    query2 = queryf + " AND 1 = 1"; 
                 }
                 if (dateVenc.Text != "1/1/2017")
                 {
@@ -170,7 +170,7 @@ namespace PagoAgilFrba.RegistroPago
             string query2 = "";
             if (dateVenc.Text != "1/1/2017")
             {
-                query2 = queryf + " WHERE " + this.queryVencimiento();
+                query2 = queryf + " AND " + this.queryVencimiento();
                 if (txtDni.Text != "")
                 {
                     query2 += conAnd(queryDni());
@@ -216,34 +216,45 @@ namespace PagoAgilFrba.RegistroPago
         }
         private void insertarPago()
         {
+
+            if(textPagador.Text == ""){
+                MessageBox.Show("No selecciono pagador");
+                return;
+            }
             string idPago = BD.consultaDeUnSoloResultado("select top 1 pago_nro+1 from EL_JAPONES_SANGRANDO.Pagos ORDER BY pago_nro desc");
             string sucursal = BD.consultaDeUnSoloResultado("SELECT sucursal_codigo_postal from EL_JAPONES_SANGRANDO.Sucursales where sucursal_nombre='" + comboSucursal.Text +"'");
             string medio = BD.consultaDeUnSoloResultado("SELECT formaDePago_id from EL_JAPONES_SANGRANDO.Formas_De_Pago where formaDePago_desc='" + comboMedioDePago.Text + "'");
             string fecha = dateVenc.Value.Date.ToString("MM/dd/yyyy");
-            SqlConnection con = BD.getConnection();
-            using (SqlCommand cmd = new SqlCommand("INSERT INTO EL_JAPONES_SANGRANDO.Pagos (pago_nro, pago_sucursal,pago_importe,pago_formaDePago,pago_fecha) VALUES(@idpago,@sucursal,@importe,@medio,@fecha)", con))
-            {
-                cmd.Parameters.AddWithValue("@idpago", idPago);
-                cmd.Parameters.AddWithValue("@sucursal", sucursal);
-                cmd.Parameters.AddWithValue("@importe", lblImporte.Text);
-                cmd.Parameters.AddWithValue("@medio", medio);
-                cmd.Parameters.AddWithValue("@fecha", fecha);
-                con.Open();
-
-                ///LA LINEA MAS LINDA
-                cmd.ExecuteScalar();
-
-                con.Close();
-            }
+            
+           
+            string insert2 = "INSERT INTO EL_JAPONES_SANGRANDO.Pagos (pago_nro, pago_sucursal,pago_importe,pago_formaDePago,pago_fecha,pago_cliente) VALUES(" + idPago + "," + sucursal + "," + lblImporte.Text.Replace(",",".") + "," + medio + ",'" + fecha + "',38270412)";
             MessageBox.Show(idPago.ToString());
+            List<String> lista = new List<string>();
+            lista.Add(insert2);
             foreach (DataGridViewRow row in dataGridFacturas.SelectedRows)
             {
                 string factura = row.Cells["factura_numero"].Value.ToString();
-                BD.ABM("INSERT INTO EL_JAPONES_SANGRANDO.Pago_Factura(pago_Factura_factura,pago_Factura_pago) values (" + factura + "," + idPago+")");
-
-
-
+                String insert = "INSERT INTO EL_JAPONES_SANGRANDO.Pago_Factura(pago_Factura_factura,pago_Factura_pago) values ('" + factura + "'," + idPago + ")";
+                String update = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET factura_estado = 2 where factura_numero = '" + factura+"'";
+                
+                lista.Add(insert);
+                lista.Add(update);
             }
+            if(BD.correrStoreProcedure(lista)>0){
+                MessageBox.Show("Se concreto el pago");
+            }
+            else{
+                MessageBox.Show("Datos erroneos");
+            }
+        }
+
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
 
         }
     }

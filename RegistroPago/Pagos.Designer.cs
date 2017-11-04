@@ -46,6 +46,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.comboSucursal = new System.Windows.Forms.ComboBox();
             this.lblImporte = new System.Windows.Forms.Label();
+            this.textPagador2 = new System.Windows.Forms.Label();
+            this.textPagador = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridFacturas)).BeginInit();
             this.SuspendLayout();
@@ -53,7 +55,7 @@
             // btnPagar
             // 
             this.btnPagar.Location = new System.Drawing.Point(372, 378);
-            this.btnPagar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnPagar.Margin = new System.Windows.Forms.Padding(2);
             this.btnPagar.Name = "btnPagar";
             this.btnPagar.Size = new System.Drawing.Size(100, 41);
             this.btnPagar.TabIndex = 3;
@@ -65,7 +67,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(53, 364);
+            this.label6.Location = new System.Drawing.Point(52, 373);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(59, 17);
@@ -76,7 +78,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(53, 389);
+            this.label7.Location = new System.Drawing.Point(52, 398);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(107, 17);
@@ -86,8 +88,8 @@
             // comboMedioDePago
             // 
             this.comboMedioDePago.FormattingEnabled = true;
-            this.comboMedioDePago.Location = new System.Drawing.Point(169, 389);
-            this.comboMedioDePago.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboMedioDePago.Location = new System.Drawing.Point(168, 398);
+            this.comboMedioDePago.Margin = new System.Windows.Forms.Padding(2);
             this.comboMedioDePago.Name = "comboMedioDePago";
             this.comboMedioDePago.Size = new System.Drawing.Size(118, 21);
             this.comboMedioDePago.TabIndex = 69;
@@ -105,9 +107,9 @@
             this.groupBox1.Controls.Add(this.txtDni);
             this.groupBox1.Controls.Add(this.dataGridFacturas);
             this.groupBox1.Location = new System.Drawing.Point(21, 21);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(482, 327);
             this.groupBox1.TabIndex = 71;
             this.groupBox1.TabStop = false;
@@ -149,7 +151,7 @@
             // 
             this.comboEmpresas.FormattingEnabled = true;
             this.comboEmpresas.Location = new System.Drawing.Point(380, 30);
-            this.comboEmpresas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboEmpresas.Margin = new System.Windows.Forms.Padding(2);
             this.comboEmpresas.Name = "comboEmpresas";
             this.comboEmpresas.Size = new System.Drawing.Size(98, 21);
             this.comboEmpresas.TabIndex = 73;
@@ -169,7 +171,7 @@
             // txtFactura
             // 
             this.txtFactura.Location = new System.Drawing.Point(166, 74);
-            this.txtFactura.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtFactura.Margin = new System.Windows.Forms.Padding(2);
             this.txtFactura.Name = "txtFactura";
             this.txtFactura.Size = new System.Drawing.Size(118, 20);
             this.txtFactura.TabIndex = 71;
@@ -200,7 +202,7 @@
             // txtDni
             // 
             this.txtDni.Location = new System.Drawing.Point(166, 32);
-            this.txtDni.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtDni.Margin = new System.Windows.Forms.Padding(2);
             this.txtDni.Name = "txtDni";
             this.txtDni.Size = new System.Drawing.Size(118, 20);
             this.txtDni.TabIndex = 68;
@@ -210,7 +212,7 @@
             // 
             this.dataGridFacturas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridFacturas.Location = new System.Drawing.Point(33, 176);
-            this.dataGridFacturas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridFacturas.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridFacturas.Name = "dataGridFacturas";
             this.dataGridFacturas.RowTemplate.Height = 24;
             this.dataGridFacturas.Size = new System.Drawing.Size(418, 122);
@@ -221,7 +223,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(53, 417);
+            this.label8.Location = new System.Drawing.Point(52, 426);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(67, 17);
@@ -231,8 +233,8 @@
             // comboSucursal
             // 
             this.comboSucursal.FormattingEnabled = true;
-            this.comboSucursal.Location = new System.Drawing.Point(169, 417);
-            this.comboSucursal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboSucursal.Location = new System.Drawing.Point(168, 426);
+            this.comboSucursal.Margin = new System.Windows.Forms.Padding(2);
             this.comboSucursal.Name = "comboSucursal";
             this.comboSucursal.Size = new System.Drawing.Size(118, 21);
             this.comboSucursal.TabIndex = 72;
@@ -241,18 +243,41 @@
             // 
             this.lblImporte.AutoSize = true;
             this.lblImporte.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblImporte.Location = new System.Drawing.Point(166, 364);
+            this.lblImporte.Location = new System.Drawing.Point(165, 373);
             this.lblImporte.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblImporte.Name = "lblImporte";
             this.lblImporte.Size = new System.Drawing.Size(16, 17);
             this.lblImporte.TabIndex = 74;
             this.lblImporte.Text = "0";
             // 
+            // textPagador2
+            // 
+            this.textPagador2.AutoSize = true;
+            this.textPagador2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textPagador2.Location = new System.Drawing.Point(51, 347);
+            this.textPagador2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.textPagador2.Name = "textPagador2";
+            this.textPagador2.Size = new System.Drawing.Size(93, 17);
+            this.textPagador2.TabIndex = 78;
+            this.textPagador2.Text = "DNI Pagador:";
+            this.textPagador2.Click += new System.EventHandler(this.label9_Click);
+            // 
+            // textPagador
+            // 
+            this.textPagador.Location = new System.Drawing.Point(168, 347);
+            this.textPagador.Margin = new System.Windows.Forms.Padding(2);
+            this.textPagador.Name = "textPagador";
+            this.textPagador.Size = new System.Drawing.Size(118, 20);
+            this.textPagador.TabIndex = 77;
+            this.textPagador.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
+            // 
             // Pagos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(527, 453);
+            this.Controls.Add(this.textPagador2);
+            this.Controls.Add(this.textPagador);
             this.Controls.Add(this.lblImporte);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.comboSucursal);
@@ -261,7 +286,7 @@
             this.Controls.Add(this.comboMedioDePago);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.btnPagar);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Pagos";
             this.Text = "Pagos";
             this.Load += new System.EventHandler(this.Pagos_Load);
@@ -293,5 +318,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox comboSucursal;
         private System.Windows.Forms.Label lblImporte;
+        private System.Windows.Forms.Label textPagador2;
+        private System.Windows.Forms.TextBox textPagador;
     }
 }

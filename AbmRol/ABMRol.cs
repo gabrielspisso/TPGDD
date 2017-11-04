@@ -70,23 +70,42 @@ namespace PagoAgilFrba.AbmRol
             comboEliminar.DataSource = BD.listaDeUnCampo("Select rol_nombre from EL_JAPONES_SANGRANDO.Roles where rol_estado=1");
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            int valor = checkBox2.Checked ? 1 : 0;
-            string rol = comboModificar.SelectedValue.ToString();
-            BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Roles SET rol_estado = " + valor + " WHERE rol_nombre = '" + rol+ "'");
-            BD.ABM("DELETE FROM EL_JAPONES_SANGRANDO.Rol_Funcionalidad where rol_Funcionalidad_rol = '" + rol + "'");
+        
 
-            foreach (DataGridViewRow r in dataGridFuncModificar.SelectedRows)
-            {
-                string funcionalidadId = r.Cells[0].Value.ToString();
-                BD.asignarFuncionalidadAlRol(rol, funcionalidadId);
-            }
-        }
 
         private void dataGridFuncModificar_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            int valor = checkBox2.Checked ? 1 : 0;
+            string rol = comboModificar.SelectedValue.ToString();
+
+            string queryUpdate = "INSERT INTO EL_JAPONES_SANGRANDO.Rol_Funcionalidad (rol_Funcionalidad_rol,rol_Funcionalidad_funcionalidad) values ";
+
+            string funcionalidades = "";
+            foreach (DataGridViewRow r in dataGridFuncModificar.SelectedRows)
+            {
+                string funcionalidadId = r.Cells[0].Value.ToString();
+                funcionalidades += "('" + rol + "'," + funcionalidadId + "),";
+            }
+            funcionalidades = funcionalidades.Substring(0, funcionalidades.Length - 1);
+            List<String> lista = new List<string>();
+            string update = "UPDATE EL_JAPONES_SANGRANDO.Roles SET rol_estado = " + valor + " WHERE rol_nombre = '" + rol + "'";
+            string delete = "DELETE FROM EL_JAPONES_SANGRANDO.Rol_Funcionalidad where rol_Funcionalidad_rol = '" + rol + "'";
+            lista.Add(update);
+            lista.Add(delete);
+            lista.Add(queryUpdate + funcionalidades);
+            if (BD.correrStoreProcedure(lista) > 0)
+            {
+                MessageBox.Show("Rol Actualizado", "Ok", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("No se pudo modificar el rol, verifique sus selecciones", "Error en seleccion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
     }

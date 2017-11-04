@@ -30,20 +30,17 @@
         {
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dataGridViewModificarC = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.textAgregarCodigoPostal = new System.Windows.Forms.TextBox();
             this.textAgregarDireccion = new System.Windows.Forms.TextBox();
             this.textAgregarNombre = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
-            this.btnVolver = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.DatagridViewEliminar = new System.Windows.Forms.DataGridView();
-            this.button3 = new System.Windows.Forms.Button();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewModificarC)).BeginInit();
             this.tabPage1.SuspendLayout();
@@ -56,7 +53,6 @@
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.tabPage2.Controls.Add(this.dataGridViewModificarC);
-            this.tabPage2.Controls.Add(this.button1);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -73,16 +69,6 @@
             this.dataGridViewModificarC.TabIndex = 23;
             this.dataGridViewModificarC.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewModificarC_CellContentClick);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(533, 190);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(86, 32);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "Volver";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.InactiveBorder;
@@ -91,7 +77,6 @@
             this.tabPage1.Controls.Add(this.textAgregarNombre);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.btnAceptar);
-            this.tabPage1.Controls.Add(this.btnVolver);
             this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -142,16 +127,6 @@
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
-            // btnVolver
-            // 
-            this.btnVolver.Location = new System.Drawing.Point(72, 141);
-            this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(75, 23);
-            this.btnVolver.TabIndex = 33;
-            this.btnVolver.Text = "Volver";
-            this.btnVolver.UseVisualStyleBackColor = true;
-            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -185,7 +160,6 @@
             // 
             this.tabPage3.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.tabPage3.Controls.Add(this.DatagridViewEliminar);
-            this.tabPage3.Controls.Add(this.button3);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -204,16 +178,6 @@
             this.DatagridViewEliminar.Size = new System.Drawing.Size(313, 208);
             this.DatagridViewEliminar.TabIndex = 23;
             this.DatagridViewEliminar.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DatagridViewEliminar_CellContentClick);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(507, 179);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(86, 32);
-            this.button3.TabIndex = 15;
-            this.button3.Text = "Volver";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // ABMSucursal
             // 
@@ -238,20 +202,17 @@
 
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.DataGridView dataGridViewModificarC;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TextBox textAgregarCodigoPostal;
         private System.Windows.Forms.TextBox textAgregarDireccion;
         private System.Windows.Forms.TextBox textAgregarNombre;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnAceptar;
-        private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.DataGridView DatagridViewEliminar;
-        private System.Windows.Forms.Button button3;
 
     }
 }

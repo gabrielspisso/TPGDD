@@ -104,3 +104,4 @@ C:\Users\Matias\Documents\GitHub\TPGDD\obj\Debug\PagoAgilFrba.IniciarSesion.Sele
 C:\Users\Matias\Documents\GitHub\TPGDD\obj\Debug\PagoAgilFrba.Properties.Resources.resources
 C:\Users\Matias\Documents\GitHub\TPGDD\obj\Debug\PagoAgilFrba.csproj.GenerateResource.Cache
 C:\Users\Matias\Documents\GitHub\TPGDD\obj\Debug\PagoAgilFrba.RegistroPago.Pagos.resources
+C:\Users\santy\OneDrive\Documents\GitHub\TPGDD\obj\Debug\PagoAgilFrba.RegistroPago.Pagos.resources

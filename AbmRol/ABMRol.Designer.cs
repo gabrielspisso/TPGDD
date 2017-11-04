@@ -34,19 +34,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtRolAgregar = new System.Windows.Forms.TextBox();
             this.btnAceptar = new System.Windows.Forms.Button();
-            this.btnVolver = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.comboModificar = new System.Windows.Forms.ComboBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.dataGridFuncModificar = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.comboEliminar = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.funcionalidadesDGV)).BeginInit();
@@ -73,10 +70,9 @@
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.txtRolAgregar);
             this.tabPage1.Controls.Add(this.btnAceptar);
-            this.tabPage1.Controls.Add(this.btnVolver);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(574, 230);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Agregar";
@@ -110,7 +106,7 @@
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(496, 196);
+            this.btnAceptar.Location = new System.Drawing.Point(448, 199);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 34;
@@ -118,27 +114,17 @@
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
-            // btnVolver
-            // 
-            this.btnVolver.Location = new System.Drawing.Point(394, 196);
-            this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(75, 23);
-            this.btnVolver.TabIndex = 33;
-            this.btnVolver.Text = "Volver";
-            this.btnVolver.UseVisualStyleBackColor = true;
-            // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.tabPage2.Controls.Add(this.button1);
             this.tabPage2.Controls.Add(this.comboModificar);
             this.tabPage2.Controls.Add(this.checkBox2);
             this.tabPage2.Controls.Add(this.dataGridFuncModificar);
             this.tabPage2.Controls.Add(this.label2);
-            this.tabPage2.Controls.Add(this.button1);
-            this.tabPage2.Controls.Add(this.button2);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(574, 230);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Modificar";
@@ -147,7 +133,7 @@
             // 
             this.comboModificar.FormattingEnabled = true;
             this.comboModificar.Location = new System.Drawing.Point(146, 28);
-            this.comboModificar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboModificar.Margin = new System.Windows.Forms.Padding(2);
             this.comboModificar.Name = "comboModificar";
             this.comboModificar.Size = new System.Drawing.Size(115, 21);
             this.comboModificar.TabIndex = 39;
@@ -183,35 +169,15 @@
             this.label2.TabIndex = 36;
             this.label2.Text = "Ingrese el nombre del rol";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(496, 196);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 34;
-            this.button1.Text = "Aceptar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(394, 196);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 33;
-            this.button2.Text = "Volver";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.tabPage3.Controls.Add(this.comboEliminar);
             this.tabPage3.Controls.Add(this.label3);
             this.tabPage3.Controls.Add(this.button3);
-            this.tabPage3.Controls.Add(this.button4);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(574, 230);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Eliminar";
@@ -242,18 +208,19 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 34;
-            this.button3.Text = "Aceptar";
+            this.button3.Text = "Eliminar";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // button4
+            // button1
             // 
-            this.button4.Location = new System.Drawing.Point(394, 196);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 33;
-            this.button4.Text = "Volver";
-            this.button4.UseVisualStyleBackColor = true;
+            this.button1.Location = new System.Drawing.Point(477, 181);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 40;
+            this.button1.Text = "Modificar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // ABMRol
             // 
@@ -285,18 +252,15 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtRolAgregar;
         private System.Windows.Forms.Button btnAceptar;
-        private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.ComboBox comboEliminar;
         private System.Windows.Forms.ComboBox comboModificar;
         private System.Windows.Forms.DataGridView dataGridFuncModificar;
+        private System.Windows.Forms.Button button1;
     }
 }
