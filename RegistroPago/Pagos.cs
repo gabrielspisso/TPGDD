@@ -30,6 +30,14 @@ namespace PagoAgilFrba.RegistroPago
             lista.Insert(0,"");
             comboEmpresas.DataSource = lista;
             comboMedioDePago.DataSource = BD.listaDeUnCampo("select formaDePago_desc from EL_JAPONES_SANGRANDO.Formas_De_Pago");
+            if (BD.getSucursal() != "")
+            {
+                comboSucursal.Hide();
+                labelSucursal.Text = BD.getSucursal();
+                comboSucursal.Text = BD.getSucursal();
+                return;
+            }
+            
             comboSucursal.DataSource = BD.listaDeUnCampo("select sucursal_nombre from EL_JAPONES_SANGRANDO.Sucursales");
         }
         /// <summary>
@@ -41,7 +49,7 @@ namespace PagoAgilFrba.RegistroPago
         /// 
         /// 
         /// </summary>
-        string queryf = "Select factura_numero, (select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_cuit = factura_empresa) as Empresa, factura_cliente,factura_fecha,factura_fecha_vencimiento,factura_total from EL_JAPONES_SANGRANDO.Facturas where factura_estado  = 1 ";
+        string queryf = "Select factura_numero, empresa_nombre as Empresa, factura_cliente,factura_fecha,factura_fecha_vencimiento,factura_total from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Empresas on (factura_empresa = empresa_cuit) where factura_estado  = 1 AND empresa_estado = 1";
         string queryBusqueda;
 
         private bool los4estanvacios()
@@ -204,8 +212,6 @@ namespace PagoAgilFrba.RegistroPago
             if (lblImporte.Text != "0")
             {
                 insertarPago();
-
-                MessageBox.Show("Se cargo correctamente");
                 txtDni.Text = "";
             }
             else
@@ -221,6 +227,7 @@ namespace PagoAgilFrba.RegistroPago
                 MessageBox.Show("No selecciono pagador");
                 return;
             }
+           
             string idPago = BD.consultaDeUnSoloResultado("select top 1 pago_nro+1 from EL_JAPONES_SANGRANDO.Pagos ORDER BY pago_nro desc");
             string sucursal = BD.consultaDeUnSoloResultado("SELECT sucursal_codigo_postal from EL_JAPONES_SANGRANDO.Sucursales where sucursal_nombre='" + comboSucursal.Text +"'");
             string medio = BD.consultaDeUnSoloResultado("SELECT formaDePago_id from EL_JAPONES_SANGRANDO.Formas_De_Pago where formaDePago_desc='" + comboMedioDePago.Text + "'");
@@ -228,12 +235,11 @@ namespace PagoAgilFrba.RegistroPago
             
            
             string insert2 = "INSERT INTO EL_JAPONES_SANGRANDO.Pagos (pago_nro, pago_sucursal,pago_importe,pago_formaDePago,pago_fecha,pago_cliente) VALUES(" + idPago + "," + sucursal + "," + lblImporte.Text.Replace(",",".") + "," + medio + ",'" + fecha + "',38270412)";
-            MessageBox.Show(idPago.ToString());
             List<String> lista = new List<string>();
             lista.Add(insert2);
             foreach (DataGridViewRow row in dataGridFacturas.SelectedRows)
             {
-                string factura = row.Cells["factura_numero"].Value.ToString();
+                string factura = row.Cells["factura_numero"].Value.ToString();                
                 String insert = "INSERT INTO EL_JAPONES_SANGRANDO.Pago_Factura(pago_Factura_factura,pago_Factura_pago) values ('" + factura + "'," + idPago + ")";
                 String update = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET factura_estado = 2 where factura_numero = '" + factura+"'";
                 

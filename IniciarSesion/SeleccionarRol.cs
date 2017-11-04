@@ -30,7 +30,7 @@ namespace PagoAgilFrba.IniciarSesion
                 case "cobrador":
                     {
                         this.Hide();
-                        new AccionesAdmin(comboRoles.SelectedValue.ToString()).Show();
+                        new SeleccionarSucursal().ShowDialog(); ;
                     } break;
                 default:
                     {

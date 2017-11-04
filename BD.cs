@@ -323,8 +323,32 @@ namespace PagoAgilFrba
 
         internal static bool todasRendidas(string empresa_cuit)
         {
-            //TODO 
-            return true;
+            string query = "select count(*) from EL_JAPONES_SANGRANDO.Facturas where factura_estado = 2 AND factura_empresa = '" + empresa_cuit + "'";
+            return Int32.Parse(consultaDeUnSoloResultado(query)) == 0;
+        }
+
+        static string usuario2 = "";
+
+        public static void setUsuario(string usuario_)
+        {
+            usuario2 = usuario_;
+        }
+
+        public static string getUsuario()
+        {
+            return usuario2;
+        }
+
+        static string sucursal2 = "";
+
+        public static void setSucursal(string sucursal_)
+        {
+            sucursal2 = sucursal_;
+        }
+
+        public static string getSucursal()
+        {
+            return sucursal2;
         }
     }
 }
