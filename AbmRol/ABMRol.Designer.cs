@@ -35,6 +35,7 @@
             this.txtRolAgregar = new System.Windows.Forms.TextBox();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.comboModificar = new System.Windows.Forms.ComboBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.dataGridFuncModificar = new System.Windows.Forms.DataGridView();
@@ -43,7 +44,6 @@
             this.comboEliminar = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.funcionalidadesDGV)).BeginInit();
@@ -83,7 +83,6 @@
             this.funcionalidadesDGV.AllowUserToDeleteRows = false;
             this.funcionalidadesDGV.Location = new System.Drawing.Point(20, 72);
             this.funcionalidadesDGV.Name = "funcionalidadesDGV";
-            this.funcionalidadesDGV.ReadOnly = true;
             this.funcionalidadesDGV.Size = new System.Drawing.Size(346, 150);
             this.funcionalidadesDGV.TabIndex = 37;
             this.funcionalidadesDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.funcionalidadesDGV_CellContentClick);
@@ -128,6 +127,16 @@
             this.tabPage2.Size = new System.Drawing.Size(574, 230);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Modificar";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(477, 181);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 40;
+            this.button1.Text = "Modificar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // comboModificar
             // 
@@ -212,16 +221,6 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(477, 181);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 40;
-            this.button1.Text = "Modificar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
             // ABMRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -230,7 +229,7 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "ABMRol";
             this.Text = "ABMRol";
-            this.Load += new System.EventHandler(this.ABMRol_Load);
+
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();

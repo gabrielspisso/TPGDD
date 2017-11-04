@@ -26,7 +26,11 @@ namespace PagoAgilFrba.IniciarSesion
             {
                 
                 this.Hide();
-                new SeleccionarRol(username).Show();
+                string x =BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Usuario_Rol where Usuario_Rol_usuario = '"+ username+"'");
+                if (Int32.Parse(x) > 0)
+                    new SeleccionarRol(username).Show();
+                else
+                    MessageBox.Show("No tiene ningun rol activo");
             }
 
         }
