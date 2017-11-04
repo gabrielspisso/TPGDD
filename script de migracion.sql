@@ -9,40 +9,54 @@ BEGIN
 END
 
 -- para limpiar y volver a crear todo. Borrar a la mierda para la entrega
-IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Usuario_Sucursal]','U') IS NOT NULL
-DROP TABLE EL_JAPONES_SANGRANDO.Usuario_Sucursal
-IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Rol_Funcionalidad]','U') IS NOT NULL
-DROP TABLE EL_JAPONES_SANGRANDO.Rol_Funcionalidad
-IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Item_Rendicion]','U') IS NOT NULL
-DROP TABLE EL_JAPONES_SANGRANDO.Item_Rendicion
-IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Item_Factura]','U') IS NOT NULL
-DROP TABLE EL_JAPONES_SANGRANDO.Item_Factura
-IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Pago_Factura]','U') IS NOT NULL
-DROP TABLE EL_JAPONES_SANGRANDO.Pago_Factura
-IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Funcionalidades]','U') IS NOT NULL
-DROP TABLE EL_JAPONES_SANGRANDO.Funcionalidades
 IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Usuario_Rol]','U') IS NOT NULL
 DROP TABLE EL_JAPONES_SANGRANDO.Usuario_Rol
-IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Roles]','U') IS NOT NULL
-DROP TABLE EL_JAPONES_SANGRANDO.Roles
+
+IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Usuario_Sucursal]','U') IS NOT NULL
+DROP TABLE EL_JAPONES_SANGRANDO.Usuario_Sucursal
+
 IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Usuarios]','U') IS NOT NULL
 DROP TABLE EL_JAPONES_SANGRANDO.Usuarios
-IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Devoluciones]','U') IS NOT NULL
-DROP TABLE EL_JAPONES_SANGRANDO.Devoluciones
+
+IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Rol_Funcionalidad]','U') IS NOT NULL
+DROP TABLE EL_JAPONES_SANGRANDO.Rol_Funcionalidad
+
+IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Pago_Factura]','U') IS NOT NULL
+DROP TABLE EL_JAPONES_SANGRANDO.Pago_Factura
+
+
+IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Item_Factura]','U') IS NOT NULL
+DROP TABLE EL_JAPONES_SANGRANDO.Item_Factura
+
+IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Formas_De_Pago]','U') IS NOT NULL
+DROP TABLE EL_JAPONES_SANGRANDO.Formas_De_Pago
+
 IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Rendiciones]','U') IS NOT NULL
 DROP TABLE EL_JAPONES_SANGRANDO.Rendiciones
+
+IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Roles]','U') IS NOT NULL
+DROP TABLE EL_JAPONES_SANGRANDO.Roles
+
+IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Funcionalidades]','U') IS NOT NULL
+DROP TABLE EL_JAPONES_SANGRANDO.Funcionalidades
+
+IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Sucursales]','U') IS NOT NULL
+DROP TABLE EL_JAPONES_SANGRANDO.Sucursales
+
+
+IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Devoluciones]','U') IS NOT NULL
+DROP TABLE EL_JAPONES_SANGRANDO.Devoluciones
+
 IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Facturas]','U') IS NOT NULL
 DROP TABLE EL_JAPONES_SANGRANDO.Facturas
 IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Pagos]','U') IS NOT NULL
 DROP TABLE EL_JAPONES_SANGRANDO.Pagos
-IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Formas_De_Pago]','U') IS NOT NULL
-DROP TABLE EL_JAPONES_SANGRANDO.Formas_De_Pago
+
 IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Empresas]','U') IS NOT NULL
 DROP TABLE EL_JAPONES_SANGRANDO.Empresas
 IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Rubros]','U') IS NOT NULL
 DROP TABLE EL_JAPONES_SANGRANDO.Rubros
-IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Sucursales]','U') IS NOT NULL
-DROP TABLE EL_JAPONES_SANGRANDO.Sucursales
+
 IF OBJECT_ID('[EL_JAPONES_SANGRANDO].[Clientes]','U') IS NOT NULL
 DROP TABLE EL_JAPONES_SANGRANDO.Clientes
 
@@ -68,7 +82,9 @@ CREATE TABLE [EL_JAPONES_SANGRANDO].[Facturas](
 	[factura_fecha] [datetime],
 	[factura_fecha_vencimiento] [datetime],
 	[factura_total] [numeric] (18,2),
-	[factura_estado]  [tinyint] default 1
+	[factura_estado]  [tinyint] default 1,
+	[factura_rendicion][numeric](18,0)
+
 
 )
 GO
@@ -128,12 +144,7 @@ CREATE TABLE [EL_JAPONES_SANGRANDO].[Rendiciones](
 	[rendicion_fecha] [datetime],
 	[rendicion_importeFinal] [numeric](18,2)
 )
-CREATE TABLE [EL_JAPONES_SANGRANDO].[Item_Rendicion](
-	[itemr_rendicion] [numeric](18,0) not null,
-	[itemr_factura] [numeric](18,0) not null,
-	[itemr_importe] [numeric](18,2)
-)
-GO
+
 CREATE TABLE [EL_JAPONES_SANGRANDO].[Devoluciones](
 	[devolucion_id] [numeric](18,0) not null identity,
 	[devolucion_descripcion] [nvarchar](100),
@@ -193,7 +204,7 @@ ALTER TABLE [EL_JAPONES_SANGRANDO].[Empresas]
 GO
 ALTER TABLE [EL_JAPONES_SANGRANDO].[Facturas] 
 	ADD CONSTRAINT [PK_Factura] PRIMARY KEY ([factura_numero]),
-	CONSTRAINT [FK_factura_Cli] FOREIGN KEY ([factura_cliente])
+	CONSTRAINT [FK_factura_Cliente] FOREIGN KEY ([factura_cliente])
     REFERENCES [EL_JAPONES_SANGRANDO].[Clientes] ([cliente_DNI]),
     CONSTRAINT [FK_factura_Emp] FOREIGN KEY ([factura_empresa])
     REFERENCES [EL_JAPONES_SANGRANDO].[Empresas] ([empresa_cuit])
@@ -229,14 +240,6 @@ ALTER TABLE [EL_JAPONES_SANGRANDO].[Rendiciones]
 	ADD CONSTRAINT [PK_Rendicion] PRIMARY KEY ([rendicion_nro]),
 	CONSTRAINT [FK_rendicion_Emp] FOREIGN KEY ([rendicion_empresa])
     REFERENCES [EL_JAPONES_SANGRANDO].[Empresas] ([empresa_cuit])
-
-GO
-ALTER TABLE [EL_JAPONES_SANGRANDO].[Item_Rendicion] 
-	ADD CONSTRAINT [PK_Item_Rendicion] PRIMARY KEY ([itemr_rendicion],[itemr_factura]),
-	CONSTRAINT [FK_itemr_rendicion] FOREIGN KEY ([itemr_rendicion])
-    REFERENCES [EL_JAPONES_SANGRANDO].[Rendiciones] ([rendicion_nro]),
-    CONSTRAINT [FK_itemr_Fact] FOREIGN KEY ([itemr_factura])
-    REFERENCES [EL_JAPONES_SANGRANDO].[Facturas] ([factura_numero])
 
 GO
 ALTER TABLE [EL_JAPONES_SANGRANDO].[Devoluciones] 
@@ -333,12 +336,37 @@ INSERT INTO EL_JAPONES_SANGRANDO.Roles (rol_nombre) values('administrador')
 INSERT INTO EL_JAPONES_SANGRANDO.Roles (rol_nombre) values('cobrador')
 
 --Migracion de rendiciones
-INSERT INTO EL_JAPONES_SANGRANDO.Rendiciones (rendicion_nro, rendicion_empresa, rendicion_importe, rendicion_porcentaje_comision, rendicion_cantfacturas, rendicion_fecha, rendicion_importeFinal)
- SELECT DISTINCT Rendicion_Nro, (SELECT empresa_cuit FROM EL_JAPONES_SANGRANDO.Empresas WHERE empresa_nombre = Empresa_Nombre), ItemRendicion_Importe, (ItemRendicion_Importe*100/Factura_Total), 1, Rendicion_Fecha, (Factura_Total - ItemRendicion_Importe) from gd_esquema.Maestra
+INSERT INTO EL_JAPONES_SANGRANDO.Rendiciones (rendicion_nro, rendicion_empresa, rendicion_porcentaje_comision, rendicion_fecha)
+ SELECT DISTINCT Rendicion_Nro, (SELECT empresa_cuit FROM EL_JAPONES_SANGRANDO.Empresas WHERE empresa_nombre = Empresa_Nombre), 1, Rendicion_Fecha from gd_esquema.Maestra
  WHERE Rendicion_Nro IS NOT NULL order by Rendicion_Nro
- INSERT INTO EL_JAPONES_SANGRANDO.Item_Rendicion(itemr_rendicion, itemr_factura, itemr_importe)
- SELECT DISTINCT Rendicion_Nro, Nro_Factura, Factura_Total from gd_esquema.Maestra
- WHERE Rendicion_Nro IS NOT NULL order by Rendicion_Nro
+
+ ALTER TABLE [EL_JAPONES_SANGRANDO].[Facturas] 
+	ADD CONSTRAINT [FK_factura_rendicion] FOREIGN KEY ([factura_rendicion])
+	REFERENCES [EL_JAPONES_SANGRANDO].[Rendiciones] ([rendicion_nro])
+GO
+
+ UPDATE EL_JAPONES_SANGRANDO.Facturas 
+SET factura_rendicion = (select distinct Rendicion_Nro 
+				FROM gd_esquema.Maestra 
+			WHERE Nro_Factura = factura_numero and Rendicion_Nro is not null)
+
+UPDATE EL_JAPONES_SANGRANDO.Facturas SET factura_estado = 3 WHERE factura_rendicion is not null
+
+
+UPDATE  EL_JAPONES_SANGRANDO.Rendiciones 
+SET rendicion_importe = (SELECT sum(factura_total) 
+						FROM EL_JAPONES_SANGRANDO.Facturas
+						WHERE  factura_rendicion= rendicion_nro)
+
+UPDATE EL_JAPONES_SANGRANDO.Rendiciones
+SET rendicion_importeFinal = rendicion_importe - rendicion_importe * rendicion_porcentaje_comision /100 ;
+GO
+
+UPDATE EL_JAPONES_SANGRANDO.Rendiciones
+SET rendicion_cantfacturas = (SELECT count(factura_numero)
+						FROM EL_JAPONES_SANGRANDO.Facturas
+						WHERE factura_rendicion = rendicion_nro)
+GO
 
 -- CREACION USUARIO ADMIN
 INSERT INTO EL_JAPONES_SANGRANDO.Usuarios (usuario_nombre, usuario_contrasena) values('admin',HASHBYTES('SHA2_256', 'w23e'))
