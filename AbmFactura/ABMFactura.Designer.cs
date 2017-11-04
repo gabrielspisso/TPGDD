@@ -114,7 +114,6 @@
             this.tabPage1.Size = new System.Drawing.Size(612, 358);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Agregar";
-            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
             // txtEmpresa
             // 
@@ -124,7 +123,6 @@
             this.txtEmpresa.Name = "txtEmpresa";
             this.txtEmpresa.Size = new System.Drawing.Size(140, 21);
             this.txtEmpresa.TabIndex = 65;
-            this.txtEmpresa.SelectedIndexChanged += new System.EventHandler(this.txtEmpresa_SelectedIndexChanged);
             // 
             // dateVenc
             // 
@@ -133,7 +131,6 @@
             this.dateVenc.Name = "dateVenc";
             this.dateVenc.Size = new System.Drawing.Size(143, 20);
             this.dateVenc.TabIndex = 64;
-            this.dateVenc.ValueChanged += new System.EventHandler(this.dateVenc_ValueChanged);
             // 
             // dateAlta
             // 
@@ -142,7 +139,6 @@
             this.dateAlta.Name = "dateAlta";
             this.dateAlta.Size = new System.Drawing.Size(143, 20);
             this.dateAlta.TabIndex = 63;
-            this.dateAlta.ValueChanged += new System.EventHandler(this.dateAlta_ValueChanged);
             // 
             // button3
             // 
@@ -162,7 +158,6 @@
             this.label8.Size = new System.Drawing.Size(49, 13);
             this.label8.TabIndex = 61;
             this.label8.Text = "Cantidad";
-            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // txtCantidad
             // 
@@ -170,7 +165,6 @@
             this.txtCantidad.Name = "txtCantidad";
             this.txtCantidad.Size = new System.Drawing.Size(143, 20);
             this.txtCantidad.TabIndex = 60;
-            this.txtCantidad.TextChanged += new System.EventHandler(this.txtCantidad_TextChanged);
             // 
             // label7
             // 
@@ -180,7 +174,6 @@
             this.label7.Size = new System.Drawing.Size(37, 13);
             this.label7.TabIndex = 59;
             this.label7.Text = "Monto";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // txtMonto
             // 
@@ -188,7 +181,6 @@
             this.txtMonto.Name = "txtMonto";
             this.txtMonto.Size = new System.Drawing.Size(143, 20);
             this.txtMonto.TabIndex = 58;
-            this.txtMonto.TextChanged += new System.EventHandler(this.txtMonto_TextChanged);
             // 
             // button2
             // 
@@ -212,7 +204,6 @@
             this.listaSeleccionados.TabIndex = 55;
             this.listaSeleccionados.UseCompatibleStateImageBehavior = false;
             this.listaSeleccionados.View = System.Windows.Forms.View.Details;
-            this.listaSeleccionados.SelectedIndexChanged += new System.EventHandler(this.listaSeleccionados_SelectedIndexChanged);
             // 
             // monto
             // 
@@ -232,7 +223,6 @@
             this.label13.Size = new System.Drawing.Size(98, 13);
             this.label13.TabIndex = 44;
             this.label13.Text = "Fecha Vencimiento";
-            this.label13.Click += new System.EventHandler(this.label13_Click);
             // 
             // label3
             // 
@@ -242,7 +232,6 @@
             this.label3.Size = new System.Drawing.Size(58, 13);
             this.label3.TabIndex = 42;
             this.label3.Text = "Fecha Alta";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label2
             // 
@@ -252,7 +241,6 @@
             this.label2.Size = new System.Drawing.Size(48, 13);
             this.label2.TabIndex = 41;
             this.label2.Text = "Empresa";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // btnAceptar
             // 
@@ -270,7 +258,6 @@
             this.txtFactura.Name = "txtFactura";
             this.txtFactura.Size = new System.Drawing.Size(144, 20);
             this.txtFactura.TabIndex = 30;
-            this.txtFactura.TextChanged += new System.EventHandler(this.txtFactura_TextChanged);
             // 
             // txtDni
             // 
@@ -278,7 +265,6 @@
             this.txtDni.Name = "txtDni";
             this.txtDni.Size = new System.Drawing.Size(143, 20);
             this.txtDni.TabIndex = 26;
-            this.txtDni.TextChanged += new System.EventHandler(this.txtDni_TextChanged);
             // 
             // label6
             // 
@@ -288,7 +274,6 @@
             this.label6.Size = new System.Drawing.Size(64, 13);
             this.label6.TabIndex = 24;
             this.label6.Text = "N° Factura :";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label1
             // 
@@ -298,7 +283,6 @@
             this.label1.Size = new System.Drawing.Size(64, 13);
             this.label1.TabIndex = 19;
             this.label1.Text = "DNI Cliente:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // tabPage2
             // 

@@ -100,13 +100,28 @@ namespace PagoAgilFrba.AbmFactura
 
         private void button3_Click(object sender, EventArgs e)
         {
+
             if (txtMonto.Text != "" && txtCantidad.Text != "")
             {
+                try
+                {
+                    Int32.Parse(txtMonto.Text);
+                    Int32.Parse(txtCantidad.Text);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ingrese valores numericos para el monto y la cantidad");
+                    return;
+                }
                 string[] row = { txtMonto.Text, txtCantidad.Text };
                 var listViewItem = new ListViewItem(row);
                 listaSeleccionados.Items.Add(listViewItem);
                 txtMonto.Text = "";
                 txtCantidad.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("Complete todos los campos");
             }
             actualizarlabel(null,null);
         }

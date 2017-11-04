@@ -252,7 +252,6 @@
             this.textPagador2.Size = new System.Drawing.Size(110, 20);
             this.textPagador2.TabIndex = 78;
             this.textPagador2.Text = "DNI Pagador:";
-            this.textPagador2.Click += new System.EventHandler(this.label9_Click);
             // 
             // textPagador
             // 
@@ -261,7 +260,6 @@
             this.textPagador.Name = "textPagador";
             this.textPagador.Size = new System.Drawing.Size(156, 22);
             this.textPagador.TabIndex = 77;
-            this.textPagador.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
             // 
             // labelSucursal
             // 

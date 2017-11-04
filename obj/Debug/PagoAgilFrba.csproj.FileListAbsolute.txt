@@ -108,3 +108,5 @@ C:\Users\santy\OneDrive\Documents\GitHub\TPGDD\obj\Debug\PagoAgilFrba.RegistroPa
 D:\GitHub\TPGDD\obj\Debug\PagoAgilFrba.RegistroPago.Pagos.resources
 D:\GitHub\TPGDD\obj\Debug\PagoAgilFrba.IniciarSesion.SeleccionarSucursal.resources
 C:\Users\santy\OneDrive\Documents\GitHub\TPGDD\obj\Debug\PagoAgilFrba.IniciarSesion.SeleccionarSucursal.resources
+C:\Users\lukas\Downloads\TPGDD\obj\Debug\PagoAgilFrba.IniciarSesion.SeleccionarSucursal.resources
+C:\Users\lukas\Downloads\TPGDD\obj\Debug\PagoAgilFrba.RegistroPago.Pagos.resources

@@ -26,7 +26,7 @@ namespace PagoAgilFrba.RegistroPago
 
         private void Pagos_Load(object sender, EventArgs e)
         {
-            List<string> lista = BD.listaDeUnCampo("select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas");
+            List<string> lista = BD.listaDeUnCampo("select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_estado = 1");
             lista.Insert(0,"");
             comboEmpresas.DataSource = lista;
             comboMedioDePago.DataSource = BD.listaDeUnCampo("select formaDePago_desc from EL_JAPONES_SANGRANDO.Formas_De_Pago");
@@ -252,16 +252,6 @@ namespace PagoAgilFrba.RegistroPago
             else{
                 MessageBox.Show("Datos erroneos");
             }
-        }
-
-        private void textBox1_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

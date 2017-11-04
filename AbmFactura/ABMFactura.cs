@@ -22,14 +22,15 @@ namespace PagoAgilFrba.AbmFactura
             lista.Insert(0, "");
             comboboxEliminarEmpresa.DataSource = lista;
             comboBoxModEmpresa.DataSource = lista;
-           
+
         }
-        private void cargarGrids(){
+        private void cargarGrids()
+        {
             string query = "select DISTINCT factura_numero,(select empresa_nombre from EL_JAPONES_SANGRANDO.EMPRESAS where empresa_cuit = factura_empresa),factura_cliente from EL_JAPONES_SANGRANDO.Facturas";
             DataTable ds = BD.busqueda(query);
             datagridViewEliminar.Columns.Clear();
             dataGridViewModificarC.Columns.Clear();
-            
+
             query = "select DISTINCT factura_numero,factura_empresa,factura_cliente from EL_JAPONES_SANGRANDO.Facturas where factura_estado = 1";
             DataTable ds2 = BD.busqueda(query);
             dataGridViewModificarC.DataSource = ds2;
@@ -38,10 +39,7 @@ namespace PagoAgilFrba.AbmFactura
             datagridViewEliminar.DataSource = ds2;
             BD.nuevoBoton(datagridViewEliminar, "Eliminar", 3);
         }
-        private void label1_Click(object sender, EventArgs e)
-        {
 
-        }
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
@@ -87,11 +85,25 @@ namespace PagoAgilFrba.AbmFactura
         {
             if (txtMonto.Text != "" && txtCantidad.Text != "")
             {
+                try
+                {
+                    Int32.Parse(txtMonto.Text);
+                    Int32.Parse(txtCantidad.Text);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ingrese valores numericos para el monto y la cantidad");
+                    return;
+                }
                 string[] row = { txtMonto.Text, txtCantidad.Text };
                 var listViewItem = new ListViewItem(row);
                 listaSeleccionados.Items.Add(listViewItem);
                 txtMonto.Text = "";
                 txtCantidad.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("Complete todos los campos");
             }
         }
 
@@ -103,7 +115,7 @@ namespace PagoAgilFrba.AbmFactura
             formatoFecha.formatoFecha.SetMyCustomFormatYYYYMMDD(dateVenc);
             formatoFecha.formatoFecha.SetMyCustomFormatYYYYMMDD(dateAlta);
             double sum = 0;
-            string query = "INSERT INTO EL_JAPONES_SANGRANDO.Item_Factura (item_monto, item_cantidad, item_factura) VALUES "; 
+            string query = "INSERT INTO EL_JAPONES_SANGRANDO.Item_Factura (item_monto, item_cantidad, item_factura) VALUES ";
             foreach (ListViewItem eachItem in listaSeleccionados.Items)
             {
                 query += "(" + eachItem.SubItems[0].Text + "," + eachItem.SubItems[1].Text + ",'" + txtFactura.Text + "'),";
@@ -125,17 +137,17 @@ namespace PagoAgilFrba.AbmFactura
             {
                 if (BD.ABM(query) > 0)
                 {
-                    MessageBox.Show("Todo bien papu");
+                    MessageBox.Show("Factura creada correctamente");
                 }
                 else
                 {
                     BD.ABM("DELETE FROM EL_JAPONES_SANGRANDO.Facturas where factura_numero = '" + txtFactura.Text + "'");
-                    MessageBox.Show("todo mal con los items");
+                    MessageBox.Show("Error al generar los items");
                 }
             }
             else
             {
-                MessageBox.Show("todo mal con las facturas");
+                MessageBox.Show("Error al crear la factura");
             }
             cargarGrids();
         }
@@ -153,17 +165,19 @@ namespace PagoAgilFrba.AbmFactura
 
                 if (BD.consultaDeUnSoloResultado("select pago_Factura_factura from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Pago_Factura on (pago_Factura_factura = factura_numero) WHERE factura_numero = '" + numeroDeFactura + "'") == "")
                 {
-                   if((BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Facturas SET factura_estado = 0 WHERE factura_numero = '"+numeroDeFactura+"'")>0))
-                   {
-                    MessageBox.Show("Factura eliminada", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    cargarGrids();
+                    if ((BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Facturas SET factura_estado = 0 WHERE factura_numero = '" + numeroDeFactura + "'") > 0))
+                    {
+                        MessageBox.Show("Factura eliminada", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        cargarGrids();
                     }
-                   else{
-                    MessageBox.Show("No se pudo eliminar la factura, revise los datos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                   }
+                    else
+                    {
+                        MessageBox.Show("No se pudo eliminar la factura, revise los datos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
 
                 }
-                else {
+                else
+                {
                     MessageBox.Show("Ya estaba paga", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -171,19 +185,20 @@ namespace PagoAgilFrba.AbmFactura
 
         private void textEliminarNombre_TextChanged(object sender, EventArgs e)
         {
-            String query = "SELECT  factura_numero,factura_empresa,factura_cliente from EL_JAPONES_SANGRANDO.Facturas WHERE " +
+            String query = "SELECT  factura_numero,factura_empresa,factura_cliente from EL_JAPONES_SANGRANDO.Facturas WHERE factura_estado = 1 AND " +
                           "factura_cliente LIKE '" + textEliminarNumeroCliente.Text + "%' AND " +
                           "factura_numero LIKE '" + textEliminarNumeroFactura.Text + "%'" +
                           condicionDeEmpresas();
             datagridViewEliminar.DataSource = BD.busqueda(query);
         }
-        private String condicionDeEmpresas(){
-            if(comboboxEliminarEmpresa.SelectedText=="")
+        private String condicionDeEmpresas()
+        {
+            if (comboboxEliminarEmpresa.SelectedText == "")
                 return "";
             return "AND factura_empresa = " + "(select empresa_cuit from EL_JAPONES_SANGRANDO.Empresas where empresa_nombre = '" + comboboxEliminarEmpresa.Text + "')";
         }
 
-       
+
         private String condicionDeEmpresas2()
         {
             if (comboboxEliminarEmpresa.SelectedText == "")
@@ -199,105 +214,28 @@ namespace PagoAgilFrba.AbmFactura
                          condicionDeEmpresas2();
             dataGridViewModificarC.Columns.Clear();
             dataGridViewModificarC.DataSource = BD.busqueda(query);
-            BD.nuevoBoton(dataGridViewModificarC,"Modificar",3);
-            
+            BD.nuevoBoton(dataGridViewModificarC, "Modificar", 3);
+
         }
 
         private void dataGridViewModificarC_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-             var senderGrid = (DataGridView)sender;
+            var senderGrid = (DataGridView)sender;
 
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
             {
                 string factura = dataGridViewModificarC.Rows[e.RowIndex].Cells["factura_numero"].Value.ToString();
-                string estado = BD.consultaDeUnSoloResultado("Select factura_estado from EL_JAPONES_SANGRANDO.Facturas where factura_numero = '"+factura+"'");
-                if(estado =="2" || estado =="3"){
+                string estado = BD.consultaDeUnSoloResultado("Select factura_estado from EL_JAPONES_SANGRANDO.Facturas where factura_numero = '" + factura + "'");
+                if (estado == "2" || estado == "3")
+                {
                     MessageBox.Show("No se pueden modificar facturas pagadas o rendidas");
                 }
-                else{
+                else
+                {
                     new Eliminar_Modificar_Factura_Seleccionada(factura).Show();
                 }
             }
         }
 
-        private void listaSeleccionados_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dateVenc_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dateAlta_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtCantidad_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtMonto_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtEmpresa_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label13_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtFactura_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtDni_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnModificarCliente_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

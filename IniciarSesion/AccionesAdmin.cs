@@ -174,7 +174,9 @@ namespace PagoAgilFrba.IniciarSesion
         private void AccionesAdmin_Load(object sender, EventArgs e)
         {
             comboPorcentaje.SelectedIndex = 0;
-            comboEmpresa.DataSource = BD.listaDeUnCampo("select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_estado = 1");
+            List<string> empresas = BD.listaDeUnCampo("select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_estado = 1");
+            empresas.Insert(0, "");
+            comboEmpresa.DataSource = empresas;
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
@@ -289,6 +291,10 @@ namespace PagoAgilFrba.IniciarSesion
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (comboEmpresa.Text == "")
+            {
+                return;
+            }
             dataGridRendiciones.DataSource = BD.busqueda("select factura_numero, factura_cliente, factura_fecha, factura_fecha_vencimiento, factura_total from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Empresas on factura_empresa = empresa_cuit where empresa_nombre = '" + comboEmpresa.Text + "' and month(factura_fecha) =  month(GETDATE()) and factura_estado = 2");
 
             double porcentaje = double.Parse(comboPorcentaje.Text)/100;
