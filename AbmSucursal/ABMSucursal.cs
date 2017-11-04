@@ -107,6 +107,7 @@ namespace PagoAgilFrba.Sucursal
                 e.RowIndex >= 0)
             {
                 new Eliminar_Modificar_Sucursal_Seleccionada(dataGridViewModificarC.Rows[e.RowIndex].Cells["sucursal_nombre"].Value.ToString()).ShowDialog();
+                DatagridViewEliminar.DataSource = BD.busqueda("select sucursal_nombre,sucursal_codigo_postal,sucursal_direccion from EL_JAPONES_SANGRANDO.Sucursales where sucursal_estado = 1");
                 //string rol = dataGridViewModificarC.Rows[e.ColumnIndex].Cells[2].Value.ToString();
                 //BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Roles SET rol_estado = 0 WHERE rol_nombre ='" +rol+ "'");
             }
@@ -122,16 +123,28 @@ namespace PagoAgilFrba.Sucursal
                 e.RowIndex >= 0)
             {
                 string sucursalNombre = DatagridViewEliminar.Rows[e.RowIndex].Cells["sucursal_nombre"].Value.ToString();
-                if (BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Sucursales SET sucursal_estado = 0 WHERE sucursal_nombre ='" + sucursalNombre + "'") > 0)
+                string update = "UPDATE EL_JAPONES_SANGRANDO.Sucursales SET sucursal_estado = 0 WHERE sucursal_nombre ='" + sucursalNombre + "'";
+                string idSucursal = BD.consultaDeUnSoloResultado("select sucursal_codigo_postal from EL_JAPONES_SANGRANDO.Sucursales where sucursal_nombre ='" + sucursalNombre + "'");
+                string delete = "Delete EL_JAPONES_SANGRANDO.Usuario_Rol where usuario_Rol_usuario IN (select usuario_Sucursal_usuario from EL_JAPONES_SANGRANDO.Usuario_Sucursal where usuario_Sucursal_sucursal = " + idSucursal + ")";
+                List<String> lista = new List<String>();
+                lista.Add(update);
+                lista.Add(delete);
+                if (BD.correrStoreProcedure(lista) > 0)
                 {
                     MessageBox.Show("Se elimino la sucursal " + sucursalNombre, "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DatagridViewEliminar.DataSource = BD.busqueda("select sucursal_nombre,sucursal_codigo_postal,sucursal_direccion from EL_JAPONES_SANGRANDO.Sucursales where sucursal_estado = 1");
+                    dataGridViewModificarC.DataSource = BD.busqueda("select sucursal_nombre,sucursal_codigo_postal,sucursal_direccion from EL_JAPONES_SANGRANDO.Sucursales");
                 }
                 else
                 {
                     MessageBox.Show("No se pudo eliminar la sucursal " + sucursalNombre, "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+
+        }
+
+        private void ABMSucursal_Load(object sender, EventArgs e)
+        {
 
         }
     }

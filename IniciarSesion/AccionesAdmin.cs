@@ -12,9 +12,10 @@ namespace PagoAgilFrba.IniciarSesion
 {
     public partial class AccionesAdmin : Form
     {
+        string rolSeleccionado;
         public AccionesAdmin(string rol)
         {
-            string rolSeleccionado = rol;
+            rolSeleccionado = rol;
             InitializeComponent();
             string query = "select (select funcionalidad_descripcion from EL_JAPONES_SANGRANDO.Funcionalidades where funcionalidad_id = rol_Funcionalidad_funcionalidad ) from EL_JAPONES_SANGRANDO.Rol_Funcionalidad where rol_Funcionalidad_rol = '" + rolSeleccionado + "'";
             List<String> lista = BD.listaDeUnCampo(query);
@@ -172,7 +173,8 @@ namespace PagoAgilFrba.IniciarSesion
 
         private void AccionesAdmin_Load(object sender, EventArgs e)
         {
-           
+            comboPorcentaje.SelectedIndex = 0;
+            comboEmpresa.DataSource = BD.listaDeUnCampo("select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_estado = 1");
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
@@ -222,7 +224,7 @@ namespace PagoAgilFrba.IniciarSesion
                     {
                         this.Hide();
                         new AbmEmpresa.ABMEmpresa().ShowDialog();
-                        this.Show();
+                        new AccionesAdmin(rolSeleccionado).Show();
                     } break;
                 case "REGISTRO_DE_PAGO_DE_FACTURAS":
                     {
@@ -241,6 +243,63 @@ namespace PagoAgilFrba.IniciarSesion
                         MessageBox.Show("no se creo la ventana pertinente", "Login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     } break;
             }
+        }
+
+        private void tabPage3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (comboEmpresa.Text == "")
+            {
+                MessageBox.Show("No se pudo realizar la rendicion", "Al pique quique", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string idrendicion = "(select top 1 rendicion_nro from EL_JAPONES_SANGRANDO.Rendiciones order by rendicion_nro desc)";
+            string idEmpresa = "(select empresa_cuit from EL_JAPONES_SANGRANDO.Empresas where empresa_nombre ='" + comboEmpresa.Text+ "')";
+            string fecha = dateRendicion.Value.Date.ToString("MM/dd/yyyy");
+            BD.ABM("insert into EL_JAPONES_SANGRANDO.Rendiciones (rendicion_nro,rendicion_empresa,rendicion_importe,rendicion_porcentaje_comision,rendicion_cantfacturas,rendicion_fecha,rendicion_importeFinal) values (" + idrendicion + "+1," + idEmpresa + "," + lblImporte.Text + "," + comboPorcentaje.Text + "," + lblCantFacturas.Text + ",'" + fecha+"',"+lblGanancia.Text + ")");
+            foreach (DataGridViewRow row in dataGridRendiciones.Rows)
+            {
+                if (row.Cells[0].Value != null)
+                {
+                    string factura = row.Cells["factura_numero"].Value.ToString();
+                    double valor = double.Parse(row.Cells["factura_total"].Value.ToString());
+                    double porcentaje = double.Parse(comboPorcentaje.Text) / 100;
+                    valor = valor - valor * porcentaje;
+                    String insert = "INSERT INTO EL_JAPONES_SANGRANDO.Item_Rendicion(itemr_rendicion,itemr_factura,itemr_importe) values (" + idrendicion + "," + factura + "," + valor + ")";
+                    String update = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET factura_estado = 3 where factura_numero = '" + factura + "'";
+                    BD.ABM(insert);
+                    BD.ABM(update);
+
+                }
+            }
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dataGridRendiciones.DataSource = BD.busqueda("select factura_numero, factura_cliente, factura_fecha, factura_fecha_vencimiento, factura_total from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Empresas on factura_empresa = empresa_cuit where empresa_nombre = '" + comboEmpresa.Text + "' and month(factura_fecha) =  month(GETDATE()) and factura_estado = 2");
+
+            double porcentaje = double.Parse(comboPorcentaje.Text)/100;
+            string query = "select count(*) as cantidad_facturas, sum(factura_total) as total, sum(factura_total * ( 1 - " + porcentaje + " )  ) as ganancia from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Empresas on factura_empresa = empresa_cuit where empresa_nombre = '" + comboEmpresa.Text + "' and month(factura_fecha) =  month(GETDATE()) and factura_estado = 2 group by empresa_cuit";
+
+            DataTable dt = BD.busqueda(query);
+            if (dt.Rows.Count > 0)
+            {
+                DataRow row = dt.Rows[0];
+                lblCantFacturas.Text = row["cantidad_facturas"].ToString();
+                lblImporte.Text = row["total"].ToString();
+                lblGanancia.Text = row["ganancia"].ToString();
+            }
+        }
+
+        private void AccionesAdmin_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
