@@ -136,17 +136,17 @@ namespace PagoAgilFrba.IniciarSesion
                         break;
                     case 1://Empresas con mayor monto rendido
                         {
-                            query = "";
+                            query = "SELECT TOP 5 emp_nombre, (select rubro_desc from EL_JAPONES_SANGRANDO.Rubros where rubro_id = emp_rubro) as empresa_rubro, emp_cuit, SUM(rend_importe) as Monto_total_rendido FROM EL_JAPONES_SANGRANDO.Empresas join EL_JAPONES_SANGRANDO.Rendiciones ON rend_empresa = emp_CUIT where YEAR(rend_fecha) = " + anio + " and (MONTH(rend_fecha) = (" + trimestre + " * 3) OR MONTH(rend_fecha) = (" + trimestre + " * 3) -1 	OR MONTH(rend_fecha) = (" + trimestre + " * 3) -2) GROUP BY emp_CUIT, emp_nombre, emp_rubro ORDER BY 4 DESC";
                         };
                         break;
                     case 2://Clientes con mas pagos
                         {
-                            query = "";
+                            query = "SELECT TOP 5 cli_nombre, cli_apellido, cli_DNI, cli_mail, (SELECT COUNT(*) FROM EL_JAPONES_SANGRANDO.Pagos  WHERE pago_cliente = cli_DNI 	and YEAR(pago_fecha) = " + anio + "and (MONTH(pago_fecha) = (" + trimestre + " * 3) OR MONTH(pago_fecha) = (" + trimestre + " * 3) -1 	OR MONTH(pago_fecha) = (" + trimestre + " * 3) -2)) as Cantidad_de_Pagos FROM EL_JAPONES_SANGRANDO.Clientes GROUP BY cli_nombre, cli_apellido, cli_DNI, cli_mail ORDER BY 5 DESC;";
                         };
                         break;
                     case 3://Clientes cumplidores
                         {
-                            query = "";
+                            query = "SELECT TOP 5 emp_nombre, (select rubro_desc from EL_JAPONES_SANGRANDO.Rubros where rubro_id = emp_rubro), emp_cuit, SUM(rend_importeFinal) as Monto_total_rendido FROM EL_JAPONES_SANGRANDO.Empresas join EL_JAPONES_SANGRANDO.Rendiciones ON rend_empresa = emp_CUIT where YEAR(rend_fecha) = " + anio + "	and (MONTH(rend_fecha) = (" + trimestre + " * 3) 	OR MONTH(rend_fecha) = (" + trimestre + " * 3) -1 OR MONTH(rend_fecha) = (" + trimestre + " * 3) -2) GROUP BY emp_nombre, emp_rubro, emp_CUIT ORDER BY 4 DESC";
                         };
                         break;
                 }

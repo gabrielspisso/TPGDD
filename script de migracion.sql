@@ -75,7 +75,8 @@ CREATE TABLE [EL_JAPONES_SANGRANDO].[Pagos](
 	[pago_suc] [numeric](18,0),
 	[pago_importe] [numeric](18,2),
 	[pago_medio] [numeric] (18,0),
-	[pago_fecha] [datetime]
+	[pago_fecha] [datetime],
+	[pago_cliente] [numeric](18,0) not null
 )
 GO
 CREATE TABLE [EL_JAPONES_SANGRANDO].[PagoFactura](
@@ -187,7 +188,10 @@ ALTER TABLE [EL_JAPONES_SANGRANDO].[Pagos]
 	CONSTRAINT [FK_Pago_Suc] FOREIGN KEY ([pago_suc])
     REFERENCES [EL_JAPONES_SANGRANDO].[Sucursales] ([suc_CP]),
     CONSTRAINT [FK_Pago_Medio] FOREIGN KEY ([pago_medio])
-    REFERENCES [EL_JAPONES_SANGRANDO].[MediosDePago] ([medio_id])
+    REFERENCES [EL_JAPONES_SANGRANDO].[MediosDePago] ([medio_id]),
+	CONSTRAINT [FK_Pago_Cliente] FOREIGN KEY ([pago_cliente])
+    REFERENCES [EL_JAPONES_SANGRANDO].[Clientes] ([cli_DNI])
+	
 
 
 GO
@@ -291,8 +295,8 @@ WHERE Sucursal_Codigo_Postal IS NOT NULL
 -- PAGOS. SI BIEN LA RELACION CON FACTURAS ES MUCHOS A MUCHOS, EN LOS DATOS DE LA TABLA MAESTRA SOLO HAY PAGOS QUE PAGAN UNA UNICA FACTURA, POR LO QUE
 -- EL IMPORTE DE ESE PAGO ES EL MISMO QUE EL DE LA FACTURA CON EL QUE SE RELACIONA, ENTONCES NO ES NECESARIO SUMAR TODOS LOS IMPORTES DE LAS FACTURAS
 -- DEL PAGO DENTRO DE ESTE SCRIPT
-INSERT INTO EL_JAPONES_SANGRANDO.Pagos (pago_nro, pago_suc, pago_importe, pago_medio, pago_fecha)
-SELECT DISTINCT Pago_nro, Sucursal_Codigo_Postal, Factura_Total, (SELECT medio_id FROM EL_JAPONES_SANGRANDO.MediosDePago WHERE medio_desc = FormaPagoDescripcion), Pago_Fecha FROM gd_esquema.Maestra
+INSERT INTO EL_JAPONES_SANGRANDO.Pagos (pago_nro, pago_suc, pago_importe, pago_medio, pago_fecha,pago_cliente)
+SELECT DISTINCT Pago_nro, Sucursal_Codigo_Postal, Factura_Total, (SELECT medio_id FROM EL_JAPONES_SANGRANDO.MediosDePago WHERE medio_desc = FormaPagoDescripcion), Pago_Fecha,[Cliente-Dni] FROM gd_esquema.Maestra
 WHERE Pago_nro IS NOT NULL
 ORDER BY Pago_nro
 -- PAGOSFACTURAS
