@@ -113,6 +113,12 @@
     <Compile Include="IniciarSesion\AccionesAdmin.Designer.cs">
       <DependentUpon>AccionesAdmin.cs</DependentUpon>
     </Compile>
+    <Compile Include="IniciarSesion\SeleccionarSucursal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IniciarSesion\SeleccionarSucursal.Designer.cs">
+      <DependentUpon>SeleccionarSucursal.cs</DependentUpon>
+    </Compile>
     <Compile Include="IniciarSesion\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -177,6 +183,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="IniciarSesion\AccionesAdmin.resx">
       <DependentUpon>AccionesAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IniciarSesion\SeleccionarSucursal.resx">
+      <DependentUpon>SeleccionarSucursal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IniciarSesion\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

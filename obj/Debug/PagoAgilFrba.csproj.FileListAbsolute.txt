@@ -106,3 +106,4 @@ C:\Users\Matias\Documents\GitHub\TPGDD\obj\Debug\PagoAgilFrba.csproj.GenerateRes
 C:\Users\Matias\Documents\GitHub\TPGDD\obj\Debug\PagoAgilFrba.RegistroPago.Pagos.resources
 C:\Users\santy\OneDrive\Documents\GitHub\TPGDD\obj\Debug\PagoAgilFrba.RegistroPago.Pagos.resources
 D:\GitHub\TPGDD\obj\Debug\PagoAgilFrba.RegistroPago.Pagos.resources
+D:\GitHub\TPGDD\obj\Debug\PagoAgilFrba.IniciarSesion.SeleccionarSucursal.resources
