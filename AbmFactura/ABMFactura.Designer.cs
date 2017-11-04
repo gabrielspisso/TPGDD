@@ -46,7 +46,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
-            this.btnVolver = new System.Windows.Forms.Button();
             this.txtFactura = new System.Windows.Forms.TextBox();
             this.txtDni = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -60,8 +59,6 @@
             this.textModNumeroFactura = new System.Windows.Forms.TextBox();
             this.textModCliente = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.btnModificarCliente = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.comboboxEliminarEmpresa = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -71,8 +68,6 @@
             this.textEliminarNumeroFactura = new System.Windows.Forms.TextBox();
             this.textEliminarNumeroCliente = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -109,7 +104,6 @@
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.btnAceptar);
-            this.tabPage1.Controls.Add(this.btnVolver);
             this.tabPage1.Controls.Add(this.txtFactura);
             this.tabPage1.Controls.Add(this.txtDni);
             this.tabPage1.Controls.Add(this.label6);
@@ -120,6 +114,7 @@
             this.tabPage1.Size = new System.Drawing.Size(612, 358);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Agregar";
+            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
             // txtEmpresa
             // 
@@ -269,16 +264,6 @@
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
-            // btnVolver
-            // 
-            this.btnVolver.Location = new System.Drawing.Point(390, 317);
-            this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(75, 23);
-            this.btnVolver.TabIndex = 33;
-            this.btnVolver.Text = "Volver";
-            this.btnVolver.UseVisualStyleBackColor = true;
-            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
-            // 
             // txtFactura
             // 
             this.txtFactura.Location = new System.Drawing.Point(121, 52);
@@ -326,8 +311,6 @@
             this.tabPage2.Controls.Add(this.textModNumeroFactura);
             this.tabPage2.Controls.Add(this.textModCliente);
             this.tabPage2.Controls.Add(this.label14);
-            this.tabPage2.Controls.Add(this.btnModificarCliente);
-            this.tabPage2.Controls.Add(this.button1);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -405,25 +388,6 @@
             this.label14.TabIndex = 17;
             this.label14.Text = "Cliente :";
             // 
-            // btnModificarCliente
-            // 
-            this.btnModificarCliente.Location = new System.Drawing.Point(162, 174);
-            this.btnModificarCliente.Name = "btnModificarCliente";
-            this.btnModificarCliente.Size = new System.Drawing.Size(90, 32);
-            this.btnModificarCliente.TabIndex = 16;
-            this.btnModificarCliente.Text = "Modificar";
-            this.btnModificarCliente.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(37, 174);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(86, 32);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "Volver";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // tabPage4
             // 
             this.tabPage4.BackColor = System.Drawing.SystemColors.InactiveBorder;
@@ -435,8 +399,6 @@
             this.tabPage4.Controls.Add(this.textEliminarNumeroFactura);
             this.tabPage4.Controls.Add(this.textEliminarNumeroCliente);
             this.tabPage4.Controls.Add(this.label21);
-            this.tabPage4.Controls.Add(this.button4);
-            this.tabPage4.Controls.Add(this.button5);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
@@ -514,25 +476,6 @@
             this.label21.TabIndex = 17;
             this.label21.Text = "Cliente :";
             // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(162, 174);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(90, 32);
-            this.button4.TabIndex = 16;
-            this.button4.Text = "Eliminar";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(37, 174);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(86, 32);
-            this.button5.TabIndex = 15;
-            this.button5.Text = "Volver";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
             // ABMFactura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -562,7 +505,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnAceptar;
-        private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.TextBox txtDni;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -574,8 +516,6 @@
         private System.Windows.Forms.TextBox textModNumeroFactura;
         private System.Windows.Forms.TextBox textModCliente;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Button btnModificarCliente;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.ComboBox comboboxEliminarEmpresa;
@@ -586,8 +526,6 @@
         private System.Windows.Forms.TextBox textEliminarNumeroFactura;
         private System.Windows.Forms.TextBox textEliminarNumeroCliente;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ListView listaSeleccionados;
         private System.Windows.Forms.Label label7;

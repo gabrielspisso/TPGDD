@@ -57,8 +57,15 @@ namespace PagoAgilFrba.IniciarSesion
                 {
                     List<string> queries = new List<string>();
                     string insert = "INSERT INTO EL_JAPONES_SANGRANDO.Devoluciones (devolucion_descripcion,devolucion_factura)values('" + motivo + "'," + factura_numero + ")";
+                    string idPago = BD.consultaDeUnSoloResultado("select pago_Factura_pago from EL_JAPONES_SANGRANDO.Pago_Factura where pago_Factura_factura = " + factura_numero);
+                    string deletePagoFactura = "DELETE EL_JAPONES_SANGRANDO.Pago_Factura where pago_Factura_factura = " + factura_numero;
+
+                    string updatePago = "UPDATE EL_JAPONES_SANGRANDO.Pagos SET pago_importe = pago_importe - (select factura_total from EL_JAPONES_SANGRANDO.Facturas where factura_numero = "+factura_numero+")  where pago_nro = " + idPago;
+                    
                     string update = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET factura_estado = 1 WHERE factura_numero = " + factura_numero;
                     queries.Add(insert);
+                    queries.Add(deletePagoFactura);
+                    queries.Add(updatePago);
                     queries.Add(update);
                     if (BD.correrStoreProcedure(queries) > 0)
                     {

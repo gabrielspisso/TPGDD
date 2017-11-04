@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnVolver = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.txtEmpresa = new System.Windows.Forms.ComboBox();
             this.dateVenc = new System.Windows.Forms.DateTimePicker();
@@ -53,16 +52,6 @@
             this.CheckHabilitado = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // btnVolver
-            // 
-            this.btnVolver.Location = new System.Drawing.Point(55, 368);
-            this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(75, 23);
-            this.btnVolver.TabIndex = 63;
-            this.btnVolver.Text = "Volver";
-            this.btnVolver.UseVisualStyleBackColor = true;
-            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // btnAceptar
             // 
@@ -293,7 +282,6 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAceptar);
-            this.Controls.Add(this.btnVolver);
             this.Name = "Eliminar_Modificar_Factura_Seleccionada";
             this.Text = "Eliminar_Modificar_Factura_Seleccionada";
             this.ResumeLayout(false);
@@ -303,7 +291,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.ComboBox txtEmpresa;
         private System.Windows.Forms.DateTimePicker dateVenc;
