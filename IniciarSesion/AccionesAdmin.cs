@@ -319,7 +319,7 @@ namespace PagoAgilFrba.IniciarSesion
             dataGridRendiciones.DataSource = BD.busqueda("select factura_numero, factura_cliente, factura_fecha, factura_fecha_vencimiento, factura_total from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Empresas on factura_empresa = empresa_cuit where empresa_nombre = '" + comboEmpresa.Text + "' and month(factura_fecha) =  month(GETDATE()) and year(factura_fecha) =  year(GETDATE()) and factura_estado = 2");
 
             double porcentaje = double.Parse(comboPorcentaje.Text)/100;
-            string query = "select count(*) as cantidad_facturas, sum(factura_total) as total, sum(factura_total * ( 1 - " + porcentaje.ToString().Replace(',','.') + " )  ) as ganancia from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Empresas on factura_empresa = empresa_cuit where empresa_nombre = '" + comboEmpresa.Text + "' and month(factura_fecha) =  month(GETDATE()) and factura_estado = 2 group by empresa_cuit";
+            string query = "select count(*) as cantidad_facturas, sum(factura_total) as total, sum(factura_total * ( 1 - " + porcentaje.ToString().Replace(',', '.') + " )  ) as ganancia from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Empresas on factura_empresa = empresa_cuit where empresa_nombre = '" + comboEmpresa.Text + "' and month(factura_fecha) =  month(GETDATE()) and year(factura_fecha) =  year(GETDATE()) and factura_estado = 2 group by empresa_cuit";
 
             DataTable dt = BD.busqueda(query);
             if (dt.Rows.Count > 0)

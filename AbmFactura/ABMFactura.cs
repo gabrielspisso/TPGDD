@@ -17,7 +17,7 @@ namespace PagoAgilFrba.AbmFactura
             InitializeComponent();
 
             cargarGrids();
-            string query = "SELECT rubro_desc FROM EL_JAPONES_SANGRANDO.Rubros";
+            string query = "SELECT empresa_nombre FROM EL_JAPONES_SANGRANDO.Empresas";
             List<String> lista = BD.listaDeUnCampo(query);
             lista.Insert(0, "");
             comboboxEliminarEmpresa.DataSource = lista;
@@ -193,17 +193,17 @@ namespace PagoAgilFrba.AbmFactura
         }
         private String condicionDeEmpresas()
         {
-            if (comboboxEliminarEmpresa.SelectedText == "")
+            if (comboboxEliminarEmpresa.Text == "")
                 return "";
-            return "AND factura_empresa = " + "(select empresa_cuit from EL_JAPONES_SANGRANDO.Empresas where empresa_nombre = '" + comboboxEliminarEmpresa.Text + "')";
+            return "AND factura_empresa = " + "(select top 1 empresa_cuit from EL_JAPONES_SANGRANDO.Empresas where empresa_nombre = '" + comboboxEliminarEmpresa.Text + "')";
         }
 
 
         private String condicionDeEmpresas2()
         {
-            if (comboboxEliminarEmpresa.SelectedText == "")
+            if (comboBoxModEmpresa.Text == "")
                 return "";
-            return "AND factura_empresa = " + "(select empresa_cuit from EL_JAPONES_SANGRANDO.Empresas where empresa_nombre = '" + comboBoxModEmpresa.Text + "')";
+            return " AND factura_empresa =  (select top 1 empresa_cuit from EL_JAPONES_SANGRANDO.Empresas where empresa_nombre = '" + comboBoxModEmpresa.Text + "')";
         }
 
         private void textModNumeroFactura_TextChanged(object sender, EventArgs e)
@@ -235,6 +235,11 @@ namespace PagoAgilFrba.AbmFactura
                     new Eliminar_Modificar_Factura_Seleccionada(factura).Show();
                 }
             }
+        }
+
+        private void comboBoxModEmpresa_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cargarGrids();
         }
 
     }

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlTypes;
 using System.Data;
 using PagoAgilFrba.Sucursal;
+using System.Configuration;
 namespace PagoAgilFrba
 {
     public class BD
@@ -18,7 +19,7 @@ namespace PagoAgilFrba
 
         public static SqlConnection getConnection()
         {
-            return new SqlConnection(connectionString);
+            return new SqlConnection(ConfigurationManager.AppSettings["conexionSQL"].ToString());
         }
 
         public static Byte[] sha256_hash(String value)

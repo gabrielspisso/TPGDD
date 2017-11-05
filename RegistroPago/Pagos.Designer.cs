@@ -132,7 +132,7 @@
             this.dateVenc.Name = "dateVenc";
             this.dateVenc.Size = new System.Drawing.Size(131, 22);
             this.dateVenc.TabIndex = 75;
-            this.dateVenc.Value = new System.DateTime(2017, 1, 1, 0, 0, 0, 0);
+            this.dateVenc.Value = new System.DateTime(2017, 11, 5, 0, 0, 0, 0);
             this.dateVenc.ValueChanged += new System.EventHandler(this.dateVenc_ValueChanged);
             // 
             // label4
