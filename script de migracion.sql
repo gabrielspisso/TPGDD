@@ -334,7 +334,7 @@ UPDATE EL_JAPONES_SANGRANDO.Facturas SET factura_estado = 2 WHERE factura_numero
 
 --MIGRACION DE RENDICIONES
 INSERT INTO EL_JAPONES_SANGRANDO.Rendiciones (rendicion_nro, rendicion_empresa, rendicion_porcentaje_comision, rendicion_fecha)
- SELECT DISTINCT Rendicion_Nro, (SELECT empresa_cuit FROM EL_JAPONES_SANGRANDO.Empresas WHERE empresa_nombre = Empresa_Nombre), 1, Rendicion_Fecha from gd_esquema.Maestra
+ SELECT DISTINCT Rendicion_Nro, (SELECT empresa_cuit FROM EL_JAPONES_SANGRANDO.Empresas WHERE empresa_nombre = Empresa_Nombre), ItemRendicion_Importe*100/Total, Rendicion_Fecha from gd_esquema.Maestra
  WHERE Rendicion_Nro IS NOT NULL order by Rendicion_Nro
 
  ALTER TABLE [EL_JAPONES_SANGRANDO].[Facturas] 
