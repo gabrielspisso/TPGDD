@@ -187,7 +187,7 @@ namespace PagoAgilFrba.IniciarSesion
 
 
             comboPorcentaje.SelectedIndex = 0;
-            List<string> empresas = BD.listaDeUnCampo("select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_estado = 1");
+            List<string> empresas = BD.listaDeUnCampo("select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_estado = 1 and (select count(*) from EL_JAPONES_SANGRANDO.Rendiciones where MONTH(rendicion_fecha) = MONTH(GETDATE()) AND YEAR(rendicion_fecha) = YEAR(GETDATE()) AND rendicion_empresa = empresa_CUIT)=0");
             empresas.Insert(0, "");
             comboEmpresa.DataSource = empresas;
         }
@@ -281,6 +281,14 @@ namespace PagoAgilFrba.IniciarSesion
             
             string insert = ("insert into EL_JAPONES_SANGRANDO.Rendiciones (rendicion_nro,rendicion_empresa,rendicion_importe,rendicion_porcentaje_comision,rendicion_cantfacturas,rendicion_fecha,rendicion_importeFinal) values (" + idrendicion + "+1," + idEmpresa + "," + lblImporte.Text.Replace(',', '.') + "," + comboPorcentaje.Text + "," + lblCantFacturas.Text + ",'" + fecha + "'," + lblGanancia.Text.Replace(',', '.') + ")");
             lista.Add(insert);
+
+            if (dataGridRendiciones.Rows.Count == 1)//El data grid automaticamente rellena automaticamente una fila vacia al final
+            {
+                MessageBox.Show("No hay facturas para realizar la rendicion");
+                return;
+            }
+
+
             foreach (DataGridViewRow row in dataGridRendiciones.Rows)
             {
                 if (row.Cells[0].Value != null)
