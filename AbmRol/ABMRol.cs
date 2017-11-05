@@ -101,7 +101,7 @@ namespace PagoAgilFrba.AbmRol
 
 
             comboModificar.DataSource = BD.listaDeUnCampo("Select rol_nombre from EL_JAPONES_SANGRANDO.Roles");
-            comboModificar.SelectedText = "";
+            comboModificar.SelectedItem = null;
 
         }
 
@@ -126,9 +126,14 @@ namespace PagoAgilFrba.AbmRol
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+            
             int valor = checkBox2.Checked ? 1 : 0;
+            if(comboModificar.SelectedItem == null){
+                MessageBox.Show("No selecciono ningun rol");
+                return;
+            }
             string rol = comboModificar.SelectedValue.ToString();
-
+            
             string queryUpdate = "INSERT INTO EL_JAPONES_SANGRANDO.Rol_Funcionalidad (rol_Funcionalidad_rol,rol_Funcionalidad_funcionalidad) values ";
 
             string funcionalidades = "";
@@ -171,6 +176,7 @@ namespace PagoAgilFrba.AbmRol
 
         private void comboModificar_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if(comboModificar.SelectedItem != null){
 
             List<String> c = BD.listaDeUnCampo("select rol_Funcionalidad_funcionalidad from EL_JAPONES_SANGRANDO.Rol_Funcionalidad where  rol_funcionalidad_rol = '" + comboModificar.SelectedValue.ToString() + "'");
                 
@@ -187,6 +193,7 @@ namespace PagoAgilFrba.AbmRol
             string w = BD.consultaDeUnSoloResultado("select rol_estado from EL_JAPONES_SANGRANDO.Roles where rol_nombre = '" + comboModificar.SelectedValue.ToString() + "'");
 
             checkBox2.Checked = w == "True";
+            }
         }
 
         private void ABMRol_Load(object sender, EventArgs e)
