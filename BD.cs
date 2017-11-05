@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlTypes;
 using System.Data;
-using System.Data;
 using PagoAgilFrba.Sucursal;
 namespace PagoAgilFrba
 {
@@ -133,8 +132,6 @@ namespace PagoAgilFrba
             loginCommand.Connection = connection;
             connection.Open();
             SqlDataReader reader = loginCommand.ExecuteReader();
-            String nombreUsuario = null;
-            byte[] dbPassword = null;
             while (reader.Read())
             {
                 listaRoles.Add(reader[0].ToString());

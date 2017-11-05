@@ -128,7 +128,7 @@
             // 
             this.dateVenc.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateVenc.Location = new System.Drawing.Point(247, 142);
-            this.dateVenc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateVenc.Margin = new System.Windows.Forms.Padding(4);
             this.dateVenc.Name = "dateVenc";
             this.dateVenc.Size = new System.Drawing.Size(131, 22);
             this.dateVenc.TabIndex = 75;

@@ -8,8 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlTypes;
-using System.Data;
-using System.Data.SqlClient;
 
 namespace PagoAgilFrba.AbmCliente
 {
@@ -95,7 +93,7 @@ namespace PagoAgilFrba.AbmCliente
                 return;
             }
 
-            if (textNombre.Text.Trim() == "" | textApellido.Text.Trim() == "" | textDni.Text.Trim() == "" | textDireccion.Text.Trim() == "" | textDireccion.Text.Trim() == "" | dateTimePickerFechaNac.Text.Trim() == "")
+            if (textNombre.Text.Trim() == "" | textApellido.Text.Trim() == "" | txtTelefono.Text.Trim() == "" | textDni.Text.Trim() == "" | textDireccion.Text.Trim() == "" | textDireccion.Text.Trim() == "" | dateTimePickerFechaNac.Text.Trim() == "")
             {
                 MessageBox.Show("Faltan completar campos obligatorios", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -108,7 +106,7 @@ namespace PagoAgilFrba.AbmCliente
                 String mail = textMail.Text;
                 String direccion = textDireccion.Text;
                 String fechanacimiento = dateTimePickerFechaNac.Text;
-                if (BD.ABM("INSERT INTO EL_JAPONES_SANGRANDO.Clientes(cliente_DNI,cliente_nombre,cliente_apellido,cliente_fecha_nacimiento,cliente_mail,cliente_direccion,cliente_codigo_postal)values('" + dni + "','" + nombre + "','" + apellido + "','" + fechanacimiento + "','" + mail + "','" + direccion + "','" + textCodigoPostal.Text + "')") > 0)
+                if (BD.ABM("INSERT INTO EL_JAPONES_SANGRANDO.Clientes(cliente_DNI,cliente_nombre,cliente_apellido,cliente_fecha_nacimiento,cliente_mail,cliente_direccion,cliente_codigo_postal, cliente_telefono)values('" + dni + "','" + nombre + "','" + apellido + "','" + fechanacimiento + "','" + mail + "','" + direccion + "','" + textCodigoPostal.Text + "', '"+txtTelefono.Text+"')") > 0)
                 {
                     MessageBox.Show("Se ingreso correctamente el cliente", "Insertado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     textNombre.Text = "";
@@ -118,6 +116,7 @@ namespace PagoAgilFrba.AbmCliente
                     textCodigoPostal.Text = "";
                     textDireccion.Text = "";
                     dateTimePickerFechaNac.Text = "";
+                    txtTelefono.Text = "";
                     string query = "select cliente_nombre,cliente_apellido,cliente_DNI from EL_JAPONES_SANGRANDO.Clientes";
                     DataTable ds = BD.busqueda(query);
                     dataViewModificar.DataSource = ds;
@@ -168,6 +167,7 @@ namespace PagoAgilFrba.AbmCliente
         {
             return (dni == "") ? "" : "AND cliente_DNI = '" + dni + "'";
         }
+
     }
 
 }

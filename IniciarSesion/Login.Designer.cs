@@ -73,6 +73,7 @@
             this.txtPassword.Size = new System.Drawing.Size(132, 22);
             this.txtPassword.TabIndex = 3;
             this.txtPassword.Text = "w23e";
+            this.txtPassword.UseSystemPasswordChar = true;
             // 
             // button1
             // 

@@ -40,21 +40,14 @@ namespace PagoAgilFrba.RegistroPago
             
             comboSucursal.DataSource = BD.listaDeUnCampo("select sucursal_nombre from EL_JAPONES_SANGRANDO.Sucursales");
         }
-        /// <summary>
-        /// 
-        /// 
-        /// 
-        /// HAY QUE AGREGAR EL FILTRO DE LAS FACTURAS SOLO PAGADAS
-        /// 
-        /// 
-        /// 
-        /// </summary>
+
+
         string queryf = "Select factura_numero, empresa_nombre as Empresa, factura_cliente,factura_fecha,factura_fecha_vencimiento,factura_total from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Empresas on (factura_empresa = empresa_cuit) where factura_estado  = 1 AND empresa_estado = 1";
-        string queryBusqueda;
+
 
         private bool los4estanvacios()
         {
-            return txtDni.Text == "" && dateVenc.Text == "1/1/2017" && txtFactura.Text == "" && comboEmpresas.Text == "";
+            return txtDni.Text == "" && dateVenc.Text == "1/1/1990" && txtFactura.Text == "" && comboEmpresas.Text == "";
         }
 
         string conAnd(string cadena)
@@ -94,7 +87,7 @@ namespace PagoAgilFrba.RegistroPago
             }
             else
                 query2 = queryf + " AND 1 = 1";
-               if (dateVenc.Text != "1/1/2017")
+               if (dateVenc.Text != "1/1/1990")
                {
                    query2 += conAnd(queryVencimiento());
                }
@@ -124,7 +117,7 @@ namespace PagoAgilFrba.RegistroPago
             else{
                 query2 +=queryf +"AND 1 = 1";
             }
-                if (dateVenc.Text != "1/1/2017")
+                if (dateVenc.Text != "1/1/1990")
                 {
                     query2 += conAnd(queryVencimiento());
                 }
@@ -155,7 +148,7 @@ namespace PagoAgilFrba.RegistroPago
             else{ 
                     query2 = queryf + " AND 1 = 1"; 
                 }
-                if (dateVenc.Text != "1/1/2017")
+                if (dateVenc.Text != "1/1/1990")
                 {
                     query2 += conAnd(queryVencimiento());
                 }
@@ -176,7 +169,7 @@ namespace PagoAgilFrba.RegistroPago
         private void dateVenc_ValueChanged(object sender, EventArgs e)
         {
             string query2 = "";
-            if (dateVenc.Text != "1/1/2017")
+            if (dateVenc.Text != "1/1/1990")
             {
                 query2 = queryf + " AND " + this.queryVencimiento();
                 if (txtDni.Text != "")
