@@ -16,6 +16,7 @@ namespace PagoAgilFrba.AbmRol
         {
             InitializeComponent();
             actualizarTodo();
+
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -98,8 +99,9 @@ namespace PagoAgilFrba.AbmRol
 
             comboEliminar.DataSource = BD.listaDeUnCampo("Select rol_nombre from EL_JAPONES_SANGRANDO.Roles where rol_estado=1");
 
-            comboModificar.DataSource = BD.listaDeUnCampo("Select rol_nombre from EL_JAPONES_SANGRANDO.Roles");
 
+            comboModificar.DataSource = BD.listaDeUnCampo("Select rol_nombre from EL_JAPONES_SANGRANDO.Roles");
+            comboModificar.SelectedText = "";
 
         }
 
@@ -170,6 +172,21 @@ namespace PagoAgilFrba.AbmRol
         private void comboModificar_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+            List<String> c = BD.listaDeUnCampo("select rol_Funcionalidad_funcionalidad from EL_JAPONES_SANGRANDO.Rol_Funcionalidad where  rol_funcionalidad_rol = '" + comboModificar.SelectedValue.ToString() + "'");
+                
+            foreach (DataGridViewRow r in dataGridFuncModificar.Rows)
+            {
+                if (c.Contains(r.Cells["funcionalidad_id"].Value.ToString()))
+                {
+
+                    r.Cells["habilitado"].Value = "T";
+                }
+                else
+                    r.Cells["habilitado"].Value = "F";
+            }
+            string w = BD.consultaDeUnSoloResultado("select rol_estado from EL_JAPONES_SANGRANDO.Roles where rol_nombre = '" + comboModificar.SelectedValue.ToString() + "'");
+
+            checkBox2.Checked = w == "True";
         }
 
         private void ABMRol_Load(object sender, EventArgs e)
