@@ -17,12 +17,7 @@ namespace PagoAgilFrba.IniciarSesion
         {
             rolSeleccionado = rol;
             InitializeComponent();
-            string query = "select (select funcionalidad_descripcion from EL_JAPONES_SANGRANDO.Funcionalidades where funcionalidad_id = rol_Funcionalidad_funcionalidad ) from EL_JAPONES_SANGRANDO.Rol_Funcionalidad where rol_Funcionalidad_rol = '" + rolSeleccionado + "'";
-            List<String> lista = BD.listaDeUnCampo(query);
-            comboAccion.DataSource = lista;
-            Acciones.Controls.Remove(tabPage3);
-            Acciones.Controls.Remove(tabPage4);
-            Acciones.Controls.Remove(tabPage5);
+            
 
 
         }
@@ -52,7 +47,7 @@ namespace PagoAgilFrba.IniciarSesion
                 if (factura_estado != 2)
                 {
                     string razon = (factura_estado == 1) ? "no se ha pagado" : (factura_estado == 3) ? "ya se ha rendido" : "se ha eliminado";
-                    MessageBox.Show("Esta factura no puede devolverse debido a que " + razon, "Al pique quique", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Esta factura no puede devolverse debido a que " + razon, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
@@ -70,17 +65,17 @@ namespace PagoAgilFrba.IniciarSesion
                     queries.Add(update);
                     if (BD.correrStoreProcedure(queries) > 0)
                     {
-                        MessageBox.Show("Factura devuelta", "Al pique quique", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Factura devuelta", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
-                        MessageBox.Show("No se pudo devolver la factura", "Al pique quique", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se pudo devolver la factura", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
             else
             {
-                MessageBox.Show("Debe Completar ambos campos", "Al pique quique", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Debe Completar ambos campos", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
 
@@ -131,7 +126,7 @@ namespace PagoAgilFrba.IniciarSesion
 
             if (cmbTipo.Text == "Seleccione..." || cmbTrimestre.Text == "Seleccione...")
             {
-                MessageBox.Show("Complete todos los campos", "Al pique quique", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Complete todos los campos", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
@@ -173,6 +168,24 @@ namespace PagoAgilFrba.IniciarSesion
 
         private void AccionesAdmin_Load(object sender, EventArgs e)
         {
+
+            string query = "select (select funcionalidad_descripcion from EL_JAPONES_SANGRANDO.Funcionalidades where funcionalidad_id = rol_Funcionalidad_funcionalidad ) from EL_JAPONES_SANGRANDO.Rol_Funcionalidad where rol_Funcionalidad_rol = '" + rolSeleccionado + "'";
+            List<String> lista = BD.listaDeUnCampo(query);
+
+            if (lista.Count == 0)
+            {
+                MessageBox.Show("Este rol no tiene funcionalidades asignadas");
+
+                this.Close();
+            }
+
+            comboAccion.DataSource = lista;
+            Acciones.Controls.Remove(tabPage3);
+            Acciones.Controls.Remove(tabPage4);
+            Acciones.Controls.Remove(tabPage5);
+
+
+
             comboPorcentaje.SelectedIndex = 0;
             List<string> empresas = BD.listaDeUnCampo("select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_estado = 1");
             empresas.Insert(0, "");
@@ -256,7 +269,7 @@ namespace PagoAgilFrba.IniciarSesion
         {
             if (comboEmpresa.Text == "")
             {
-                MessageBox.Show("No se pudo realizar la rendicion", "Al pique quique", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No se pudo realizar la rendicion", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -312,7 +325,8 @@ namespace PagoAgilFrba.IniciarSesion
 
         private void AccionesAdmin_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit();
+            new Login().Show();
+            //Application.Exit();
         }
     }
 }

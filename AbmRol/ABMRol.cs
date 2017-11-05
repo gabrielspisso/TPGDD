@@ -167,5 +167,15 @@ namespace PagoAgilFrba.AbmRol
             }
         }
 
+        private void comboModificar_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ABMRol_Load(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

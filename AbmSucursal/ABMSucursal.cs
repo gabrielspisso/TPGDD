@@ -136,10 +136,10 @@ namespace PagoAgilFrba.Sucursal
                 string sucursalNombre = DatagridViewEliminar.Rows[e.RowIndex].Cells["sucursal_nombre"].Value.ToString();
                 string update = "UPDATE EL_JAPONES_SANGRANDO.Sucursales SET sucursal_estado = 0 WHERE sucursal_nombre ='" + sucursalNombre + "'";
                 string idSucursal = BD.consultaDeUnSoloResultado("select sucursal_codigo_postal from EL_JAPONES_SANGRANDO.Sucursales where sucursal_nombre ='" + sucursalNombre + "'");
-                string delete = "Delete EL_JAPONES_SANGRANDO.Usuario_Rol where usuario_Rol_usuario IN (select usuario_Sucursal_usuario from EL_JAPONES_SANGRANDO.Usuario_Sucursal where usuario_Sucursal_sucursal = " + idSucursal + ")";
+                //string delete = "Delete EL_JAPONES_SANGRANDO.Usuario_Rol where usuario_Rol_usuario IN (select usuario_Sucursal_usuario from EL_JAPONES_SANGRANDO.Usuario_Sucursal where usuario_Sucursal_sucursal = " + idSucursal + ")";
                 List<String> lista = new List<String>();
                 lista.Add(update);
-                lista.Add(delete);
+                //lista.Add(delete);
                 if (BD.correrStoreProcedure(lista) > 0)
                 {
                     MessageBox.Show("Se elimino la sucursal " + sucursalNombre, "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);

@@ -145,13 +145,13 @@ namespace PagoAgilFrba.AbmEmpresa
                 {
                     if (BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Empresas SET empresa_estado = 0 WHERE empresa_cuit = '" + x + "'") > 0)
                     {
-                        MessageBox.Show("Empresa eliminada", "Al pique quique", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Empresa eliminada", "Empresa eliminada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         cargarGrids();
                     }
                 }
                 else
                 {
-                    MessageBox.Show("La Empresa todavia tiene facturas por rendir", "Todo mal flaco", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("La Empresa todavia tiene facturas por rendir", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                
             }

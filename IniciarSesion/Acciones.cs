@@ -66,7 +66,7 @@ namespace PagoAgilFrba.IniciarSesion
                 if (factura_estado != 2)
                 {
                     string razon = (factura_estado == 1) ? "no se ha pagado" : (factura_estado == 3) ? "ya se ha rendido" : "se ha eliminado";
-                    MessageBox.Show("Esta factura no puede devolverse debido a que " + razon, "Al pique quique", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Esta factura no puede devolverse debido a que " + razon, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
@@ -77,13 +77,13 @@ namespace PagoAgilFrba.IniciarSesion
                     queries.Add(update);
                     if ( BD.correrStoreProcedure(queries)> 0)
                     {
-                        MessageBox.Show("Factura devuelta", "Al pique quique", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Factura devuelta", "Factura devuelta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
             else
             {
-                MessageBox.Show("Debe Completar ambos campos", "Al pique quique", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Debe Completar ambos campos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
 

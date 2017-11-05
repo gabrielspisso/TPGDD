@@ -20,22 +20,17 @@ namespace PagoAgilFrba.IniciarSesion
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            switch (comboRoles.SelectedValue.ToString())
+            string rol = comboRoles.SelectedValue.ToString();
+
+
+            this.Hide();
+            if(rol == "cobrador")
             {
-                case "administrador":
-                    {
-                        this.Hide();
-                        new AccionesAdmin(comboRoles.SelectedValue.ToString()).Show();
-                    } break;
-                case "cobrador":
-                    {
-                        this.Hide();
-                        new SeleccionarSucursal().ShowDialog(); ;
-                    } break;
-                default:
-                    {
-                        MessageBox.Show("no se creo la ventana pertinente", "Login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }break;
+                 new SeleccionarSucursal().Show();
+            }
+            else
+            {
+                 new AccionesAdmin(rol).Show();
             }
         }
 

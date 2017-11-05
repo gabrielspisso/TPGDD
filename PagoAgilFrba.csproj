@@ -153,6 +153,7 @@
     </Compile>
     <EmbeddedResource Include="AbmCliente\ABMCliente.resx">
       <DependentUpon>ABMCliente.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmCliente\Eliminar_Modificar_Cliente_Seleccionado.resx">
       <DependentUpon>Eliminar_Modificar_Cliente_Seleccionado.cs</DependentUpon>

@@ -21,7 +21,7 @@ namespace PagoAgilFrba.IniciarSesion
         {
             BD.setSucursal(comboSucursales.SelectedValue.ToString());
             new AccionesAdmin("cobrador").Show();
-            this.Close();
+            this.Hide();
             
         }
 

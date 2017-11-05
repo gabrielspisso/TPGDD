@@ -47,7 +47,7 @@ namespace PagoAgilFrba.AbmCliente
                 string x = datagridEliminar.Rows[e.RowIndex].Cells["cliente_DNI"].Value.ToString();
                 if (BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Clientes SET cliente_estado = 0 WHERE cliente_DNI = '" + x + "'") > 0)
                 {
-                    MessageBox.Show("cliente eliminado", "Al pique quique", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("cliente eliminado", "cliente eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     String query = "select cliente_nombre,cliente_apellido,cliente_DNI from EL_JAPONES_SANGRANDO.Clientes where cliente_estado = 1";
                     datagridEliminar.DataSource = BD.busqueda(query);
                     query = "select cliente_nombre,cliente_apellido,cliente_DNI from EL_JAPONES_SANGRANDO.Clientes";

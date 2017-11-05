@@ -25,10 +25,11 @@ namespace PagoAgilFrba.IniciarSesion
             if (BD.autenticacionCorrecta(username, password))
             {
                 
-                this.Hide();
+                
                 string x =BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Usuario_Rol where Usuario_Rol_usuario = '"+ username+"'");
                 if (Int32.Parse(x) > 0)
                 {
+                    this.Hide();
                     BD.setUsuario(username);
                     new SeleccionarRol(username).Show();
                 }
@@ -41,6 +42,16 @@ namespace PagoAgilFrba.IniciarSesion
         private void txtUsername_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Login_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
