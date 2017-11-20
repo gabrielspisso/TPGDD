@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PagoAgilFrba.formatoFecha;
@@ -51,7 +52,18 @@ namespace PagoAgilFrba.AbmFactura
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            Regex reg = new Regex("[0-9]");
+            if (reg.IsMatch(txtDni.Text))
+            {
+                MessageBox.Show("El dni tiene caracteres invalidos");
+                return;
+            }
 
+            if (reg.IsMatch(txtFactura.Text))
+            {
+                MessageBox.Show("la factura contiene caracteres invalidos");
+                return;
+            }
             string queryEliminarfacturas = "Delete from EL_JAPONES_SANGRANDO.Item_Factura where item_factura = " + txtFactura.Text;
             double sum = 0;
             string query = "INSERT INTO EL_JAPONES_SANGRANDO.Item_Factura (item_monto, item_cantidad, item_factura) VALUES "; 

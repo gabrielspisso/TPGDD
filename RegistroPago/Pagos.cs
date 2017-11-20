@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace PagoAgilFrba.RegistroPago
 {
@@ -202,6 +203,23 @@ namespace PagoAgilFrba.RegistroPago
 
         private void btnPagar_Click(object sender, EventArgs e)
         {
+            Regex reg = new Regex("[0-9]"); 
+            if(reg.IsMatch(txtDni.Text)){
+                MessageBox.Show("El dni del cliente contiene caracteres invalidos");
+                return;
+            }
+            if (reg.IsMatch(txtFactura.Text))
+            {
+                MessageBox.Show("La factura contiene caracteres invalidos");
+                return;
+            }
+            if (reg.IsMatch(textPagador.Text))
+            {
+                MessageBox.Show(" El dni del pagador contiene caracteres invalidos");
+                return;
+            }
+
+            
             if (lblImporte.Text != "0")
             {
                 insertarPago();

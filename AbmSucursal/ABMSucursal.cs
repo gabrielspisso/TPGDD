@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PagoAgilFrba.Sucursal;
+using System.Text.RegularExpressions;
 namespace PagoAgilFrba.Sucursal
 {
     public partial class ABMSucursal : Form
@@ -64,10 +65,18 @@ namespace PagoAgilFrba.Sucursal
             string codigo_postal = textAgregarCodigoPostal.Text;
             string nombre = textAgregarNombre.Text;
             string direccion = textAgregarDireccion.Text;
+            Regex reg = new Regex("[0-9]");
+
             if(codigo_postal == "" || nombre == "" || direccion == ""){
                 MessageBox.Show("Complete todos los campos");
                 return;
-}
+            }
+            if (reg.IsMatch(codigo_postal))
+            {
+                MessageBox.Show("Complete todos los campos");
+                return;
+            }
+
             if (BD.ABM("INSERT INTO [EL_JAPONES_SANGRANDO].[Sucursales](sucursal_codigo_postal,sucursal_direccion,sucursal_nombre)values('" + codigo_postal + "','" + nombre + "','" + direccion + "')") != 0)
             {
                 MessageBox.Show("La sucursal fue creada", "Estado", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -154,6 +163,11 @@ namespace PagoAgilFrba.Sucursal
         }
 
         private void ABMSucursal_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textAgregarCodigoPostal_TextChanged(object sender, EventArgs e)
         {
 
         }

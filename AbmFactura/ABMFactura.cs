@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace PagoAgilFrba.AbmFactura
 {
@@ -109,8 +110,24 @@ namespace PagoAgilFrba.AbmFactura
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            Regex reg = new Regex("[0-9]");
 
+            if (reg.IsMatch(txtDni.Text)){
+                MessageBox.Show("El dni tiene caracteres invalidos");
+                return;
+            }
 
+            if (reg.IsMatch(txtFactura.Text))
+            {
+                MessageBox.Show("la factura contiene caracteres invalidos");
+                return;
+            }
+
+            if (reg.IsMatch(txtFactura.Text))
+            {
+                MessageBox.Show("la factura contiene caracteres invalidos");
+                return;
+            }
 
             formatoFecha.formatoFecha.SetMyCustomFormatYYYYMMDD(dateVenc);
             formatoFecha.formatoFecha.SetMyCustomFormatYYYYMMDD(dateAlta);
@@ -240,6 +257,11 @@ namespace PagoAgilFrba.AbmFactura
         private void comboBoxModEmpresa_SelectedIndexChanged(object sender, EventArgs e)
         {
             cargarGrids();
+        }
+
+        private void txtFactura_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
     }

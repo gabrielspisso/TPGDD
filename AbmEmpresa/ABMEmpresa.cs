@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace PagoAgilFrba.AbmEmpresa
 {
@@ -51,10 +52,27 @@ namespace PagoAgilFrba.AbmEmpresa
             string nombre = textNuevoNombre.Text;
             string direccion = textNuevoDirec.Text;
             string cuit = textNuevoCuit.Text;
+            
             if( rubro == "" ||nombre == ""|| direccion == "" ||cuit == ""){
                 MessageBox.Show("Complete todos los campos");
                 return;
             }
+            Regex reg = new Regex("[0-9]");
+            if (reg.IsMatch(cuit))
+            {
+                MessageBox.Show("Cuit tiene caracteres invalidos");
+                return;
+            }
+            if(cuit.Length != 11){
+                MessageBox.Show("El Cuit no tiene la longitud correcta.");
+                return;               
+            }
+            reg = new Regex("[a-Z]");
+            if(reg.IsMatch(nombre)){
+                MessageBox.Show("El nombre tiene caracteres invalidos.");
+                return;               
+            }
+
             string subquery = "(SELECT rubro_id FROM EL_JAPONES_SANGRANDO.Rubros WHERE rubro_desc = '" + rubro + "')";
             int x = BD.insert("Empresas", "(empresa_rubro,empresa_cuit,empresa_nombre,empresa_direccion)values(" +
                 subquery + ", '" +
@@ -172,6 +190,11 @@ namespace PagoAgilFrba.AbmEmpresa
         }
 
         private void comboNuevoRubro_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textNuevoCuit_TextChanged(object sender, EventArgs e)
         {
 
         }
