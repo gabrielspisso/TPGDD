@@ -123,7 +123,7 @@ namespace PagoAgilFrba.AbmFactura
                 return;
             }
 
-            if (!reg.IsMatch(txtFactura.Text))
+            if (! reg.IsMatch(txtFactura.Text))
             {
                 MessageBox.Show("la factura contiene caracteres invalidos");
                 return;
