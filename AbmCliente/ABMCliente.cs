@@ -105,7 +105,8 @@ namespace PagoAgilFrba.AbmCliente
                 String dni = textDni.Text;
                 String mail = textMail.Text;
                 String direccion = textDireccion.Text;
-                String fechanacimiento = dateTimePickerFechaNac.Text;
+                String fechanacimiento = dateTimePickerFechaNac.Value.ToString("u");
+                fechanacimiento = fechanacimiento.Substring(0, fechanacimiento.Length - 1);
                 if (BD.ABM("INSERT INTO EL_JAPONES_SANGRANDO.Clientes(cliente_DNI,cliente_nombre,cliente_apellido,cliente_fecha_nacimiento,cliente_mail,cliente_direccion,cliente_codigo_postal, cliente_telefono)values('" + dni + "','" + nombre + "','" + apellido + "','" + fechanacimiento + "','" + mail + "','" + direccion + "','" + textCodigoPostal.Text + "', '"+txtTelefono.Text+"')") > 0)
                 {
                     MessageBox.Show("Se ingreso correctamente el cliente", "Insertado", MessageBoxButtons.OK, MessageBoxIcon.Information);

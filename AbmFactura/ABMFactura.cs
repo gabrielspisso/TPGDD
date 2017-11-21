@@ -110,27 +110,34 @@ namespace PagoAgilFrba.AbmFactura
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            Regex reg = new Regex("[0-9]");
+            Regex reg = new Regex(@"^[0-9]+$");
 
-            if (reg.IsMatch(txtDni.Text)){
+            if (!reg.IsMatch(txtDni.Text)){
                 MessageBox.Show("El dni tiene caracteres invalidos");
                 return;
             }
 
-            if (reg.IsMatch(txtFactura.Text))
+            if (!reg.IsMatch(txtFactura.Text))
             {
                 MessageBox.Show("la factura contiene caracteres invalidos");
                 return;
             }
 
-            if (reg.IsMatch(txtFactura.Text))
+            if (!reg.IsMatch(txtFactura.Text))
             {
                 MessageBox.Show("la factura contiene caracteres invalidos");
                 return;
             }
 
-            formatoFecha.formatoFecha.SetMyCustomFormatYYYYMMDD(dateVenc);
-            formatoFecha.formatoFecha.SetMyCustomFormatYYYYMMDD(dateAlta);
+        //    formatoFecha.formatoFecha.SetMyCustomFormatYYYYMMDD(dateVenc);
+         //   formatoFecha.formatoFecha.SetMyCustomFormatYYYYMMDD(dateAlta);
+
+            String fechaVenc = dateVenc.Value.ToString("u");
+            fechaVenc = fechaVenc.Substring(0, fechaVenc.Length - 1);
+
+            String fechaAlta = dateAlta.Value.ToString("u");
+            fechaAlta = fechaAlta.Substring(0, fechaAlta.Length - 1);
+
             double sum = 0;
             string query = "INSERT INTO EL_JAPONES_SANGRANDO.Item_Factura (item_monto, item_cantidad, item_factura) VALUES ";
             foreach (ListViewItem eachItem in listaSeleccionados.Items)
@@ -146,8 +153,8 @@ namespace PagoAgilFrba.AbmFactura
                                     + txtFactura.Text + "','"
                                     + empresa + "','"
                                     + txtDni.Text + "','"
-                                    + dateAlta.Text + "','"
-                                    + dateVenc.Text + "',"
+                                    + fechaAlta + "','"
+                                    + fechaVenc + "',"
                                     + sum + ")";
 
             if (BD.ABM(queryFactura) > 0)

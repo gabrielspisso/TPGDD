@@ -81,6 +81,7 @@ CREATE TABLE [EL_JAPONES_SANGRANDO].[Clientes](
 	[cliente_apellido] [nvarchar](255),
 	[cliente_fecha_nacimiento] [datetime],
 	[cliente_mail] [nvarchar] (255),
+	[cliente_telefono] [nvarchar] (255),
 	[cliente_direccion] [nvarchar] (255),
 	[cliente_codigo_postal] [nvarchar] (255),
 	[cliente_estado] [bit] default 1
