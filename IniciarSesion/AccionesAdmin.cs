@@ -149,8 +149,7 @@ namespace PagoAgilFrba.IniciarSesion
                         break;
                     case 3://Clientes cumplidores
                         {
-                            query = "SELECT TOP 5 empresa_nombre, (select rubro_desc from EL_JAPONES_SANGRANDO.Rubros where rubro_id = empresa_rubro), empresa_cuit, SUM(rendicion_importeFinal) as Monto_total_rendido FROM EL_JAPONES_SANGRANDO.Empresas join EL_JAPONES_SANGRANDO.Rendiciones ON rendicion_empresa = empresa_cuit where YEAR(rendicion_fecha) = " + anio + "	and (MONTH(rendicion_fecha) = (" + trimestre + " * 3) 	OR MONTH(rendicion_fecha) = (" + trimestre + " * 3) -1 OR MONTH(rendicion_fecha) = (" + trimestre + " * 3) -2) GROUP BY empresa_nombre, empresa_rubro, empresa_cuit ORDER BY 4 DESC";
-                        };
+                             query = " SELECT TOP 5 cliente_nombre, cliente_apellido, cliente_DNI, cliente_mail, isnull((((select count(*) from EL_JAPONES_SANGRANDO.Facturas where factura_cliente = cliente_DNI and factura_estado = 2  and YEAR(factura_fecha) = " + anio + " and (MONTH(factura_fecha) = (" + trimestre + "  3)  OR MONTH(factura_fecha) = (" + trimestre + "  3) -1  OR MONTH(factura_fecha) = (" + trimestre + "  3) -2))  100 / NULLIF((select count(*) from EL_JAPONES_SANGRANDO.Facturas where fact_cliente = clie_id and YEAR(fact_fecha) = " + anio + " and (MONTH(fact_fecha) = (" + trimestre + "  3)  OR MONTH(fact_fecha) = (" + trimestre + "  3) -1 OR MONTH(fact_fecha) = (" + trimestre + " * 3) -2)), 0))),0) as Porcentaje de facturas pagadas FROM EL_JAPONES_SANGRANDO.Clientes group by cliente_nombre, cliente_apellido, cliente_DNI, cliente_mail ORDER BY 5 DESC;";};
                         break;
                 }
 
