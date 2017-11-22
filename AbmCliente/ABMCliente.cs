@@ -126,7 +126,13 @@ namespace PagoAgilFrba.AbmCliente
                 }
                 else
                 {
-                    MessageBox.Show("Datos erroneos el cliente", "Error en seleccion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    string x = BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Cliente where cliente_DNI = '" + textDni.Text+"');
+                    if (Int32.Parse(x) > 0)
+                    {
+                        MessageBox.Show("Ya exite un cliente con ese DNI");
+                        return;
+                    }
+                    MessageBox.Show("Ya existe un cliente con ese mail", "Error en seleccion", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
                 }

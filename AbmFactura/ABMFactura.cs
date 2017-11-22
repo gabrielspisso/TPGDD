@@ -171,7 +171,7 @@ namespace PagoAgilFrba.AbmFactura
             }
             else
             {
-                MessageBox.Show("Error al crear la factura");
+                MessageBox.Show("Error al crear la factura, ya existe una factura con ese numero");
             }
             cargarGrids();
         }

@@ -30,6 +30,10 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.comboNuevoRubro = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -57,10 +61,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.dataGridEliminar = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -102,6 +102,40 @@
             this.tabPage1.Size = new System.Drawing.Size(615, 230);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Agregar";
+            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(218, 148);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(10, 13);
+            this.label9.TabIndex = 47;
+            this.label9.Text = "-";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(234, 145);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(24, 20);
+            this.textBox2.TabIndex = 46;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(115, 148);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(10, 13);
+            this.label7.TabIndex = 45;
+            this.label7.Text = "-";
+            this.label7.Click += new System.EventHandler(this.label7_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(131, 145);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(75, 20);
+            this.textBox1.TabIndex = 44;
             // 
             // comboNuevoRubro
             // 
@@ -360,39 +394,6 @@
             this.dataGridEliminar.Size = new System.Drawing.Size(313, 208);
             this.dataGridEliminar.TabIndex = 33;
             this.dataGridEliminar.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridEliminar_CellContentClick);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(131, 145);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(75, 20);
-            this.textBox1.TabIndex = 44;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(115, 148);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(10, 13);
-            this.label7.TabIndex = 45;
-            this.label7.Text = "-";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(218, 148);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(10, 13);
-            this.label9.TabIndex = 47;
-            this.label9.Text = "-";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(234, 145);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(24, 20);
-            this.textBox2.TabIndex = 46;
             // 
             // ABMEmpresa
             // 

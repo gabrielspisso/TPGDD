@@ -67,8 +67,7 @@ namespace PagoAgilFrba.AbmEmpresa
                 MessageBox.Show("El Cuit no tiene la longitud correcta.");
                 return;               
             }
-            Regex reg2 = new Regex("[a-Z]");
-            if(!reg2.IsMatch(nombre)){
+            if(!Regex.IsMatch(nombre, @"^[a-zA-Z]+$")){
                 MessageBox.Show("El nombre tiene caracteres invalidos.");
                 return;               
             }
@@ -87,7 +86,7 @@ namespace PagoAgilFrba.AbmEmpresa
             }
             else
             {
-                MessageBox.Show("Ya existe una empresa con el mismo cuit o nombre", "Estado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ya existe una empresa con el mismo cuit ", "Estado", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -200,6 +199,11 @@ namespace PagoAgilFrba.AbmEmpresa
         }
 
         private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
         {
 
         }

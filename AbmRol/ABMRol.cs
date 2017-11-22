@@ -60,7 +60,7 @@ namespace PagoAgilFrba.AbmRol
             }
             else
             {
-                MessageBox.Show("Error al cargar el rol", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ya existe un rol con ese nombre", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

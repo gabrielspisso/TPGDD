@@ -44,8 +44,7 @@ namespace PagoAgilFrba.AbmEmpresa
             }
             int x = CheckHabilitado.Checked ? 1 : 0;
              
-            Regex reg = new Regex("[a-Z]");
-            if (reg.IsMatch(textNombre.Text))
+           if(!Regex.IsMatch(textNombre.Text, @"^[a-zA-Z]+$")){
             {
                 MessageBox.Show("El nombre tiene caracteres invalidos.");
                 return;
