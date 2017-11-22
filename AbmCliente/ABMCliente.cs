@@ -166,7 +166,7 @@ namespace PagoAgilFrba.AbmCliente
 
         public static String condicionDNI(String dni)
         {
-            return (dni == "") ? "" : "AND cliente_DNI = '" + dni + "'";
+            return (dni == "") ? "" : "AND cliente_DNI like '" + dni + "%'";
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
