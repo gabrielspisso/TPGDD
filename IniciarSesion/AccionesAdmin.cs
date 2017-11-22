@@ -184,11 +184,14 @@ namespace PagoAgilFrba.IniciarSesion
             Acciones.Controls.Remove(tabPage5);
 
 
-
+            DateTime fechaActual = BD.fechaActual();
             comboPorcentaje.SelectedIndex = 0;
-            List<string> empresas = BD.listaDeUnCampo("select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_estado = 1 and (select count(*) from EL_JAPONES_SANGRANDO.Rendiciones where MONTH(rendicion_fecha) = MONTH(GETDATE()) AND YEAR(rendicion_fecha) = YEAR(GETDATE()) AND rendicion_empresa = empresa_CUIT)=0");
+            List<string> empresas = BD.listaDeUnCampo("select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_estado = 1");
             empresas.Insert(0, "");
             comboEmpresa.DataSource = empresas;
+            dateRendicion.MinDate = new DateTime(fechaActual.Year, fechaActual.Month, 1);
+            dateRendicion.MaxDate = (new DateTime(fechaActual.Year, fechaActual.Month, 1)).AddMonths(1).AddDays(-1);
+  
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
@@ -272,6 +275,14 @@ namespace PagoAgilFrba.IniciarSesion
                 return;
             }
 
+            String fecharendicion = dateRendicion.Value.ToString("u");
+            fecharendicion = fecharendicion.Substring(0, fecharendicion.Length - 1);
+            if (Int32.Parse(BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Rendiciones where MONTH(rendicion_fecha) = " + dateRendicion.Value.Month + " AND YEAR(rendicion_fecha) = "+dateRendicion.Value.Year+" AND rendicion_empresa = (select top 1 empresa_cuit from EL_JAPONES_SANGRANDO.Empresas where empresa_nombre = '"+comboEmpresa.Text+"')")) > 0)
+            {
+                MessageBox.Show("Esta empresa ya rindio en este mes", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+
+            }
             string idrendicion = "(select top 1 rendicion_nro from EL_JAPONES_SANGRANDO.Rendiciones order by rendicion_nro desc)";
             string idEmpresa = "(select empresa_cuit from EL_JAPONES_SANGRANDO.Empresas where empresa_nombre ='" + comboEmpresa.Text+ "')";
             string fecha = dateRendicion.Value.Date.ToString("MM/dd/yyyy");
@@ -315,10 +326,12 @@ namespace PagoAgilFrba.IniciarSesion
             {
                 return;
             }
-            dataGridRendiciones.DataSource = BD.busqueda("select factura_numero, factura_cliente, factura_fecha, factura_fecha_vencimiento, factura_total from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Empresas on factura_empresa = empresa_cuit where empresa_nombre = '" + comboEmpresa.Text + "' and month(factura_fecha) =  month(GETDATE()) and year(factura_fecha) =  year(GETDATE()) and factura_estado = 2");
+            DateTime fechaActual = BD.fechaActual();
+            dataGridRendiciones.DataSource = BD.busqueda("select factura_numero, factura_cliente, factura_fecha, factura_fecha_vencimiento, factura_total from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Empresas on factura_empresa = empresa_cuit where empresa_nombre = '" + comboEmpresa.Text + "' and month(factura_fecha) =  "+fechaActual.Month+" and year(factura_fecha) = "+fechaActual.Year+" and factura_estado = 2");
+          
 
             double porcentaje = double.Parse(comboPorcentaje.Text)/100;
-            string query = "select count(*) as cantidad_facturas, sum(factura_total) as total, sum(factura_total * ( 1 - " + porcentaje.ToString().Replace(',', '.') + " )  ) as ganancia from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Empresas on factura_empresa = empresa_cuit where empresa_nombre = '" + comboEmpresa.Text + "' and month(factura_fecha) =  month(GETDATE()) and year(factura_fecha) =  year(GETDATE()) and factura_estado = 2 group by empresa_cuit";
+            string query = "select count(*) as cantidad_facturas, sum(factura_total) as total, sum(factura_total * ( 1 - " + porcentaje.ToString().Replace(',', '.') + " )  ) as ganancia from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Empresas on factura_empresa = empresa_cuit where empresa_nombre = '" + comboEmpresa.Text + "' and month(factura_fecha) =  "+fechaActual.Month+" and year(factura_fecha) =  "+fechaActual.Year+" and factura_estado = 2 group by empresa_cuit";
 
             DataTable dt = BD.busqueda(query);
             if (dt.Rows.Count > 0)
@@ -334,6 +347,11 @@ namespace PagoAgilFrba.IniciarSesion
         {
             new Login().Show();
             //Application.Exit();
+        }
+
+        private void dateRendicion_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

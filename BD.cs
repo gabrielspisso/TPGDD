@@ -15,11 +15,15 @@ namespace PagoAgilFrba
 {
     public class BD
     {
-        private static String connectionString = @"Data Source=localhost\SQLSERVER2012;Initial Catalog=GD2C2017;User ID=gd;Password=gd2017";
+        private static String connectionString = ConfigurationManager.AppSettings["conexionSQL"];
 
         public static SqlConnection getConnection()
         {
             return new SqlConnection(ConfigurationManager.AppSettings["conexionSQL"].ToString());
+        }
+        public static DateTime fechaActual()
+        {
+            return DateTime.ParseExact(ConfigurationManager.AppSettings["fechaSistema"], "yyyy-MM-dd hh:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
         }
 
         public static Byte[] sha256_hash(String value)
@@ -348,5 +352,6 @@ namespace PagoAgilFrba
         {
             return sucursal2;
         }
+    
     }
 }
