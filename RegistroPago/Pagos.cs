@@ -264,5 +264,10 @@ namespace PagoAgilFrba.RegistroPago
                 MessageBox.Show("Datos erroneos");
             }
         }
+
+        private void dataGridFacturas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

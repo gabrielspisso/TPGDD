@@ -71,9 +71,9 @@ namespace PagoAgilFrba.Sucursal
                 MessageBox.Show("Complete todos los campos");
                 return;
             }
-            if (reg.IsMatch(codigo_postal))
+            if (!reg.IsMatch(codigo_postal))
             {
-                MessageBox.Show("Complete todos los campos");
+                MessageBox.Show("Codigo Posta tiene que ser numerico");
                 return;
             }
 

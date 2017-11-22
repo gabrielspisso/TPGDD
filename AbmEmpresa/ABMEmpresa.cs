@@ -58,7 +58,7 @@ namespace PagoAgilFrba.AbmEmpresa
                 return;
             }
             Regex reg = new Regex("[0-9]");
-            if (reg.IsMatch(cuit))
+            if (!reg.IsMatch(cuit))
             {
                 MessageBox.Show("Cuit tiene caracteres invalidos");
                 return;
@@ -67,8 +67,8 @@ namespace PagoAgilFrba.AbmEmpresa
                 MessageBox.Show("El Cuit no tiene la longitud correcta.");
                 return;               
             }
-            reg = new Regex("[a-Z]");
-            if(reg.IsMatch(nombre)){
+            Regex reg2 = new Regex("[a-Z]");
+            if(!reg2.IsMatch(nombre)){
                 MessageBox.Show("El nombre tiene caracteres invalidos.");
                 return;               
             }

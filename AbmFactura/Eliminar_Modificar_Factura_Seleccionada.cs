@@ -53,13 +53,13 @@ namespace PagoAgilFrba.AbmFactura
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             Regex reg = new Regex("[0-9]");
-            if (reg.IsMatch(txtDni.Text))
+            if (!reg.IsMatch(txtDni.Text))
             {
                 MessageBox.Show("El dni tiene caracteres invalidos");
                 return;
             }
 
-            if (reg.IsMatch(txtFactura.Text))
+            if (!reg.IsMatch(txtFactura.Text))
             {
                 MessageBox.Show("la factura contiene caracteres invalidos");
                 return;
