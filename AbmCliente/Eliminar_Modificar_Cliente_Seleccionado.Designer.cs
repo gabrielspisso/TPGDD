@@ -46,6 +46,8 @@
             this.dateTimePickerFechaNac = new System.Windows.Forms.DateTimePicker();
             this.CheckHabilitado = new System.Windows.Forms.CheckBox();
             this.textDNI = new System.Windows.Forms.Label();
+            this.txttelefono = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label8
@@ -204,11 +206,31 @@
             this.textDNI.TabIndex = 58;
             this.textDNI.Text = " ";
             // 
+            // txttelefono
+            // 
+            this.txttelefono.Location = new System.Drawing.Point(124, 140);
+            this.txttelefono.Name = "txttelefono";
+            this.txttelefono.Size = new System.Drawing.Size(164, 20);
+            this.txttelefono.TabIndex = 60;
+            this.txttelefono.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(13, 143);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(49, 13);
+            this.label9.TabIndex = 59;
+            this.label9.Text = "Telefono";
+            this.label9.Click += new System.EventHandler(this.label9_Click);
+            // 
             // Eliminar_Modificar_Cliente_Seleccionado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(301, 300);
+            this.Controls.Add(this.txttelefono);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.textDNI);
             this.Controls.Add(this.CheckHabilitado);
             this.Controls.Add(this.dateTimePickerFechaNac);
@@ -254,5 +276,7 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerFechaNac;
         private System.Windows.Forms.CheckBox CheckHabilitado;
         private System.Windows.Forms.Label textDNI;
+        private System.Windows.Forms.TextBox txttelefono;
+        private System.Windows.Forms.Label label9;
     }
 }

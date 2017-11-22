@@ -93,7 +93,7 @@ namespace PagoAgilFrba.AbmCliente
                 return;
             }
 
-            if (textNombre.Text.Trim() == "" | textApellido.Text.Trim() == "" | txtTelefono.Text.Trim() == "" | textDni.Text.Trim() == "" | textDireccion.Text.Trim() == "" | textDireccion.Text.Trim() == "" | dateTimePickerFechaNac.Text.Trim() == "")
+            if (textNombre.Text.Trim() == "" | textApellido.Text.Trim() == "" | txtTelefono.Text.Trim() == "" | textDni.Text.Trim() == "" | textDireccion.Text.Trim() == "" | textDireccion.Text.Trim() == "" | dateTimePickerFechaNac.Text.Trim() == "" | txtTelefono.Text.Trim() == "" )
             {
                 MessageBox.Show("Faltan completar campos obligatorios", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -167,6 +167,11 @@ namespace PagoAgilFrba.AbmCliente
         public static String condicionDNI(String dni)
         {
             return (dni == "") ? "" : "AND cliente_DNI = '" + dni + "'";
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
         }
 
     }
