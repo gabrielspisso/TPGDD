@@ -55,7 +55,7 @@
             this.tabPage2.Controls.Add(this.dataGridViewModificarC);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(615, 230);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Modificar";
@@ -81,7 +81,7 @@
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(615, 230);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Agregar";
@@ -122,7 +122,7 @@
             // 
             this.btnAceptar.Location = new System.Drawing.Point(166, 141);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(75, 23);
+            this.btnAceptar.Size = new System.Drawing.Size(75, 19);
             this.btnAceptar.TabIndex = 34;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
@@ -163,7 +163,7 @@
             this.tabPage3.Controls.Add(this.DatagridViewEliminar);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(615, 230);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Eliminar";

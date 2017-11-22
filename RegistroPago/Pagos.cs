@@ -24,6 +24,7 @@ namespace PagoAgilFrba.RegistroPago
             
         }
 
+        string queryf = "Select factura_numero, empresa_nombre as Empresa, factura_cliente,factura_fecha,factura_fecha_vencimiento,factura_total from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Empresas on (factura_empresa = empresa_cuit) where factura_estado  = 1 AND empresa_estado = 1";
 
         private void Pagos_Load(object sender, EventArgs e)
         {
@@ -38,13 +39,13 @@ namespace PagoAgilFrba.RegistroPago
                 comboSucursal.Text = BD.getSucursal();
                 return;
             }
-            
+            dataGridFacturas.DataSource = BD.busqueda(queryf);
+            dateVenc.Text = "1/1/1990";
             comboSucursal.DataSource = BD.listaDeUnCampo("select sucursal_nombre from EL_JAPONES_SANGRANDO.Sucursales");
         }
 
 
-        string queryf = "Select factura_numero, empresa_nombre as Empresa, factura_cliente,factura_fecha,factura_fecha_vencimiento,factura_total from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Empresas on (factura_empresa = empresa_cuit) where factura_estado  = 1 AND empresa_estado = 1";
-
+       
 
         private bool los4estanvacios()
         {
@@ -204,16 +205,9 @@ namespace PagoAgilFrba.RegistroPago
         private void btnPagar_Click(object sender, EventArgs e)
         {
             Regex reg = new Regex("[0-9]"); 
-            if(reg.IsMatch(txtDni.Text)){
-                MessageBox.Show("El dni del cliente contiene caracteres invalidos");
-                return;
-            }
-            if (reg.IsMatch(txtFactura.Text))
-            {
-                MessageBox.Show("La factura contiene caracteres invalidos");
-                return;
-            }
-            if (reg.IsMatch(textPagador.Text))
+          
+         
+            if (!reg.IsMatch(textPagador.Text))
             {
                 MessageBox.Show(" El dni del pagador contiene caracteres invalidos");
                 return;
@@ -242,7 +236,8 @@ namespace PagoAgilFrba.RegistroPago
             string idPago = BD.consultaDeUnSoloResultado("select top 1 pago_nro+1 from EL_JAPONES_SANGRANDO.Pagos ORDER BY pago_nro desc");
             string sucursal = BD.consultaDeUnSoloResultado("SELECT sucursal_codigo_postal from EL_JAPONES_SANGRANDO.Sucursales where sucursal_nombre='" + comboSucursal.Text +"'");
             string medio = BD.consultaDeUnSoloResultado("SELECT formaDePago_id from EL_JAPONES_SANGRANDO.Formas_De_Pago where formaDePago_desc='" + comboMedioDePago.Text + "'");
-            string fecha = dateVenc.Value.Date.ToString("MM/dd/yyyy");
+            String fecha = dateVenc.Value.ToString("u");
+            fecha = fecha.Substring(0, fecha.Length - 1);
             
            
             string insert2 = "INSERT INTO EL_JAPONES_SANGRANDO.Pagos (pago_nro, pago_sucursal,pago_importe,pago_formaDePago,pago_fecha,pago_cliente) VALUES(" + idPago + "," + sucursal + "," + lblImporte.Text.Replace(",",".") + "," + medio + ",'" + fecha + "',38270412)";
@@ -253,12 +248,18 @@ namespace PagoAgilFrba.RegistroPago
                 string factura = row.Cells["factura_numero"].Value.ToString();                
                 String insert = "INSERT INTO EL_JAPONES_SANGRANDO.Pago_Factura(pago_Factura_factura,pago_Factura_pago) values ('" + factura + "'," + idPago + ")";
                 String update = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET factura_estado = 2 where factura_numero = '" + factura+"'";
-                
+                string x =BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Facturas where factura_numero = '"+factura+"' AND factura_estado = 1");
+                if (Int32.Parse(x) == 0)
+                {
+                     MessageBox.Show("La factura Numero  "+ factura +"no esta disponible para pagar");
+                     return;
+                }
                 lista.Add(insert);
                 lista.Add(update);
             }
             if(BD.correrStoreProcedure(lista)>0){
                 MessageBox.Show("Se concreto el pago");
+                Pagos_Load(null,null);
             }
             else{
                 MessageBox.Show("Datos erroneos");
