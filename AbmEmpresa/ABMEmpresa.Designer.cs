@@ -57,6 +57,10 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.dataGridEliminar = new System.Windows.Forms.DataGridView();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -79,6 +83,10 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.tabPage1.Controls.Add(this.label9);
+            this.tabPage1.Controls.Add(this.textBox2);
+            this.tabPage1.Controls.Add(this.label7);
+            this.tabPage1.Controls.Add(this.textBox1);
             this.tabPage1.Controls.Add(this.comboNuevoRubro);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.label2);
@@ -90,7 +98,7 @@
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(615, 230);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Agregar";
@@ -143,7 +151,7 @@
             // 
             this.textNuevoCuit.Location = new System.Drawing.Point(85, 145);
             this.textNuevoCuit.Name = "textNuevoCuit";
-            this.textNuevoCuit.Size = new System.Drawing.Size(143, 20);
+            this.textNuevoCuit.Size = new System.Drawing.Size(24, 20);
             this.textNuevoCuit.TabIndex = 27;
             this.textNuevoCuit.TextChanged += new System.EventHandler(this.textNuevoCuit_TextChanged);
             // 
@@ -185,7 +193,7 @@
             this.tabPage2.Controls.Add(this.label14);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(615, 230);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Modificar";
@@ -228,9 +236,13 @@
             // 
             // dataGridViewModificarC
             // 
+            this.dataGridViewModificarC.AllowUserToAddRows = false;
+            this.dataGridViewModificarC.AllowUserToDeleteRows = false;
+            this.dataGridViewModificarC.AllowUserToResizeColumns = false;
             this.dataGridViewModificarC.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewModificarC.Location = new System.Drawing.Point(295, 13);
             this.dataGridViewModificarC.Name = "dataGridViewModificarC";
+            this.dataGridViewModificarC.ReadOnly = true;
             this.dataGridViewModificarC.Size = new System.Drawing.Size(313, 208);
             this.dataGridViewModificarC.TabIndex = 23;
             this.dataGridViewModificarC.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewModificarC_CellContentClick);
@@ -273,7 +285,7 @@
             this.tabPage3.Controls.Add(this.dataGridEliminar);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(615, 230);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Eliminar";
@@ -349,6 +361,39 @@
             this.dataGridEliminar.TabIndex = 33;
             this.dataGridEliminar.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridEliminar_CellContentClick);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(131, 145);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(75, 20);
+            this.textBox1.TabIndex = 44;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(115, 148);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(10, 13);
+            this.label7.TabIndex = 45;
+            this.label7.Text = "-";
+            this.label7.Click += new System.EventHandler(this.label7_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(218, 148);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(10, 13);
+            this.label9.TabIndex = 47;
+            this.label9.Text = "-";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(234, 145);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(24, 20);
+            this.textBox2.TabIndex = 46;
+            // 
             // ABMEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -402,6 +447,10 @@
         private System.Windows.Forms.TextBox textElimCuit;
         private System.Windows.Forms.TextBox textElimNombre;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBox2;
 
     }
 }

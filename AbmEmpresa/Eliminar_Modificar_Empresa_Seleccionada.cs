@@ -21,7 +21,8 @@ namespace PagoAgilFrba.AbmEmpresa
             textNombre.Text = BD.devolverColumna(tabla, "empresa_nombre");
             textDireccion.Text = BD.devolverColumna(tabla, "empresa_direccion");
             comboBox1.Text = BD.devolverColumna(tabla, "empresa_rubro");
-            textCuit.Text = BD.devolverColumna(tabla, "empresa_cuit");
+            String cuit2 = BD.devolverColumna(tabla, "empresa_cuit");
+            textCuit.Text = cuit2.Substring(0, 1) + "-" +cuit2.Substring(1, cuit.Length-2) + " - "+ cuit2.Substring(cuit.Length-1,1) ;
             CheckHabilitado.Checked = BD.devolverColumna(tabla, "empresa_estado") == "True";
             
         }

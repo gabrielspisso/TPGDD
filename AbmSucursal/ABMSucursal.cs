@@ -47,7 +47,10 @@ namespace PagoAgilFrba.Sucursal
                 buttons2.CellTemplate.Style.BackColor = Color.Honeydew;
                 buttons2.DisplayIndex = 3;
             }
+            dataGridViewModificarC.Columns.Clear();
+            DatagridViewEliminar.Columns.Clear();
             dataGridViewModificarC.DataSource = BD.busqueda("select sucursal_nombre,sucursal_codigo_postal,sucursal_direccion from EL_JAPONES_SANGRANDO.Sucursales");
+            
             DatagridViewEliminar.DataSource = BD.busqueda("select sucursal_nombre,sucursal_codigo_postal,sucursal_direccion from EL_JAPONES_SANGRANDO.Sucursales where sucursal_estado = 1");
             DatagridViewEliminar.Columns.Add(buttons2);
 

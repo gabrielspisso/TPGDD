@@ -51,7 +51,7 @@ namespace PagoAgilFrba.AbmEmpresa
             string rubro = comboNuevoRubro.Text;
             string nombre = textNuevoNombre.Text;
             string direccion = textNuevoDirec.Text;
-            string cuit = textNuevoCuit.Text;
+            string cuit = textNuevoCuit.Text+ textBox1.Text + textBox2.Text;
             
             if( rubro == "" ||nombre == ""|| direccion == "" ||cuit == ""){
                 MessageBox.Show("Complete todos los campos");
@@ -195,6 +195,11 @@ namespace PagoAgilFrba.AbmEmpresa
         }
 
         private void textNuevoCuit_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
         {
 
         }
