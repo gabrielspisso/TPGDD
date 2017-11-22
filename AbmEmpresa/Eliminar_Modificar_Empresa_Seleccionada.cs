@@ -14,8 +14,11 @@ namespace PagoAgilFrba.AbmEmpresa
     public partial class Eliminar_Modificar_Empresa_Seleccionada : Form
     {
         bool cambio = false;
+        string cuitPosta;
         public Eliminar_Modificar_Empresa_Seleccionada(string cuit)
+ 
         {
+
             InitializeComponent();
             DataTable tabla = BD.busqueda("select * from EL_JAPONES_SANGRANDO.Empresas where empresa_cuit ='" + cuit + "'");
             textNombre.Text = BD.devolverColumna(tabla, "empresa_nombre");
@@ -24,7 +27,7 @@ namespace PagoAgilFrba.AbmEmpresa
             String cuit2 = BD.devolverColumna(tabla, "empresa_cuit");
             textCuit.Text = cuit2.Substring(0, 1) + "-" +cuit2.Substring(1, cuit.Length-2) + " - "+ cuit2.Substring(cuit.Length-1,1) ;
             CheckHabilitado.Checked = BD.devolverColumna(tabla, "empresa_estado") == "True";
-            
+            cuitPosta = cuit2;
         }
 
         private void Eliminar_Modificar_Empresa_Seleccionada_Load(object sender, EventArgs e)
@@ -57,12 +60,13 @@ namespace PagoAgilFrba.AbmEmpresa
             else
             {
                 string subquery = "(SELECT rubro_id FROM EL_JAPONES_SANGRANDO.Rubros WHERE rubro_desc = '" + comboBox1.Text + "')";
+                
                 if (BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Empresas SET " +
                     "empresa_nombre = '" + textNombre.Text +
                     "',empresa_direccion = '" + textDireccion.Text +
                     "',empresa_rubro = " + subquery +
                     ",empresa_estado = " + x +
-                    " WHERE empresa_cuit = '" + textCuit.Text + "'") > 0)
+                    " WHERE empresa_cuit = '" + cuitPosta + "'") > 0)
                 {
                     this.Close();
                     MessageBox.Show("Se pudo modificar la Empresa", "Modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
