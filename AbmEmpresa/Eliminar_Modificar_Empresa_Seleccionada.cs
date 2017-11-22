@@ -44,7 +44,7 @@ namespace PagoAgilFrba.AbmEmpresa
             }
             int x = CheckHabilitado.Checked ? 1 : 0;
              
-           if(!Regex.IsMatch(textNombre.Text, @"^[a-zA-Z]+$")){
+           if(!Regex.IsMatch(textNombre.Text, @"^[a-zA-Z]+$"))
             {
                 MessageBox.Show("El nombre tiene caracteres invalidos.");
                 return;
@@ -72,8 +72,8 @@ namespace PagoAgilFrba.AbmEmpresa
                     MessageBox.Show("Error en los datos", "Error en la modificacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
-            }
-           
+          
+           }  
         }
 
         private void CheckHabilitado_CheckedChanged(object sender, EventArgs e)

@@ -126,7 +126,7 @@ namespace PagoAgilFrba.AbmCliente
                 }
                 else
                 {
-                    string x = BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Cliente where cliente_DNI = '" + textDni.Text+"');
+                    string x = BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Cliente where cliente_DNI = '" + textDni.Text+"'");
                     if (Int32.Parse(x) > 0)
                     {
                         MessageBox.Show("Ya exite un cliente con ese DNI");
