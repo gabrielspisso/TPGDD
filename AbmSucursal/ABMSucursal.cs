@@ -80,7 +80,7 @@ namespace PagoAgilFrba.Sucursal
                 return;
             }
 
-            if (BD.ABM("INSERT INTO [EL_JAPONES_SANGRANDO].[Sucursales](sucursal_codigo_postal,sucursal_direccion,sucursal_nombre)values('" + codigo_postal + "','" + nombre + "','" + direccion + "')") != 0)
+            if (BD.ABM("INSERT INTO [EL_JAPONES_SANGRANDO].[Sucursales](sucursal_codigo_postal,sucursal_direccion,sucursal_nombre)values('" + codigo_postal + "','" + direccion + "','" + nombre + "')") != 0)
             {
                 MessageBox.Show("La sucursal fue creada", "Estado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 actualizar();
