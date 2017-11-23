@@ -352,6 +352,32 @@ namespace PagoAgilFrba
         {
             return sucursal2;
         }
-    
+       
+  
+        public static bool modificarCliente(string telefono, string direccion, string codigoPostal, string mail, string nombre, string apellido, string fechaVenc, string DNI,bool b1)
+        {
+            int x = b1 ? 1 : 0;
+            if (BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Clientes SET cliente_direccion = '" +direccion +
+                "',cliente_codigo_postal = '" + codigoPostal +
+                "',cliente_mail = '" +mail +
+                "',cliente_telefono = '" + telefono +
+                "',cliente_nombre = '" + nombre +
+                "',cliente_apellido = '" + apellido +
+                "',cliente_fecha_nacimiento = '" + fechaVenc +
+                "',cliente_estado = '" + x +
+                "' WHERE cliente_DNI = '" + DNI + "'") > 0)
+            {
+                
+                MessageBox.Show("Se pudo modificar el cliente", "Modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("Error en los datos", "Error en la modificacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+        
     }
 }

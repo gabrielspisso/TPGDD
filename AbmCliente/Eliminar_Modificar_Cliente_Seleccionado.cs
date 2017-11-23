@@ -44,6 +44,11 @@ namespace PagoAgilFrba.AbmCliente
                 MessageBox.Show("Sólo se permiten numeros en el DNI", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txttelefono.Text, @"^\d+$"))
+            {
+                MessageBox.Show("Sólo se permiten numeros en el Telefono", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             if (textNombreN.Text.Trim() == "" | textApellidoN.Text.Trim() == "" | txttelefono.Text.Trim() == "" | textDNI.Text.Trim() == "" | textDireccionN.Text.Trim() == ""  | dateTimePickerFechaNac.Text.Trim() == "" )
             {
@@ -53,23 +58,9 @@ namespace PagoAgilFrba.AbmCliente
             String fechaVenc = dateTimePickerFechaNac.Value.ToString("u");
             fechaVenc = fechaVenc.Substring(0, fechaVenc.Length - 1);
 
-
-            int x = CheckHabilitado.Checked ? 1 : 0;
-            if (BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Clientes SET cliente_direccion = '" + textDireccionN.Text +
-                "',cliente_codigo_postal = '" + textCodigoPostal.Text +
-                "',cliente_mail = '" + textMailN.Text +
-                "',cliente_nombre = '" + textNombreN.Text +
-                "',cliente_apellido = '" + textApellidoN.Text +
-                "',cliente_fecha_nacimiento = '" + fechaVenc +
-                "',cliente_estado = '" + x +
-                "' WHERE cliente_DNI = '" + textDNI.Text + "'") > 0){
-                    this.Close();
-                    MessageBox.Show("Se pudo modificar el cliente", "Modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            else{
-                MessageBox.Show("Error en los datos", "Error en la modificacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
-            }
+            if(BD.modificarCliente(txttelefono.Text, textDireccionN.Text, textCodigoPostal.Text, textMailN.Text, textNombreN.Text, textApellidoN.Text, fechaVenc, textDNI.Text, CheckHabilitado.Checked)){
+                this.Close();
+            }   
         }
 
         private void dateTimePickerFechaNac_ValueChanged(object sender, EventArgs e)

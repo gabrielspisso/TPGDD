@@ -92,6 +92,11 @@ namespace PagoAgilFrba.AbmCliente
                 MessageBox.Show("Sólo se permiten numeros en el DNI", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtTelefono.Text, @"^\d+$"))
+            {
+                MessageBox.Show("Sólo se permiten numeros en el telefono", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             if (textNombre.Text.Trim() == "" | textApellido.Text.Trim() == "" | txtTelefono.Text.Trim() == "" | textDni.Text.Trim() == "" | textDireccion.Text.Trim() == "" | textDireccion.Text.Trim() == "" | dateTimePickerFechaNac.Text.Trim() == "" | txtTelefono.Text.Trim() == "" )
             {
@@ -126,10 +131,10 @@ namespace PagoAgilFrba.AbmCliente
                 }
                 else
                 {
-                    string x = BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Cliente where cliente_DNI = '" + textDni.Text+"'");
+                    string x = BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Clientes where cliente_DNI = '" + textDni.Text+"'");
                     if (Int32.Parse(x) > 0)
                     {
-                        MessageBox.Show("Ya exite un cliente con ese DNI");
+                        MessageBox.Show("Ya existe un cliente con ese DNI");
                         return;
                     }
                     MessageBox.Show("Ya existe un cliente con ese mail", "Error en seleccion", MessageBoxButtons.OK, MessageBoxIcon.Information);
