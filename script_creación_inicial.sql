@@ -321,7 +321,7 @@ SELECT DISTINCT Nro_Factura, empresa_cuit, [Cliente-DNI], Factura_Fecha, Factura
 join EL_JAPONES_SANGRANDO.Clientes C on C.cliente_DNI = M.[Cliente-Dni] order by Nro_Factura
 -- ITEMS FACTURAS
 INSERT INTO EL_JAPONES_SANGRANDO.Item_Factura (item_monto, item_cantidad, item_factura)
-SELECT DISTINCT ItemFactura_Cantidad, ItemFactura_Monto, Nro_Factura FROM gd_esquema.Maestra ORDER BY Nro_Factura
+SELECT DISTINCT (ItemFactura_Monto/ItemFactura_Cantidad), ItemFactura_Cantidad, Nro_Factura FROM gd_esquema.Maestra ORDER BY Nro_Factura
 -- MEDIOS DE PAGO
 INSERT INTO EL_JAPONES_SANGRANDO.Formas_De_Pago (formaDePago_desc)
 SELECT DISTINCT FormaPagoDescripcion FROM gd_esquema.Maestra WHERE FormaPagoDescripcion IS NOT NULL
