@@ -24,10 +24,7 @@ namespace PagoAgilFrba.IniciarSesion
 
             if (BD.autenticacionCorrecta(username, password))
             {
-                
-                
-                string x =BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Usuario_Rol where Usuario_Rol_usuario = '"+ username+"'");
-                if (Int32.Parse(x) > 0)
+                if (BD.tieneRoles(username))
                 {
                     this.Hide();
                     BD.setUsuario(username);
@@ -36,16 +33,6 @@ namespace PagoAgilFrba.IniciarSesion
                 else
                     MessageBox.Show("No tiene ningun rol activo");
             }
-
-        }
-
-        private void txtUsername_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Login_Load(object sender, EventArgs e)
-        {
 
         }
 

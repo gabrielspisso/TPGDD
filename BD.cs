@@ -378,6 +378,135 @@ namespace PagoAgilFrba
             }
         }
 
-        
+        public static DataTable filtroClienteEliminar(string nombre, string apellido, string dni)
+        {
+            String query = "SELECT cliente_nombre,cliente_apellido,cliente_DNI FROM EL_JAPONES_SANGRANDO.Clientes WHERE cliente_estado = 1 AND " +
+                           "cliente_nombre LIKE '" + nombre + "%' AND " +
+                           "cliente_apellido LIKE '" + apellido + "%' " +
+                           BD.condicionDNI(dni);
+            return BD.busqueda(query);
+        }
+
+        public static DataTable filtroClienteModificar(string nombre, string apellido, string dni)
+        {
+            String query = "SELECT cliente_nombre,cliente_apellido,cliente_DNI FROM EL_JAPONES_SANGRANDO.Clientes WHERE " +
+                           "cliente_nombre LIKE '" + nombre + "%' AND " +
+                           "cliente_apellido LIKE '" + apellido + "%' " +
+                           BD.condicionDNI(dni);
+            return BD.busqueda(query);
+        }
+
+        public static String condicionDNI(String dni)
+        {
+            return (dni == "") ? "" : "AND cliente_DNI like '" + dni + "%'";
+        }
+
+        public static void eliminarCliente(string x, DataGridView dge, DataGridView dgm)
+        {
+            if (BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Clientes SET cliente_estado = 0 WHERE cliente_DNI = '" + x + "'") > 0)
+            {
+                MessageBox.Show("cliente eliminado", "cliente eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                BD.actualizarVistasClientes(dge, dgm);
+            }
+        }
+
+        public static void actualizarVistasClientes(DataGridView dge, DataGridView dgm)
+        {
+            string query = "select cliente_nombre,cliente_apellido,cliente_DNI from EL_JAPONES_SANGRANDO.Clientes";
+            dgm.DataSource = BD.busqueda(query);
+            query = "select cliente_nombre,cliente_apellido,cliente_DNI from EL_JAPONES_SANGRANDO.Clientes where cliente_estado = 1";
+            dge.DataSource = BD.busqueda(query);
+        }
+
+        public static bool crearCliente(String nombre, String apellido, String dni, String mail, String direccion, String fechanacimiento, String CP, String telefono)
+        {
+            return BD.ABM("INSERT INTO EL_JAPONES_SANGRANDO.Clientes(cliente_DNI,cliente_nombre,cliente_apellido,cliente_fecha_nacimiento,cliente_mail,cliente_direccion,cliente_codigo_postal, cliente_telefono)values('" + dni + "','" + nombre + "','" + apellido + "','" + fechanacimiento + "','" + mail + "','" + direccion + "','" + CP + "', '" + telefono + "')") > 0;
+        }
+
+        public static string cantidadDeClientesCon(string dni)
+        {
+            return BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Clientes where cliente_DNI = '" + dni + "'");
+        }
+
+        public static DataTable cliente(string dni)
+        {
+            return BD.busqueda("select * from EL_JAPONES_SANGRANDO.Clientes where cliente_DNI ='" + dni + "'");
+        }
+
+        public static bool crearEmpresa(string rubro, string nombre, string direccion, string cuit)
+        {
+            string subquery = "(SELECT rubro_id FROM EL_JAPONES_SANGRANDO.Rubros WHERE rubro_desc = '" + rubro + "')";
+            return BD.insert("Empresas", "(empresa_rubro,empresa_cuit,empresa_nombre,empresa_direccion)values(" + subquery + ", '" + cuit + "', '" + nombre + "', '" + direccion + "')") != 0;
+        }
+
+        public static bool eliminarEmpresa(string x)
+        {
+            return BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Empresas SET empresa_estado = 0 WHERE empresa_cuit = '" + x + "'") > 0;
+        }
+
+        public static String condicionRubro(string rubro)
+        {
+            return (rubro == "") ? "" : "AND rubro_desc = '" + rubro + "'";
+        }
+
+        public static DataTable filtroEmpresasElim(string nombre, string cuit, string rubro)
+        {
+            String query = "SELECT empresa_nombre,rubro_desc,empresa_cuit FROM EL_JAPONES_SANGRANDO.Empresas join EL_JAPONES_SANGRANDO.Rubros on empresa_rubro = rubro_id WHERE " +
+                         "empresa_estado = 1 AND " +
+                         "empresa_nombre LIKE '" + nombre + "%' AND " +
+                         "empresa_cuit LIKE '" + cuit + "%' " +
+                         BD.condicionRubro(rubro);
+            return BD.busqueda(query);
+        }
+
+        public static DataTable filtroEmpresasModif(string nombre, string cuit, string rubro)
+        {
+            String query = "SELECT empresa_nombre,rubro_desc,empresa_cuit FROM EL_JAPONES_SANGRANDO.Empresas join EL_JAPONES_SANGRANDO.Rubros on empresa_rubro = rubro_id WHERE " +
+                         "empresa_nombre LIKE '" + nombre + "%' AND " +
+                         "empresa_cuit LIKE '" + cuit + "%' " +
+                         BD.condicionRubro(rubro);
+            return BD.busqueda(query);
+        }
+
+        public static List<string> rubros()
+        {
+            string query = "SELECT rubro_desc FROM EL_JAPONES_SANGRANDO.Rubros";
+            return BD.listaDeUnCampo(query);
+        }
+
+        public static DataTable actualizarEmpresasElim()
+        {
+            string query = "SELECT empresa_nombre,rubro_desc,empresa_cuit,empresa_direccion FROM EL_JAPONES_SANGRANDO.Empresas join EL_JAPONES_SANGRANDO.Rubros on empresa_rubro = rubro_id WHERE empresa_estado = 1 ORDER BY 1";
+            return BD.busqueda(query);
+        }
+
+        public static DataTable actualizarEmpresasModif()
+        {
+            string query = "SELECT empresa_nombre,rubro_desc,empresa_cuit,empresa_direccion FROM EL_JAPONES_SANGRANDO.Empresas join EL_JAPONES_SANGRANDO.Rubros on empresa_rubro = rubro_id ORDER BY 1";
+            return BD.busqueda(query);
+        }
+
+        public static DataTable empresa(string cuit)
+        {
+            return BD.busqueda("select * from EL_JAPONES_SANGRANDO.Empresas where empresa_cuit ='" + cuit + "'");
+        }
+
+        public static bool modificarEmpresa(int estado, string nombre, string direccion, string cuit, string rubro)
+        {
+            string subquery = "(SELECT rubro_id FROM EL_JAPONES_SANGRANDO.Rubros WHERE rubro_desc = '" + rubro + "')";
+            int query = BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Empresas SET " +
+                    "empresa_nombre = '" + nombre +
+                    "',empresa_direccion = '" + direccion +
+                    "',empresa_rubro = " + subquery +
+                    ",empresa_estado = " + estado +
+                    " WHERE empresa_cuit = '" + cuit + "'");
+            return query > 0;
+        }
+
+        public static bool tieneRoles(String username)
+        {
+            string x = BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Usuario_Rol where Usuario_Rol_usuario = '" + username + "'");
+            return Int32.Parse(x) > 0;
+        }
     }
 }

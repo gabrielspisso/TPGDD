@@ -16,73 +16,51 @@ namespace PagoAgilFrba.AbmCliente
         public ABMCliente()
         {
             InitializeComponent();
-            string query = "select cliente_nombre,cliente_apellido,cliente_DNI from EL_JAPONES_SANGRANDO.Clientes";
-            DataTable ds = BD.busqueda(query);
-            dataViewModificar.DataSource = ds;
+            BD.actualizarVistasClientes(datagridEliminar, dataViewModificar);
             BD.nuevoBoton(dataViewModificar, "Modificar", 3);
-
-            query = "select cliente_nombre,cliente_apellido,cliente_DNI from EL_JAPONES_SANGRANDO.Clientes where cliente_estado = 1";
-            datagridEliminar.DataSource = BD.busqueda(query);
             BD.nuevoBoton(datagridEliminar, "Eliminar", 3);
         }
 
         private void textBox10_TextChanged(object sender, EventArgs e)
         {
-            String query = "SELECT cliente_nombre,cliente_apellido,cliente_DNI FROM EL_JAPONES_SANGRANDO.Clientes WHERE cliente_estado = 1 AND " +
-                           "cliente_nombre LIKE '" + textElimNombre.Text + "%' AND " +
-                           "cliente_apellido LIKE '" + textElimApellido.Text + "%' " +
-                           condicionDNI(textElimDNI.Text);
-            datagridEliminar.DataSource = BD.busqueda(query);
+            datagridEliminar.DataSource = BD.filtroClienteEliminar(textElimNombre.Text, textElimApellido.Text, textElimDNI.Text);
         }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void textBox7_TextChanged(object sender, EventArgs e)
         {
-            var senderGrid = (DataGridView)sender;
-
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
-                e.RowIndex >= 0)
-            {
-                string x = datagridEliminar.Rows[e.RowIndex].Cells["cliente_DNI"].Value.ToString();
-                if (BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Clientes SET cliente_estado = 0 WHERE cliente_DNI = '" + x + "'") > 0)
-                {
-                    MessageBox.Show("cliente eliminado", "cliente eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    String query = "select cliente_nombre,cliente_apellido,cliente_DNI from EL_JAPONES_SANGRANDO.Clientes where cliente_estado = 1";
-                    datagridEliminar.DataSource = BD.busqueda(query);
-                    query = "select cliente_nombre,cliente_apellido,cliente_DNI from EL_JAPONES_SANGRANDO.Clientes";
-                    DataTable ds = BD.busqueda(query);
-                    dataViewModificar.DataSource = ds;
-                }
-
-                //string rol = dataGridViewModificarC.Rows[e.ColumnIndex].Cells[2].Value.ToString();
-                //BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Roles SET rol_estado = 0 WHERE rol_nombre ='" +rol+ "'");
-            }
+            dataViewModificar.DataSource = BD.filtroClienteModificar(textModNombre.Text, textModApellido.Text, textModDNI.Text);
         }
-
         private void button3_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            IniciarSesion.AccionesAdmin accion_ADMIN = new IniciarSesion.AccionesAdmin();
-            IniciarSesion.Acciones accion = new IniciarSesion.Acciones();
-            accion_ADMIN.Show();
-            accion.Show();
+            volverCLiente();
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            IniciarSesion.AccionesAdmin accion_ADMIN = new IniciarSesion.AccionesAdmin();
-            IniciarSesion.Acciones accion = new IniciarSesion.Acciones();
-            accion_ADMIN.Show();
-            accion.Show();
+            volverCLiente();
         }
 
         private void button1_Click(object sender, EventArgs e)
+        {
+            volverCLiente();
+        }
+
+        private void volverCLiente()
         {
             this.Hide();
             IniciarSesion.AccionesAdmin accion_ADMIN = new IniciarSesion.AccionesAdmin();
             IniciarSesion.Acciones accion = new IniciarSesion.Acciones();
             accion_ADMIN.Show();
             accion.Show();
+        }
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            {
+                string x = datagridEliminar.Rows[e.RowIndex].Cells["cliente_DNI"].Value.ToString();
+                BD.eliminarCliente(x, datagridEliminar, dataViewModificar);
+            }
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -112,7 +90,7 @@ namespace PagoAgilFrba.AbmCliente
                 String direccion = textDireccion.Text;
                 String fechanacimiento = dateTimePickerFechaNac.Value.ToString("u");
                 fechanacimiento = fechanacimiento.Substring(0, fechanacimiento.Length - 1);
-                if (BD.ABM("INSERT INTO EL_JAPONES_SANGRANDO.Clientes(cliente_DNI,cliente_nombre,cliente_apellido,cliente_fecha_nacimiento,cliente_mail,cliente_direccion,cliente_codigo_postal, cliente_telefono)values('" + dni + "','" + nombre + "','" + apellido + "','" + fechanacimiento + "','" + mail + "','" + direccion + "','" + textCodigoPostal.Text + "', '"+txtTelefono.Text+"')") > 0)
+                if (BD.crearCliente(nombre, apellido, dni, mail, direccion, fechanacimiento, textCodigoPostal.Text,txtTelefono.Text))
                 {
                     MessageBox.Show("Se ingreso correctamente el cliente", "Insertado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     textNombre.Text = "";
@@ -123,68 +101,30 @@ namespace PagoAgilFrba.AbmCliente
                     textDireccion.Text = "";
                     dateTimePickerFechaNac.Text = "";
                     txtTelefono.Text = "";
-                    string query = "select cliente_nombre,cliente_apellido,cliente_DNI from EL_JAPONES_SANGRANDO.Clientes";
-                    DataTable ds = BD.busqueda(query);
-                    dataViewModificar.DataSource = ds;
-                    query = "select cliente_nombre,cliente_apellido,cliente_DNI from EL_JAPONES_SANGRANDO.Clientes where cliente_estado = 1";
-                    datagridEliminar.DataSource = BD.busqueda(query);
+                    BD.actualizarVistasClientes(datagridEliminar,dataViewModificar);
                 }
                 else
                 {
-                    string x = BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Clientes where cliente_DNI = '" + textDni.Text+"'");
+                    string x = BD.cantidadDeClientesCon(textDni.Text);
                     if (Int32.Parse(x) > 0)
                     {
                         MessageBox.Show("Ya existe un cliente con ese DNI");
                         return;
                     }
                     MessageBox.Show("Ya existe un cliente con ese mail", "Error en seleccion", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
                 }
-
-
             }
-
-
         }
 
         private void dataViewModificar_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
 
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
-                e.RowIndex >= 0)
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
             {
                 new Eliminar_Modificar_Cliente_Seleccionado(dataViewModificar.Rows[e.RowIndex].Cells["cliente_DNI"].Value.ToString()).Show();
-                string query = "select cliente_nombre,cliente_apellido,cliente_DNI from EL_JAPONES_SANGRANDO.Clientes";
-                DataTable ds = BD.busqueda(query);
-                dataViewModificar.DataSource = ds;
-                query = "select cliente_nombre,cliente_apellido,cliente_DNI from EL_JAPONES_SANGRANDO.Clientes where cliente_estado = 1";
-                datagridEliminar.DataSource = BD.busqueda(query);
-                //string rol = dataGridViewModificarC.Rows[e.ColumnIndex].Cells[2].Value.ToString();
-                //BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Roles SET rol_estado = 0 WHERE rol_nombre ='" +rol+ "'");
+                BD.actualizarVistasClientes(datagridEliminar, dataViewModificar);
             }
         }
-
-        private void textBox7_TextChanged(object sender, EventArgs e)
-        {
-            String query = "SELECT cliente_nombre,cliente_apellido,cliente_DNI FROM EL_JAPONES_SANGRANDO.Clientes WHERE " +
-                           "cliente_nombre LIKE '" + textModNombre.Text + "%' AND " +
-                           "cliente_apellido LIKE '" + textModApellido.Text + "%' " +
-                           condicionDNI(textModDNI.Text);
-            dataViewModificar.DataSource = BD.busqueda(query);
-        }
-
-        public static String condicionDNI(String dni)
-        {
-            return (dni == "") ? "" : "AND cliente_DNI like '" + dni + "%'";
-        }
-
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
     }
-
 }

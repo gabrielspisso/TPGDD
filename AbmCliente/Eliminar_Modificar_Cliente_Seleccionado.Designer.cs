@@ -184,7 +184,6 @@
             this.dateTimePickerFechaNac.Name = "dateTimePickerFechaNac";
             this.dateTimePickerFechaNac.Size = new System.Drawing.Size(161, 20);
             this.dateTimePickerFechaNac.TabIndex = 38;
-            this.dateTimePickerFechaNac.ValueChanged += new System.EventHandler(this.dateTimePickerFechaNac_ValueChanged);
             // 
             // CheckHabilitado
             // 
@@ -212,7 +211,6 @@
             this.txttelefono.Name = "txttelefono";
             this.txttelefono.Size = new System.Drawing.Size(164, 20);
             this.txttelefono.TabIndex = 60;
-            this.txttelefono.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label9
             // 
@@ -222,7 +220,6 @@
             this.label9.Size = new System.Drawing.Size(49, 13);
             this.label9.TabIndex = 59;
             this.label9.Text = "Telefono";
-            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // Eliminar_Modificar_Cliente_Seleccionado
             // 

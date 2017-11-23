@@ -110,7 +110,6 @@
             this.tabPage1.Size = new System.Drawing.Size(615, 230);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Agregar";
-            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
             // txtTelefono
             // 

@@ -16,7 +16,7 @@ namespace PagoAgilFrba.AbmCliente
         public Eliminar_Modificar_Cliente_Seleccionado(string dni)
         {
             InitializeComponent();
-            DataTable tabla = BD.busqueda("select * from EL_JAPONES_SANGRANDO.Clientes where cliente_DNI ='"+dni+"'");
+            DataTable tabla = BD.cliente(dni);
             textDNI.Text = BD.devolverColumna(tabla, "cliente_DNI");
             textCodigoPostal.Text = BD.devolverColumna(tabla, "cliente_codigo_postal");
             textMailN.Text = BD.devolverColumna(tabla, "cliente_mail");
@@ -25,9 +25,7 @@ namespace PagoAgilFrba.AbmCliente
             textApellidoN.Text = BD.devolverColumna(tabla, "cliente_apellido");
             txttelefono.Text = BD.devolverColumna(tabla, "cliente_telefono");
             CheckHabilitado.Checked = BD.devolverColumna(tabla, "cliente_estado") == "True";
-            
-            
-
+ 
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -62,21 +60,5 @@ namespace PagoAgilFrba.AbmCliente
                 this.Close();
             }   
         }
-
-        private void dateTimePickerFechaNac_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
     }
 }
