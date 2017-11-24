@@ -15,11 +15,12 @@ namespace PagoAgilFrba
 {
     public class BD
     {
+        private static SqlTransaction trans;
         private static String connectionString = ConfigurationManager.AppSettings["conexionSQL"];
-
+        private static SqlConnection con = new SqlConnection(connectionString);
         public static SqlConnection getConnection()
         {
-            return new SqlConnection(ConfigurationManager.AppSettings["conexionSQL"].ToString());
+            return con;
         }
         public static DateTime fechaActual()
         {
@@ -255,10 +256,9 @@ namespace PagoAgilFrba
         }
         public static int correrStoreProcedure(List<String> listaDeValores)
         {
-            SqlConnection connection = getConnection();
-            connection.Open();
+            
 
-
+            BD.beginTrans();
             String y = "";
             listaDeValores.ForEach(delegate(String name)
             {
@@ -279,7 +279,6 @@ namespace PagoAgilFrba
                 BD.rollback();
                 x = 0;
             }
-            connection.Close();
             return x;
         }
 
