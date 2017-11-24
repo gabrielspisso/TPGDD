@@ -218,7 +218,6 @@
             this.dataGridFacturas.RowTemplate.Height = 24;
             this.dataGridFacturas.Size = new System.Drawing.Size(418, 122);
             this.dataGridFacturas.TabIndex = 67;
-            this.dataGridFacturas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridFacturas_CellContentClick);
             this.dataGridFacturas.SelectionChanged += new System.EventHandler(this.dataGridFacturas_SelectionChanged);
             // 
             // label8

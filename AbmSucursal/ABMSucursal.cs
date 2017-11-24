@@ -49,6 +49,9 @@ namespace PagoAgilFrba.Sucursal
             DatagridViewEliminar.Columns.Add(buttons2);
 
             dataGridViewModificarC.Columns.Add(buttons);
+
+            DatagridViewEliminar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewModificarC.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)

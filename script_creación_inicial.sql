@@ -397,3 +397,17 @@ values('administrador',1),('administrador',2),('administrador',3),('administrado
 INSERT INTO EL_JAPONES_SANGRANDO.Usuario_Rol(usuario_Rol_usuario, usuario_Rol_rol) values ('admin', 'administrador')
 
 
+INSERT INTO EL_JAPONES_SANGRANDO.Sucursales (sucursal_codigo_postal,sucursal_direccion,sucursal_nombre)
+values (1447,'Medrano 1700','SUCURSAL N 3000')
+
+INSERT INTO EL_JAPONES_SANGRANDO.Sucursales (sucursal_codigo_postal,sucursal_direccion,sucursal_nombre)
+values (1437,'Medrano 18550','SUCURSAL N 5000')
+
+INSERT INTO EL_JAPONES_SANGRANDO.Usuarios (usuario_nombre, usuario_contrasena) values('cobrador',HASHBYTES('SHA2_256', 'w23e'))
+
+INSERT INTO EL_JAPONES_SANGRANDO.Usuario_Sucursal (usuario_Sucursal_sucursal,usuario_Sucursal_usuario)
+values (1447,'cobrador')
+INSERT INTO EL_JAPONES_SANGRANDO.Usuario_Sucursal (usuario_Sucursal_sucursal,usuario_Sucursal_usuario)
+values (1437,'cobrador')
+
+INSERT INTO EL_JAPONES_SANGRANDO.Usuario_Rol(usuario_Rol_usuario, usuario_Rol_rol) values ('cobrador', 'cobrador')

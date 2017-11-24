@@ -25,14 +25,14 @@ namespace PagoAgilFrba.AbmCliente
             textApellidoN.Text = BD.devolverColumna(tabla, "cliente_apellido");
             txttelefono.Text = BD.devolverColumna(tabla, "cliente_telefono");
             CheckHabilitado.Checked = BD.devolverColumna(tabla, "cliente_estado") == "True";
+            string fecha = BD.devolverColumna(tabla, "cliente_fecha_nacimiento");
+            dateTimePickerFechaNac.Value = Convert.ToDateTime(fecha);
  
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            ABMCliente abmCliente = new ABMCliente();
-            abmCliente.Show();
+            this.Close();
         }
 
         private void button3_Click(object sender, EventArgs e)

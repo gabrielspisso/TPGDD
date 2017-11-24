@@ -15,6 +15,8 @@ namespace PagoAgilFrba.IniciarSesion
         public Login()
         {
             InitializeComponent();
+            BD.setSucursal("");
+            BD.setUsuario("");
         }
 
         private void button1_Click(object sender, EventArgs e)

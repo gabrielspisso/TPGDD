@@ -92,6 +92,7 @@ namespace PagoAgilFrba.AbmRol
             comboModificar.DataSource = BD.roles();
             comboModificar.SelectedItem = null;
 
+            txtRol.Text = "";
         }
 
         private void button3_Click(object sender, EventArgs e)

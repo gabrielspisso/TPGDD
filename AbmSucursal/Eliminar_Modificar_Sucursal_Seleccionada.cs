@@ -36,6 +36,7 @@ namespace PagoAgilFrba.Sucursal
             if (BD.modificarSucursal(habilitado, textNombre.Text, textDireccion.Text, sucursalNombreViejo))
             {
                 MessageBox.Show("Se pudo modificar la sucursal", "Modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
             }
         }
 

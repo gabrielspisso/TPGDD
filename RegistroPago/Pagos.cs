@@ -14,20 +14,17 @@ namespace PagoAgilFrba.RegistroPago
 {
     public partial class Pagos : Form
     {
+        bool primeraVez;
         public Pagos()
         {
             InitializeComponent();
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            
         }
 
         string queryf = "Select factura_numero, empresa_nombre as Empresa, factura_cliente,factura_fecha,factura_fecha_vencimiento,factura_total from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Empresas on (factura_empresa = empresa_cuit) where factura_estado  = 1 AND empresa_estado = 1";
 
         private void Pagos_Load(object sender, EventArgs e)
         {
+            primeraVez = true;
             List<string> lista = BD.listaDeUnCampo("select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_estado = 1");
             lista.Insert(0,"");
             comboEmpresas.DataSource = lista;
@@ -40,7 +37,7 @@ namespace PagoAgilFrba.RegistroPago
                 return;
             }
             dataGridFacturas.DataSource = BD.busqueda(queryf);
-            dateVenc.Text = "1/1/1990";
+            dateVenc.Value = BD.fechaActual();
             comboSucursal.DataSource = BD.listaDeUnCampo("select sucursal_nombre from EL_JAPONES_SANGRANDO.Sucursales");
         }
 
@@ -49,7 +46,7 @@ namespace PagoAgilFrba.RegistroPago
 
         private bool los4estanvacios()
         {
-            return txtDni.Text == "" && dateVenc.Text == "1/1/1990" && txtFactura.Text == "" && comboEmpresas.Text == "";
+            return txtDni.Text == "" && primeraVez && txtFactura.Text == "" && comboEmpresas.Text == "";
         }
 
         string conAnd(string cadena)
@@ -89,7 +86,7 @@ namespace PagoAgilFrba.RegistroPago
             }
             else
                 query2 = queryf + " AND 1 = 1";
-               if (dateVenc.Text != "1/1/1990")
+               if (!primeraVez)
                {
                    query2 += conAnd(queryVencimiento());
                }
@@ -119,7 +116,7 @@ namespace PagoAgilFrba.RegistroPago
             else{
                 query2 +=queryf +"AND 1 = 1";
             }
-                if (dateVenc.Text != "1/1/1990")
+                if (!primeraVez)
                 {
                     query2 += conAnd(queryVencimiento());
                 }
@@ -150,7 +147,7 @@ namespace PagoAgilFrba.RegistroPago
             else{ 
                     query2 = queryf + " AND 1 = 1"; 
                 }
-                if (dateVenc.Text != "1/1/1990")
+                if (!primeraVez)
                 {
                     query2 += conAnd(queryVencimiento());
                 }
@@ -171,7 +168,7 @@ namespace PagoAgilFrba.RegistroPago
         private void dateVenc_ValueChanged(object sender, EventArgs e)
         {
             string query2 = "";
-            if (dateVenc.Text != "1/1/1990")
+            if (!primeraVez)
             {
                 query2 = queryf + " AND " + this.queryVencimiento();
                 if (txtDni.Text != "")
@@ -190,6 +187,7 @@ namespace PagoAgilFrba.RegistroPago
                 dataGridFacturas.DataSource = BD.busqueda(query2);
 
             }
+            else primeraVez = false;
         }
 
         private void dataGridFacturas_SelectionChanged(object sender, EventArgs e)
@@ -204,8 +202,13 @@ namespace PagoAgilFrba.RegistroPago
 
         private void btnPagar_Click(object sender, EventArgs e)
         {
-            Regex reg = new Regex("[0-9]"); 
+            Regex reg = new Regex("^[0-9]+$"); 
           
+            if(textPagador.Text == "")
+            {
+                MessageBox.Show("Falta completar el DNI");
+                return;
+            }
          
             if (!reg.IsMatch(textPagador.Text))
             {
@@ -266,9 +269,5 @@ namespace PagoAgilFrba.RegistroPago
             }
         }
 
-        private void dataGridFacturas_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }

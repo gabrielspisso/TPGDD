@@ -22,6 +22,8 @@ namespace PagoAgilFrba.AbmFactura
             lista.Insert(0, "");
             comboboxEliminarEmpresa.DataSource = lista;
             comboBoxModEmpresa.DataSource = lista;
+            dateAlta.Value = BD.fechaActual();
+            dateVenc.Value = BD.fechaActual();
 
         }
 
@@ -35,7 +37,11 @@ namespace PagoAgilFrba.AbmFactura
             BD.nuevoBoton(dataGridViewModificarC, "Modificar", 8);
 
             datagridViewEliminar.DataSource = BD.facturasElim();
-            BD.nuevoBoton(datagridViewEliminar, "Eliminar", 3);
+            BD.nuevoBoton(datagridViewEliminar, "Eliminar", 8);
+
+            listaSeleccionados.Items.Clear();
+            txtDni.Text = "";
+            txtFactura.Text = "";
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -57,7 +63,7 @@ namespace PagoAgilFrba.AbmFactura
             {
                 try
                 {
-                    Int32.Parse(txtMonto.Text);
+                    Double.Parse(txtMonto.Text);
                     Int32.Parse(txtCantidad.Text);
                 }
                 catch (Exception ex)
@@ -65,7 +71,7 @@ namespace PagoAgilFrba.AbmFactura
                     MessageBox.Show("Ingrese valores numericos para el monto y la cantidad");
                     return;
                 }
-                string[] row = { txtMonto.Text, txtCantidad.Text };
+                string[] row = { txtMonto.Text.Replace(',', '.'), txtCantidad.Text };
                 var listViewItem = new ListViewItem(row);
                 listaSeleccionados.Items.Add(listViewItem);
                 txtMonto.Text = "";
@@ -97,6 +103,13 @@ namespace PagoAgilFrba.AbmFactura
                 MessageBox.Show("la factura contiene caracteres invalidos");
                 return;
             }
+
+            if (listaSeleccionados.Items.Count == 0)
+            {
+                MessageBox.Show("La factura no tiene items");
+                return;
+            }
+
 
             String fechaVenc = dateVenc.Value.ToString("u");
             fechaVenc = fechaVenc.Substring(0, fechaVenc.Length - 1);
@@ -162,11 +175,12 @@ namespace PagoAgilFrba.AbmFactura
                 string estado = BD.estadoFactura(factura);
                 if (estado == "2" || estado == "3")
                 {
-                    MessageBox.Show("No se pueden modificar facturas pagadas o rendidas");
+                    MessageBox.Show("No se pueden modificar facturas " + ((estado == "2")? "cobradas" : "rendidas"));
                 }
                 else
                 {
-                    new Eliminar_Modificar_Factura_Seleccionada(factura).Show();
+                    new Eliminar_Modificar_Factura_Seleccionada(factura).ShowDialog();
+                    cargarGrids();
                 }
             }
         }

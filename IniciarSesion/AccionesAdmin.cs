@@ -17,6 +17,7 @@ namespace PagoAgilFrba.IniciarSesion
         {
             rolSeleccionado = rol;
             InitializeComponent();
+            dataGridEstadisticas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
         public AccionesAdmin() {
             InitializeComponent();
@@ -29,7 +30,13 @@ namespace PagoAgilFrba.IniciarSesion
 
             if (factura_numero != "" && motivo != "")
             {
-                int factura_estado = Int32.Parse(BD.estadoFactura(factura_numero));
+                string x = BD.estadoFactura(factura_numero);
+                if (x == "")
+                {
+                    MessageBox.Show("Esta factura no existe","", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                int factura_estado = Int32.Parse(x);
                 if (factura_estado != 2)
                 {
                     string razon = (factura_estado == 1) ? "no se ha pagado" : (factura_estado == 3) ? "ya se ha rendido" : "se ha eliminado";
@@ -96,7 +103,7 @@ namespace PagoAgilFrba.IniciarSesion
             int trimestre = cmbTrimestre.SelectedIndex + 1;
             string anio = añoNUD.Value.ToString();
 
-            if (cmbTipo.Text == "Seleccione..." || cmbTrimestre.Text == "Seleccione...")
+            if (cmbTipo.Text == "Seleccione..." || cmbTrimestre.Text == "Seleccione")
             {
                 MessageBox.Show("Complete todos los campos", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -172,23 +179,34 @@ namespace PagoAgilFrba.IniciarSesion
                     {
                         this.Hide();
                         new AbmRol.ABMRol().ShowDialog();
-                        this.Show();
+                        comboAccion.DataSource = BD.funcionalidadesDeRolConDescripcion(rolSeleccionado);
+                        if (comboAccion.Items.Count == 0)
+                        {
+                            MessageBox.Show("Este rol no tiene funcionalidades asignadas");
+
+                            this.Close();
+                        }
+                        else
+                            this.Show();
                     } break;
                 case "LISTADO_ESTADISTICO":
                     {
                         Acciones.Controls.Remove(tabPage4);
                         Acciones.Controls.Add(tabPage4);
+                        Acciones.SelectTab(tabPage4);
 
                     } break;
                 case "RENDICION_DE_FACTURAS_COBRADAS":
                     {
                         Acciones.Controls.Remove(tabPage3);
                         Acciones.Controls.Add(tabPage3);
+                        Acciones.SelectTab(tabPage3);
                     } break;
                 case "DEVOLUCION":
                     {
                         Acciones.Controls.Remove(tabPage5);
                         Acciones.Controls.Add(tabPage5);
+                        Acciones.SelectTab(tabPage5);
                     } break;
                 case "ABM_FACTURA":
                     {
@@ -231,7 +249,7 @@ namespace PagoAgilFrba.IniciarSesion
         {
             if (comboEmpresa.Text == "")
             {
-                MessageBox.Show("No se pudo realizar la rendicion", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Debe seleccionar una empresa", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

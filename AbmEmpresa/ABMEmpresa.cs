@@ -36,10 +36,6 @@ namespace PagoAgilFrba.AbmEmpresa
                 MessageBox.Show("No se respeta la correcta composicion del CUIT");
                 return;
             }
-            if(!Regex.IsMatch(nombre, @"^[a-zA-Z]+$")){
-                MessageBox.Show("El nombre tiene caracteres invalidos.");
-                return;               
-            }
 
             if (BD.crearEmpresa(rubro, nombre, direccion, cuit))
             {

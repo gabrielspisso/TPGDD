@@ -17,6 +17,7 @@ namespace PagoAgilFrba.AbmCliente
         {
             InitializeComponent();
             BD.actualizarVistasClientes(datagridEliminar, dataViewModificar);
+            dateTimePickerFechaNac.Value = BD.fechaActual();
             BD.nuevoBoton(dataViewModificar, "Modificar", 3);
             BD.nuevoBoton(datagridEliminar, "Eliminar", 3);
         }
@@ -100,7 +101,7 @@ namespace PagoAgilFrba.AbmCliente
 
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
             {
-                new Eliminar_Modificar_Cliente_Seleccionado(dataViewModificar.Rows[e.RowIndex].Cells["cliente_DNI"].Value.ToString()).Show();
+                new Eliminar_Modificar_Cliente_Seleccionado(dataViewModificar.Rows[e.RowIndex].Cells["cliente_DNI"].Value.ToString()).ShowDialog();
                 BD.actualizarVistasClientes(datagridEliminar, dataViewModificar);
             }
         }

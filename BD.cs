@@ -557,7 +557,7 @@ namespace PagoAgilFrba
 
         public static DataTable filtroFacturasModif(string cliente, string numero, string empresa)
         {
-            String query = "SELECT  factura_numero,factura_empresa,factura_cliente from EL_JAPONES_SANGRANDO.Facturas WHERE " +
+            String query = "SELECT  factura_numero,(select empresa_nombre from EL_JAPONES_SANGRANDO.EMPRESAS where empresa_cuit = factura_empresa) 'empresa',factura_cliente from EL_JAPONES_SANGRANDO.Facturas WHERE " +
                          "factura_cliente LIKE '" + cliente + "%' AND " +
                          "factura_numero LIKE '" + numero + "%'" +
                          BD.condicionDeEmpresas(empresa);
@@ -566,7 +566,7 @@ namespace PagoAgilFrba
 
         public static DataTable filtroFacturasElim(string cliente, string factura, string empresa)
         {
-            String query = "SELECT  factura_numero,factura_empresa,factura_cliente from EL_JAPONES_SANGRANDO.Facturas WHERE factura_estado = 1 AND " +
+            String query = "SELECT  factura_numero,(select empresa_nombre from EL_JAPONES_SANGRANDO.EMPRESAS where empresa_cuit = factura_empresa) 'empresa',factura_cliente from EL_JAPONES_SANGRANDO.Facturas WHERE factura_estado = 1 AND " +
                           "factura_cliente LIKE '" + cliente + "%' AND " +
                           "factura_numero LIKE '" + factura + "%'" +
                           BD.condicionDeEmpresas(empresa);
@@ -639,13 +639,13 @@ namespace PagoAgilFrba
 
         public static DataTable facturasElim()
         {
-            string query = "select DISTINCT factura_numero,(select empresa_nombre from EL_JAPONES_SANGRANDO.EMPRESAS where empresa_cuit = factura_empresa),factura_cliente from EL_JAPONES_SANGRANDO.Facturas where factura_estado = 1";
+            string query = "select DISTINCT factura_numero,(select empresa_nombre from EL_JAPONES_SANGRANDO.EMPRESAS where empresa_cuit = factura_empresa) 'empresa',factura_cliente from EL_JAPONES_SANGRANDO.Facturas where factura_estado = 1";
             return BD.busqueda(query);
         }
 
         public static DataTable facturasModif()
         {
-            string query = "select DISTINCT factura_numero,(select empresa_nombre from EL_JAPONES_SANGRANDO.EMPRESAS where empresa_cuit = factura_empresa),factura_cliente from EL_JAPONES_SANGRANDO.Facturas";
+            string query = "select DISTINCT factura_numero,(select empresa_nombre from EL_JAPONES_SANGRANDO.EMPRESAS where empresa_cuit = factura_empresa) 'empresa',factura_cliente from EL_JAPONES_SANGRANDO.Facturas";
             return BD.busqueda(query);
         }
 
@@ -781,14 +781,21 @@ namespace PagoAgilFrba
             string delete = "DELETE FROM EL_JAPONES_SANGRANDO.Rol_Funcionalidad where rol_Funcionalidad_rol = '" + rol + "'";
             string updateUsuario = "UPDATE EL_JAPONES_SANGRANDO.Usuario_Rol set usuario_Rol_rol = '" + nuevoRol + "' where usuario_Rol_rol = '" + rol + "'";
 
-            lista.Add(queryInsert);
-            lista.Add(updateUsuario);
-            lista.Add(delete);
-            lista.Add(queryDelete);
-
-            lista.Add(update);
-
-            lista.Add(queryUpdate + funcionalidades);
+            if (rol != nuevoRol)
+            {
+                lista.Add(queryInsert);
+                lista.Add(updateUsuario);
+                lista.Add(delete);
+                lista.Add(queryDelete);
+                lista.Add(update);
+                lista.Add(queryUpdate + funcionalidades);
+            }
+            else
+            {
+                lista.Add(update);
+                lista.Add(delete);
+                lista.Add(queryUpdate + funcionalidades);
+            }
             return BD.correrStoreProcedure(lista) > 0;
         }
 

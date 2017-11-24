@@ -41,11 +41,6 @@ namespace PagoAgilFrba.AbmEmpresa
             }
             int x = CheckHabilitado.Checked ? 1 : 0;
              
-           if(!Regex.IsMatch(textNombre.Text, @"^[a-zA-Z]+$"))
-            {
-                MessageBox.Show("El nombre tiene caracteres invalidos.");
-                return;
-            }
             if (cambio && !CheckHabilitado.Checked && !BD.todasRendidas(textCuit.Text))
             {
                 MessageBox.Show("La Empresa todavia tiene facturas por rendir", "Error en la modificacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
