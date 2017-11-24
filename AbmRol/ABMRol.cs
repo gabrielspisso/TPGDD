@@ -26,11 +26,8 @@ namespace PagoAgilFrba.AbmRol
 
                 MessageBox.Show("No selecciono rol", "Error en seleccion", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-}      
-            //BD.crearRol(rol);
+            }      
 
-            string queryInsert = "INSERT INTO EL_JAPONES_SANGRANDO.Roles (rol_nombre) values ('" + rol +"')";
-            string queryUpdate = "INSERT INTO EL_JAPONES_SANGRANDO.Rol_Funcionalidad (rol_Funcionalidad_rol,rol_Funcionalidad_funcionalidad) values ";
             string funcionalidades = "";
             foreach (DataGridViewRow r in funcionalidadesDGV.Rows){
                if(r != null)
@@ -47,13 +44,10 @@ namespace PagoAgilFrba.AbmRol
             if(funcionalidades == ""){
                 MessageBox.Show("No selecciono funcionalidades", "Error en seleccion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
-        }
+            }
             funcionalidades = funcionalidades.Substring(0, funcionalidades.Length - 1);
-            queryUpdate += funcionalidades;
-            List<string> queries = new List<string>();
-            queries.Add(queryInsert);
-            queries.Add(queryUpdate);
-            if (BD.correrStoreProcedure(queries) > 0)
+
+            if (BD.crearRol(rol, funcionalidades))
             {
                 MessageBox.Show("Rol cargado correctamente", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 actualizarTodo();
@@ -64,17 +58,12 @@ namespace PagoAgilFrba.AbmRol
             }
         }
 
-        private void funcionalidadesDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void actualizarTodo()
         {
             funcionalidadesDGV.Columns.Clear();
             dataGridFuncModificar.Columns.Clear();
-            funcionalidadesDGV.DataSource = BD.busqueda("select * from EL_JAPONES_SANGRANDO.Funcionalidades");
-            dataGridFuncModificar.DataSource = BD.busqueda("select * from EL_JAPONES_SANGRANDO.Funcionalidades");
+            funcionalidadesDGV.DataSource = BD.funcionalidades();
+            dataGridFuncModificar.DataSource = BD.funcionalidades();
             DataGridViewCheckBoxColumn col1 = new DataGridViewCheckBoxColumn();
             col1.TrueValue = "T";
             col1.FalseValue = "F";
@@ -97,31 +86,24 @@ namespace PagoAgilFrba.AbmRol
             dataGridFuncModificar.Columns[2].ReadOnly = false;
 
 
-            comboEliminar.DataSource = BD.listaDeUnCampo("Select rol_nombre from EL_JAPONES_SANGRANDO.Roles where rol_estado=1");
+            comboEliminar.DataSource = BD.rolesActivos();
 
 
-            comboModificar.DataSource = BD.listaDeUnCampo("Select rol_nombre from EL_JAPONES_SANGRANDO.Roles");
+            comboModificar.DataSource = BD.roles();
             comboModificar.SelectedItem = null;
 
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-           if( BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Roles SET rol_estado = 0 WHERE rol_nombre = '" + comboEliminar.SelectedValue.ToString() + "'")>0){
+            if (BD.eliminarRol(comboEliminar.SelectedValue.ToString()))
+            {
                MessageBox.Show("Se elimino el rol");
                actualizarTodo();
            }
            else{
                MessageBox.Show("no se pudo eliminar el rol");
            }
-        }
-
-        
-
-
-        private void dataGridFuncModificar_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -137,15 +119,13 @@ namespace PagoAgilFrba.AbmRol
             string rol = comboModificar.SelectedValue.ToString();
             if (rol != txtRol.Text)
             {
-                string x = BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Roles where rol_nombre = '" + txtRol.Text + "'");
-                if (Int32.Parse(x) > 0)
+                if (BD.existeRol(txtRol.Text))
                 {
                     MessageBox.Show("Ya existe un rol con ese nombre");
                     return;
                 }
 
             }
-            string queryUpdate = "INSERT INTO EL_JAPONES_SANGRANDO.Rol_Funcionalidad (rol_Funcionalidad_rol,rol_Funcionalidad_funcionalidad) values ";
 
             string funcionalidades = "";
             foreach (DataGridViewRow r in dataGridFuncModificar.Rows)
@@ -161,31 +141,7 @@ namespace PagoAgilFrba.AbmRol
                     }
                 }
             }
-            if (funcionalidades == "")
-            {
-                queryUpdate = "";
-            }
-            else
-            {
-                funcionalidades = funcionalidades.Substring(0, funcionalidades.Length - 1);
-            }
-            List<String> lista = new List<string>();
-            String queryDelete = "Delete from EL_JAPONES_SANGRANDO.Roles where rol_nombre = '" + rol + "'";
-            string queryInsert = "INSERT INTO EL_JAPONES_SANGRANDO.Roles (rol_nombre) values ('" + txtRol.Text + "')";
-
-            string update = "UPDATE EL_JAPONES_SANGRANDO.Roles SET rol_estado = " + valor + " WHERE rol_nombre = '" + txtRol.Text + "'";
-            string delete = "DELETE FROM EL_JAPONES_SANGRANDO.Rol_Funcionalidad where rol_Funcionalidad_rol = '" + rol + "'";
-            string updateUsuario = "UPDATE EL_JAPONES_SANGRANDO.Usuario_Rol set usuario_Rol_rol = '" + txtRol.Text + "' where usuario_Rol_rol = '" + rol + "'";
-
-            lista.Add(queryInsert);
-            lista.Add(updateUsuario);
-            lista.Add(delete);
-            lista.Add(queryDelete);
-
-            lista.Add(update);
-
-            lista.Add(queryUpdate + funcionalidades);
-            if (BD.correrStoreProcedure(lista) > 0)
+            if (BD.modificarRol(valor, rol, funcionalidades, txtRol.Text))
             {
                 MessageBox.Show("Rol Actualizado", "Ok", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 actualizarTodo();
@@ -200,27 +156,21 @@ namespace PagoAgilFrba.AbmRol
         {
             if(comboModificar.SelectedItem != null){
 
-            List<String> c = BD.listaDeUnCampo("select rol_Funcionalidad_funcionalidad from EL_JAPONES_SANGRANDO.Rol_Funcionalidad where  rol_funcionalidad_rol = '" + comboModificar.SelectedValue.ToString() + "'");
+                List<String> c = BD.funcionalidadesDeRol(comboModificar.SelectedValue.ToString());
                 
             foreach (DataGridViewRow r in dataGridFuncModificar.Rows)
             {
                 if (c.Contains(r.Cells["funcionalidad_id"].Value.ToString()))
                 {
-
                     r.Cells["habilitado"].Value = "T";
                 }
                 else
                     r.Cells["habilitado"].Value = "F";
             }
-            string w = BD.consultaDeUnSoloResultado("select rol_estado from EL_JAPONES_SANGRANDO.Roles where rol_nombre = '" + comboModificar.SelectedValue.ToString() + "'");
+            string w = BD.estadoDeRol(comboModificar.SelectedValue.ToString());
             txtRol.Text = comboModificar.SelectedValue.ToString();
             checkBox2.Checked = w == "True";
             }
-        }
-
-        private void ABMRol_Load(object sender, EventArgs e)
-        {
-
         }
 
     }

@@ -723,5 +723,83 @@ namespace PagoAgilFrba
             string query = "SELECT sucursal_nombre FROM EL_JAPONES_SANGRANDO.Sucursales join EL_JAPONES_SANGRANDO.Usuario_Sucursal ON (usuario_Sucursal_sucursal = sucursal_codigo_postal) WHERE sucursal_estado = 1 AND usuario_Sucursal_usuario = '" + BD.getUsuario() + "'";
             return BD.listaDeUnCampo(query);
         }
+
+        public static bool crearRol(String rol, string funcionalidades)
+        {
+            string queryInsert = "INSERT INTO EL_JAPONES_SANGRANDO.Roles (rol_nombre) values ('" + rol + "')";
+            string queryUpdate = "INSERT INTO EL_JAPONES_SANGRANDO.Rol_Funcionalidad (rol_Funcionalidad_rol,rol_Funcionalidad_funcionalidad) values ";
+
+            queryUpdate += funcionalidades;
+            List<string> queries = new List<string>();
+            queries.Add(queryInsert);
+            queries.Add(queryUpdate);
+            return BD.correrStoreProcedure(queries) > 0;
+        }
+
+        public static DataTable funcionalidades()
+        {
+            return BD.busqueda("select * from EL_JAPONES_SANGRANDO.Funcionalidades");
+        }
+
+        public static List<string> roles()
+        {
+            return BD.listaDeUnCampo("Select rol_nombre from EL_JAPONES_SANGRANDO.Roles");
+        }
+
+        public static List<string> rolesActivos()
+        {
+            return BD.listaDeUnCampo("Select rol_nombre from EL_JAPONES_SANGRANDO.Roles where rol_estado=1");
+        }
+
+        public static bool eliminarRol(string rol)
+        {
+            return BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Roles SET rol_estado = 0 WHERE rol_nombre = '" + rol + "'") > 0;
+        }
+
+        public static bool existeRol(string rol)
+        {
+            string x = BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Roles where rol_nombre = '" + rol + "'");
+            return Int32.Parse(x) > 0;
+        }
+
+        public static bool modificarRol(int valor, string rol, string funcionalidades, string nuevoRol)
+        {
+            string queryUpdate = "INSERT INTO EL_JAPONES_SANGRANDO.Rol_Funcionalidad (rol_Funcionalidad_rol,rol_Funcionalidad_funcionalidad) values ";
+            if (funcionalidades == "")
+            {
+                queryUpdate = "";
+            }
+            else
+            {
+                funcionalidades = funcionalidades.Substring(0, funcionalidades.Length - 1);
+            }
+            List<String> lista = new List<string>();
+            String queryDelete = "Delete from EL_JAPONES_SANGRANDO.Roles where rol_nombre = '" + rol + "'";
+            string queryInsert = "INSERT INTO EL_JAPONES_SANGRANDO.Roles (rol_nombre) values ('" + nuevoRol + "')";
+
+            string update = "UPDATE EL_JAPONES_SANGRANDO.Roles SET rol_estado = " + valor + " WHERE rol_nombre = '" + nuevoRol + "'";
+            string delete = "DELETE FROM EL_JAPONES_SANGRANDO.Rol_Funcionalidad where rol_Funcionalidad_rol = '" + rol + "'";
+            string updateUsuario = "UPDATE EL_JAPONES_SANGRANDO.Usuario_Rol set usuario_Rol_rol = '" + nuevoRol + "' where usuario_Rol_rol = '" + rol + "'";
+
+            lista.Add(queryInsert);
+            lista.Add(updateUsuario);
+            lista.Add(delete);
+            lista.Add(queryDelete);
+
+            lista.Add(update);
+
+            lista.Add(queryUpdate + funcionalidades);
+            return BD.correrStoreProcedure(lista) > 0;
+        }
+
+        public static List<string> funcionalidadesDeRol(string rol)
+        {
+            return BD.listaDeUnCampo("select rol_Funcionalidad_funcionalidad from EL_JAPONES_SANGRANDO.Rol_Funcionalidad where  rol_funcionalidad_rol = '" + rol + "'");
+        }
+
+        public static string estadoDeRol(string rol)
+        {
+            return BD.consultaDeUnSoloResultado("select rol_estado from EL_JAPONES_SANGRANDO.Roles where rol_nombre = '" + rol + "'");
+        }
     }
 }

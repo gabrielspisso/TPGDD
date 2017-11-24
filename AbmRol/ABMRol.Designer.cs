@@ -87,7 +87,6 @@
             this.funcionalidadesDGV.Name = "funcionalidadesDGV";
             this.funcionalidadesDGV.Size = new System.Drawing.Size(346, 150);
             this.funcionalidadesDGV.TabIndex = 37;
-            this.funcionalidadesDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.funcionalidadesDGV_CellContentClick);
             // 
             // label1
             // 
@@ -172,7 +171,6 @@
             this.dataGridFuncModificar.Name = "dataGridFuncModificar";
             this.dataGridFuncModificar.Size = new System.Drawing.Size(346, 150);
             this.dataGridFuncModificar.TabIndex = 37;
-            this.dataGridFuncModificar.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridFuncModificar_CellContentClick);
             // 
             // label2
             // 
@@ -250,7 +248,6 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "ABMRol";
             this.Text = "ABMRol";
-            this.Load += new System.EventHandler(this.ABMRol_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
