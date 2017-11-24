@@ -100,7 +100,6 @@
             this.tabPage1.Size = new System.Drawing.Size(534, 230);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Acciones";
-            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
             // comboAccion
             // 
@@ -152,7 +151,6 @@
             this.tabPage3.Size = new System.Drawing.Size(534, 230);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Rendición de Facturas cobradas ";
-            this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
             // 
             // comboPorcentaje
             // 
@@ -276,7 +274,6 @@
             this.label18.Size = new System.Drawing.Size(98, 13);
             this.label18.TabIndex = 15;
             this.label18.Text = "Fecha de rendicion";
-            this.label18.Click += new System.EventHandler(this.label18_Click);
             // 
             // button6
             // 
@@ -294,7 +291,6 @@
             this.dateRendicion.Name = "dateRendicion";
             this.dateRendicion.Size = new System.Drawing.Size(100, 20);
             this.dateRendicion.TabIndex = 0;
-            this.dateRendicion.ValueChanged += new System.EventHandler(this.dateRendicion_ValueChanged);
             // 
             // tabPage4
             // 

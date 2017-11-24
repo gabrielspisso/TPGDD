@@ -17,22 +17,9 @@ namespace PagoAgilFrba.IniciarSesion
         {
             rolSeleccionado = rol;
             InitializeComponent();
-            
-
-
         }
         public AccionesAdmin() {
             InitializeComponent();
-        }
-
-        private void label18_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -42,8 +29,7 @@ namespace PagoAgilFrba.IniciarSesion
 
             if (factura_numero != "" && motivo != "")
             {
-                DataTable dt = BD.busqueda("SELECT factura_estado FROM EL_JAPONES_SANGRANDO.Facturas WHERE factura_numero = " + factura_numero);
-                int factura_estado = Int32.Parse(BD.devolverColumna(dt, "factura_estado"));
+                int factura_estado = Int32.Parse(BD.estadoFactura(factura_numero));
                 if (factura_estado != 2)
                 {
                     string razon = (factura_estado == 1) ? "no se ha pagado" : (factura_estado == 3) ? "ya se ha rendido" : "se ha eliminado";
@@ -51,19 +37,7 @@ namespace PagoAgilFrba.IniciarSesion
                 }
                 else
                 {
-                    List<string> queries = new List<string>();
-                    string insert = "INSERT INTO EL_JAPONES_SANGRANDO.Devoluciones (devolucion_descripcion,devolucion_factura)values('" + motivo + "'," + factura_numero + ")";
-                    string idPago = BD.consultaDeUnSoloResultado("select pago_Factura_pago from EL_JAPONES_SANGRANDO.Pago_Factura where pago_Factura_factura = " + factura_numero);
-                    string deletePagoFactura = "DELETE EL_JAPONES_SANGRANDO.Pago_Factura where pago_Factura_factura = " + factura_numero;
-
-                    string updatePago = "UPDATE EL_JAPONES_SANGRANDO.Pagos SET pago_importe = pago_importe - (select factura_total from EL_JAPONES_SANGRANDO.Facturas where factura_numero = "+factura_numero+")  where pago_nro = " + idPago;
-                    
-                    string update = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET factura_estado = 1 WHERE factura_numero = " + factura_numero;
-                    queries.Add(insert);
-                    queries.Add(deletePagoFactura);
-                    queries.Add(updatePago);
-                    queries.Add(update);
-                    if (BD.correrStoreProcedure(queries) > 0)
+                    if (BD.devolverFactura(factura_numero, motivo))
                     {
                         MessageBox.Show("Factura devuelta", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -122,8 +96,6 @@ namespace PagoAgilFrba.IniciarSesion
             int trimestre = cmbTrimestre.SelectedIndex + 1;
             string anio = añoNUD.Value.ToString();
 
-            string query = "";
-
             if (cmbTipo.Text == "Seleccione..." || cmbTrimestre.Text == "Seleccione...")
             {
                 MessageBox.Show("Complete todos los campos", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -134,26 +106,25 @@ namespace PagoAgilFrba.IniciarSesion
                 {
                     case 0://Porcentaje de facturas cobradas por empresa
                         {
-                            query = "SELECT TOP 5 empresa_nombre, (select rubro_desc from EL_JAPONES_SANGRANDO.Rubros where rubro_id = empresa_rubro) as empresa_rubro, empresa_cuit,isnull((((select count(*) from EL_JAPONES_SANGRANDO.Facturas where factura_empresa = empresa_cuit and factura_estado = 2 and YEAR(factura_fecha) = " + anio + " and (MONTH(factura_fecha) = (" + trimestre + " * 3) OR MONTH(factura_fecha) = (" + trimestre + " * 3) -1 OR MONTH(factura_fecha) = (" + trimestre + " * 3) -2)) *  100 / NULLIF((select count(*) from EL_JAPONES_SANGRANDO.Facturas where factura_empresa = empresa_cuit and YEAR(factura_fecha) = " + anio + " and (MONTH(factura_fecha) = (" + trimestre + " * 3) OR MONTH(factura_fecha) = (" + trimestre + " * 3) -1 OR MONTH(factura_fecha) = (" + trimestre + " * 3) -2)), 0))),0) as \"Porcentaje de facturas cobradas\" FROM EL_JAPONES_SANGRANDO.Empresas group by empresa_nombre, empresa_rubro, empresa_cuit ORDER BY 4 DESC";
+                            dataGridEstadisticas.DataSource = BD.porcentajeDeFacturasTop(trimestre, anio);
                         };
                         break;
                     case 1://Empresas con mayor monto rendido
                         {
-                            query = "SELECT TOP 5 empresa_nombre, (select rubro_desc from EL_JAPONES_SANGRANDO.Rubros where rubro_id = empresa_rubro) as empresa_rubro, empresa_cuit, SUM(rendicion_importe) as Monto_total_rendido FROM EL_JAPONES_SANGRANDO.Empresas join EL_JAPONES_SANGRANDO.Rendiciones ON rendicion_empresa = empresa_cuit where YEAR(rendicion_fecha) = " + anio + " and (MONTH(rendicion_fecha) = (" + trimestre + " * 3) OR MONTH(rendicion_fecha) = (" + trimestre + " * 3) -1 	OR MONTH(rendicion_fecha) = (" + trimestre + " * 3) -2) GROUP BY empresa_cuit, empresa_nombre, empresa_rubro ORDER BY 4 DESC";
+                            dataGridEstadisticas.DataSource = BD.mayorMontoRendidoTop(trimestre, anio);
                         };
                         break;
                     case 2://Clientes con mas pagos
                         {
-                            query = "SELECT TOP 5 cliente_nombre, cliente_apellido, cliente_DNI, cliente_mail, (SELECT COUNT(*) FROM EL_JAPONES_SANGRANDO.Pagos  WHERE pago_cliente = cliente_DNI 	and YEAR(pago_fecha) = " + anio + "and (MONTH(pago_fecha) = (" + trimestre + " * 3) OR MONTH(pago_fecha) = (" + trimestre + " * 3) -1 	OR MONTH(pago_fecha) = (" + trimestre + " * 3) -2)) as Cantidad_de_Pagos FROM EL_JAPONES_SANGRANDO.Clientes GROUP BY cliente_nombre, cliente_apellido, cliente_DNI, cliente_mail ORDER BY 5 DESC;";
+                            dataGridEstadisticas.DataSource = BD.clientesConMasPagosTop(trimestre, anio);
                         };
                         break;
                     case 3://Clientes cumplidores
                         {
-                             query = " SELECT TOP 5 cliente_nombre, cliente_apellido, cliente_DNI, cliente_mail, isnull((((select count(*) from EL_JAPONES_SANGRANDO.Facturas where factura_cliente = cliente_DNI and factura_estado = 2  and YEAR(factura_fecha) = " + anio + " and (MONTH(factura_fecha) = (" + trimestre + " * 3)  OR MONTH(factura_fecha) = (" + trimestre + " * 3) -1  OR MONTH(factura_fecha) = (" + trimestre + " * 3) -2)) * 100 / NULLIF((select count(*) from EL_JAPONES_SANGRANDO.Facturas where factura_cliente = cliente_DNI and YEAR(factura_fecha) = " + anio + " and (MONTH(factura_fecha) = (" + trimestre + " * 3)  OR MONTH(factura_fecha) = (" + trimestre + " * 3) -1 OR MONTH(factura_fecha) = (" + trimestre + " * 3) -2)), 0))),0) as \" Porcentaje de facturas pagadas \" FROM EL_JAPONES_SANGRANDO.Clientes group by cliente_nombre, cliente_apellido, cliente_DNI, cliente_mail ORDER BY 5 DESC;";};
+                            dataGridEstadisticas.DataSource = BD.clientesCumplidoresTop(trimestre, anio);
+                        };
                         break;
                 }
-
-                dataGridEstadisticas.DataSource = BD.busqueda(query);
             }
             
         }
@@ -168,8 +139,7 @@ namespace PagoAgilFrba.IniciarSesion
         private void AccionesAdmin_Load(object sender, EventArgs e)
         {
 
-            string query = "select (select funcionalidad_descripcion from EL_JAPONES_SANGRANDO.Funcionalidades where funcionalidad_id = rol_Funcionalidad_funcionalidad ) from EL_JAPONES_SANGRANDO.Rol_Funcionalidad where rol_Funcionalidad_rol = '" + rolSeleccionado + "'";
-            List<String> lista = BD.listaDeUnCampo(query);
+            List<String> lista = BD.funcionalidadesDeRolConDescripcion(rolSeleccionado);
 
             if (lista.Count == 0)
             {
@@ -186,17 +156,12 @@ namespace PagoAgilFrba.IniciarSesion
 
             DateTime fechaActual = BD.fechaActual();
             comboPorcentaje.SelectedIndex = 0;
-            List<string> empresas = BD.listaDeUnCampo("select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_estado = 1");
+            List<string> empresas = BD.empresasActivasConNombre();
             empresas.Insert(0, "");
             comboEmpresa.DataSource = empresas;
             dateRendicion.MinDate = new DateTime(fechaActual.Year, fechaActual.Month, 1);
             dateRendicion.MaxDate = (new DateTime(fechaActual.Year, fechaActual.Month, 1)).AddMonths(1).AddDays(-1);
   
-        }
-
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -262,11 +227,6 @@ namespace PagoAgilFrba.IniciarSesion
             }
         }
 
-        private void tabPage3_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button6_Click(object sender, EventArgs e)
         {
             if (comboEmpresa.Text == "")
@@ -277,42 +237,20 @@ namespace PagoAgilFrba.IniciarSesion
 
             String fecharendicion = dateRendicion.Value.ToString("u");
             fecharendicion = fecharendicion.Substring(0, fecharendicion.Length - 1);
-            if (Int32.Parse(BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Rendiciones where MONTH(rendicion_fecha) = " + dateRendicion.Value.Month + " AND YEAR(rendicion_fecha) = "+dateRendicion.Value.Year+" AND rendicion_empresa = (select top 1 empresa_cuit from EL_JAPONES_SANGRANDO.Empresas where empresa_nombre = '"+comboEmpresa.Text+"')")) > 0)
+            if (BD.seRindioEsteMes(dateRendicion.Value.Month, dateRendicion.Value.Year, comboEmpresa.Text))
             {
                 MessageBox.Show("Esta empresa ya rindio en este mes", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
 
             }
-            string idrendicion = "(select top 1 rendicion_nro from EL_JAPONES_SANGRANDO.Rendiciones order by rendicion_nro desc)";
-            string idEmpresa = "(select empresa_cuit from EL_JAPONES_SANGRANDO.Empresas where empresa_nombre ='" + comboEmpresa.Text+ "')";
-            string fecha = dateRendicion.Value.Date.ToString("MM/dd/yyyy");
-
-            List<String> lista = new List<string>();
-            
-            string insert = ("insert into EL_JAPONES_SANGRANDO.Rendiciones (rendicion_nro,rendicion_empresa,rendicion_importe,rendicion_porcentaje_comision,rendicion_cantfacturas,rendicion_fecha,rendicion_importeFinal) values (" + idrendicion + "+1," + idEmpresa + "," + lblImporte.Text.Replace(',', '.') + "," + comboPorcentaje.Text + "," + lblCantFacturas.Text + ",'" + fecha + "'," + lblGanancia.Text.Replace(',', '.') + ")");
-            lista.Add(insert);
-
             if (dataGridRendiciones.Rows.Count == 1)//El data grid automaticamente rellena automaticamente una fila vacia al final
             {
                 MessageBox.Show("No hay facturas para realizar la rendicion");
                 return;
             }
 
-
-            foreach (DataGridViewRow row in dataGridRendiciones.Rows)
+            if (BD.actualizarFacturasRendicion(dateRendicion, comboEmpresa.Text, lblImporte.Text, comboPorcentaje.Text, lblCantFacturas.Text, lblGanancia.Text, dataGridRendiciones))
             {
-                if (row.Cells[0].Value != null)
-                {
-                    string factura = row.Cells["factura_numero"].Value.ToString();
-                    double valor = double.Parse(row.Cells["factura_total"].Value.ToString());
-                    double porcentaje = double.Parse(comboPorcentaje.Text) / 100;
-                    valor = valor - valor * porcentaje;
-                    String update = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET factura_estado = 3, factura_rendicion = "+idrendicion+" where factura_numero = '" + factura + "'";
-                    lista.Add(update);
-
-                }
-            }
-           if(BD.correrStoreProcedure(lista)>0){
             MessageBox.Show("Rendicion registrada");
            }
             else{
@@ -327,13 +265,11 @@ namespace PagoAgilFrba.IniciarSesion
                 return;
             }
             DateTime fechaActual = BD.fechaActual();
-            dataGridRendiciones.DataSource = BD.busqueda("select factura_numero, factura_cliente, factura_fecha, factura_fecha_vencimiento, factura_total from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Empresas on factura_empresa = empresa_cuit where empresa_nombre = '" + comboEmpresa.Text + "' and month(factura_fecha) =  "+fechaActual.Month+" and year(factura_fecha) = "+fechaActual.Year+" and factura_estado = 2");
+            dataGridRendiciones.DataSource = BD.facturasCobradasDeEmpresa(fechaActual, comboEmpresa.Text);
           
 
             double porcentaje = double.Parse(comboPorcentaje.Text)/100;
-            string query = "select count(*) as cantidad_facturas, sum(factura_total) as total, sum(factura_total * ( 1 - " + porcentaje.ToString().Replace(',', '.') + " )  ) as ganancia from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Empresas on factura_empresa = empresa_cuit where empresa_nombre = '" + comboEmpresa.Text + "' and month(factura_fecha) =  "+fechaActual.Month+" and year(factura_fecha) =  "+fechaActual.Year+" and factura_estado = 2 group by empresa_cuit";
-
-            DataTable dt = BD.busqueda(query);
+            DataTable dt = BD.facturasTotalGanancias(fechaActual, porcentaje, comboEmpresa.Text);
             if (dt.Rows.Count > 0)
             {
                 DataRow row = dt.Rows[0];
@@ -346,12 +282,7 @@ namespace PagoAgilFrba.IniciarSesion
         private void AccionesAdmin_FormClosing(object sender, FormClosingEventArgs e)
         {
             new Login().Show();
-            //Application.Exit();
         }
 
-        private void dateRendicion_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

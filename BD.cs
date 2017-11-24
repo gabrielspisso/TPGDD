@@ -801,5 +801,100 @@ namespace PagoAgilFrba
         {
             return BD.consultaDeUnSoloResultado("select rol_estado from EL_JAPONES_SANGRANDO.Roles where rol_nombre = '" + rol + "'");
         }
+
+        public static bool devolverFactura(string factura_numero, string motivo)
+        {
+            List<string> queries = new List<string>();
+            string insert = "INSERT INTO EL_JAPONES_SANGRANDO.Devoluciones (devolucion_descripcion,devolucion_factura)values('" + motivo + "'," + factura_numero + ")";
+            string idPago = BD.consultaDeUnSoloResultado("select pago_Factura_pago from EL_JAPONES_SANGRANDO.Pago_Factura where pago_Factura_factura = " + factura_numero);
+            string deletePagoFactura = "DELETE EL_JAPONES_SANGRANDO.Pago_Factura where pago_Factura_factura = " + factura_numero;
+
+            string updatePago = "UPDATE EL_JAPONES_SANGRANDO.Pagos SET pago_importe = pago_importe - (select factura_total from EL_JAPONES_SANGRANDO.Facturas where factura_numero = " + factura_numero + ")  where pago_nro = " + idPago;
+
+            string update = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET factura_estado = 1 WHERE factura_numero = " + factura_numero;
+            queries.Add(insert);
+            queries.Add(deletePagoFactura);
+            queries.Add(updatePago);
+            queries.Add(update);
+            return BD.correrStoreProcedure(queries) > 0;
+        }
+
+        public static List<string> empresasActivasConNombre()
+        {
+            return BD.listaDeUnCampo("select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_estado = 1");
+        }
+
+        public static List<string> funcionalidadesDeRolConDescripcion(string rolSeleccionado)
+        {
+            string query = "select (select funcionalidad_descripcion from EL_JAPONES_SANGRANDO.Funcionalidades where funcionalidad_id = rol_Funcionalidad_funcionalidad ) from EL_JAPONES_SANGRANDO.Rol_Funcionalidad where rol_Funcionalidad_rol = '" + rolSeleccionado + "'";
+            return BD.listaDeUnCampo(query);
+        }
+
+        public static DataTable facturasTotalGanancias(DateTime fechaActual, double porcentaje, string empresa)
+        {
+            string query = "select count(*) as cantidad_facturas, sum(factura_total) as total, sum(factura_total * ( 1 - " + porcentaje.ToString().Replace(',', '.') + " )  ) as ganancia from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Empresas on factura_empresa = empresa_cuit where empresa_nombre = '" + empresa + "' and month(factura_fecha) =  " + fechaActual.Month + " and year(factura_fecha) =  " + fechaActual.Year + " and factura_estado = 2 group by empresa_cuit";
+            return BD.busqueda(query);
+        }
+
+        public static DataTable facturasCobradasDeEmpresa(DateTime fechaActual, string empresa)
+        {
+            return BD.busqueda("select factura_numero, factura_cliente, factura_fecha, factura_fecha_vencimiento, factura_total from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Empresas on factura_empresa = empresa_cuit where empresa_nombre = '" + empresa + "' and month(factura_fecha) =  " + fechaActual.Month + " and year(factura_fecha) = " + fechaActual.Year + " and factura_estado = 2");
+        }
+
+        public static bool actualizarFacturasRendicion(DateTimePicker dateRendicion,string empresa,string importe, string porcentaje, string cantidadFacturas, string ganancia, DataGridView dgv)
+        {
+            string idrendicion = "(select top 1 rendicion_nro from EL_JAPONES_SANGRANDO.Rendiciones order by rendicion_nro desc)";
+            string idEmpresa = "(select empresa_cuit from EL_JAPONES_SANGRANDO.Empresas where empresa_nombre ='" + empresa + "')";
+            string fecha = dateRendicion.Value.Date.ToString("MM/dd/yyyy");
+            
+            List<String> lista = new List<string>();
+
+            string insert = ("insert into EL_JAPONES_SANGRANDO.Rendiciones (rendicion_nro,rendicion_empresa,rendicion_importe,rendicion_porcentaje_comision,rendicion_cantfacturas,rendicion_fecha,rendicion_importeFinal) values (" + idrendicion + "+1," + idEmpresa + "," + importe.Replace(',', '.') + "," + porcentaje + "," + cantidadFacturas + ",'" + fecha + "'," + ganancia.Replace(',', '.') + ")");
+            lista.Add(insert);
+
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                if (row.Cells[0].Value != null)
+                {
+                    string factura = row.Cells["factura_numero"].Value.ToString();
+                    double valor = double.Parse(row.Cells["factura_total"].Value.ToString());
+                    double porcentaje_ = double.Parse(porcentaje) / 100;
+                    valor = valor - valor * porcentaje_;
+                    String update = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET factura_estado = 3, factura_rendicion = " + idrendicion + " where factura_numero = '" + factura + "'";
+                    lista.Add(update);
+
+                }
+            }
+            return BD.correrStoreProcedure(lista) > 0;
+        }
+
+        public static bool seRindioEsteMes(int mes, int anio, string empresa)
+        {
+            return Int32.Parse(BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Rendiciones where MONTH(rendicion_fecha) = " + mes + " AND YEAR(rendicion_fecha) = " + anio + " AND rendicion_empresa = (select top 1 empresa_cuit from EL_JAPONES_SANGRANDO.Empresas where empresa_nombre = '" + empresa + "')")) > 0;
+        }
+
+        public static DataTable clientesCumplidoresTop(int trimestre, string anio)
+        {
+            string query = "SELECT TOP 5 cliente_nombre as 'Nombre' , cliente_apellido as 'Apellido', cliente_DNI as 'DNI', (count(*) * 100 / (SELECT count(*) FROM EL_JAPONES_SANGRANDO.Facturas WHERE factura_estado >= 1 AND factura_cliente = C.cliente_DNI and DATEPART(QUARTER, factura_fecha) = " + trimestre + " and YEAR(factura_fecha) = " + anio + ")) as '% Pagadas' FROM EL_JAPONES_SANGRANDO.Clientes C JOIN EL_JAPONES_SANGRANDO.Facturas ON factura_cliente = cliente_DNI JOIN EL_JAPONES_SANGRANDO.Pago_Factura on pago_Factura_factura = factura_numero where cliente_estado = 1 AND factura_estado > 1 AND DATEPART(QUARTER, factura_fecha) =" + trimestre + " and YEAR(factura_fecha) =" + anio + " group by cliente_nombre, cliente_apellido, cliente_DNI order by 4 DESC;";
+            return BD.busqueda(query);
+        }
+
+        public static DataTable clientesConMasPagosTop(int trimestre, string anio)
+        {
+            string query = "SELECT TOP 5 cliente_nombre, cliente_apellido, cliente_DNI, cliente_mail, (SELECT COUNT(*) FROM EL_JAPONES_SANGRANDO.Pagos  WHERE pago_cliente = cliente_DNI 	and YEAR(pago_fecha) = " + anio + "and (MONTH(pago_fecha) = (" + trimestre + " * 3) OR MONTH(pago_fecha) = (" + trimestre + " * 3) -1 	OR MONTH(pago_fecha) = (" + trimestre + " * 3) -2)) as Cantidad_de_Pagos FROM EL_JAPONES_SANGRANDO.Clientes GROUP BY cliente_nombre, cliente_apellido, cliente_DNI, cliente_mail ORDER BY 5 DESC;";
+            return BD.busqueda(query);
+        }
+
+        public static DataTable mayorMontoRendidoTop(int trimestre, string anio)
+        {
+            string query = "SELECT TOP 5 empresa_nombre, (select rubro_desc from EL_JAPONES_SANGRANDO.Rubros where rubro_id = empresa_rubro) as empresa_rubro, empresa_cuit, SUM(rendicion_importe) as Monto_total_rendido FROM EL_JAPONES_SANGRANDO.Empresas join EL_JAPONES_SANGRANDO.Rendiciones ON rendicion_empresa = empresa_cuit where YEAR(rendicion_fecha) = " + anio + " and (MONTH(rendicion_fecha) = (" + trimestre + " * 3) OR MONTH(rendicion_fecha) = (" + trimestre + " * 3) -1 	OR MONTH(rendicion_fecha) = (" + trimestre + " * 3) -2) GROUP BY empresa_cuit, empresa_nombre, empresa_rubro ORDER BY 4 DESC";
+            return BD.busqueda(query);
+        }
+
+        public static DataTable porcentajeDeFacturasTop(int trimestre, string anio)
+        {
+            string query = "SELECT TOP 5 empresa_nombre as 'Empresa', empresa_cuit as 'CUIT', (COUNT(DISTINCT pago_Factura_pago) * 100 / (SELECT COUNT(*) FROM EL_JAPONES_SANGRANDO.Facturas WHERE factura_estado <> 0 AND factura_empresa = empresa_cuit and DATEPART(QUARTER, factura_fecha) =" + trimestre + " and year(factura_fecha) = " + anio + " )) as '% Facturas Cobradas' FROM EL_JAPONES_SANGRANDO.Empresas JOIN EL_JAPONES_SANGRANDO.Facturas on factura_empresa = empresa_cuit JOIN EL_JAPONES_SANGRANDO.Pago_Factura ON pago_Factura_factura = factura_numero WHERE factura_estado >= 2 AND empresa_estado = 1 AND DATEPART(QUARTER, factura_fecha) = " + trimestre + " and year(factura_fecha) = " + anio + "group by empresa_nombre, empresa_cuit order by 3 DESC";
+            return BD.busqueda(query);
+        }
     }
 }
