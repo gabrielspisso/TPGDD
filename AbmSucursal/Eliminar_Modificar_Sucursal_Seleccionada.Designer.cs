@@ -52,7 +52,6 @@
             this.textNombre.Name = "textNombre";
             this.textNombre.Size = new System.Drawing.Size(143, 20);
             this.textNombre.TabIndex = 33;
-            this.textNombre.TextChanged += new System.EventHandler(this.textNombre_TextChanged);
             // 
             // label6
             // 
@@ -119,7 +118,6 @@
             this.TextModificarCodigoPostal.Size = new System.Drawing.Size(10, 13);
             this.TextModificarCodigoPostal.TabIndex = 57;
             this.TextModificarCodigoPostal.Text = " ";
-            this.TextModificarCodigoPostal.Click += new System.EventHandler(this.TextModificarCodigoPostal_Click);
             // 
             // Eliminar_Modificar_Sucursal_Seleccionada
             // 

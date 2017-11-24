@@ -92,7 +92,6 @@
             this.textAgregarCodigoPostal.Name = "textAgregarCodigoPostal";
             this.textAgregarCodigoPostal.Size = new System.Drawing.Size(144, 20);
             this.textAgregarCodigoPostal.TabIndex = 43;
-            this.textAgregarCodigoPostal.TextChanged += new System.EventHandler(this.textAgregarCodigoPostal_TextChanged);
             // 
             // textAgregarDireccion
             // 
@@ -107,7 +106,6 @@
             this.textAgregarNombre.Name = "textAgregarNombre";
             this.textAgregarNombre.Size = new System.Drawing.Size(143, 20);
             this.textAgregarNombre.TabIndex = 26;
-            this.textAgregarNombre.TextChanged += new System.EventHandler(this.textNombre_TextChanged);
             // 
             // label3
             // 
@@ -188,7 +186,6 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "ABMSucursal";
             this.Text = "ABMSucursal";
-            this.Load += new System.EventHandler(this.ABMSucursal_Load);
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewModificarC)).EndInit();
             this.tabPage1.ResumeLayout(false);

@@ -19,30 +19,6 @@ namespace PagoAgilFrba.AbmEmpresa
 
         }
 
-        private void btnVolver_Click(object sender, EventArgs e)
-        {
-            volverEmpresas();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            volverEmpresas();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            volverEmpresas();
-        }
-
-        private void volverEmpresas()
-        {
-            this.Hide();
-            IniciarSesion.AccionesAdmin accion_ADMIN = new IniciarSesion.AccionesAdmin();
-            IniciarSesion.Acciones accion = new IniciarSesion.Acciones();
-            accion_ADMIN.Show();
-            accion.Show();
-        }
-
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             string rubro = comboNuevoRubro.Text;

@@ -38,30 +38,6 @@ namespace PagoAgilFrba.AbmFactura
             BD.nuevoBoton(datagridViewEliminar, "Eliminar", 3);
         }
 
-        private void btnVolver_Click(object sender, EventArgs e)
-        {
-            volverFactura();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            volverFactura();
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            volverFactura();
-        }
-
-        private void volverFactura()
-        {
-            this.Hide();
-            IniciarSesion.AccionesAdmin accion_ADMIN = new IniciarSesion.AccionesAdmin();
-            IniciarSesion.Acciones accion = new IniciarSesion.Acciones();
-            accion_ADMIN.Show();
-            accion.Show();
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem eachItem in listaSeleccionados.SelectedItems)

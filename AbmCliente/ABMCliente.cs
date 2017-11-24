@@ -29,29 +29,7 @@ namespace PagoAgilFrba.AbmCliente
         {
             dataViewModificar.DataSource = BD.filtroClienteModificar(textModNombre.Text, textModApellido.Text, textModDNI.Text);
         }
-        private void button3_Click(object sender, EventArgs e)
-        {
-            volverCLiente();
-        }
 
-        private void btnVolver_Click(object sender, EventArgs e)
-        {
-            volverCLiente();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            volverCLiente();
-        }
-
-        private void volverCLiente()
-        {
-            this.Hide();
-            IniciarSesion.AccionesAdmin accion_ADMIN = new IniciarSesion.AccionesAdmin();
-            IniciarSesion.Acciones accion = new IniciarSesion.Acciones();
-            accion_ADMIN.Show();
-            accion.Show();
-        }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;

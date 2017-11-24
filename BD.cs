@@ -688,5 +688,40 @@ namespace PagoAgilFrba
             }
 
         }
+
+        public static bool modificarSucursal(bool habilitado, string nombre, string direccion, string nombreViejo)
+        {
+            return BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Sucursales SET sucursal_nombre = '" + nombre + "',sucursal_direccion = '" + direccion + "',sucursal_estado = '" + habilitado + "' WHERE sucursal_nombre = '" + nombreViejo + "'") > 0;
+        }
+
+        public static bool eliminarSucursal(string sucursalNombre)
+        {
+            string update = "UPDATE EL_JAPONES_SANGRANDO.Sucursales SET sucursal_estado = 0 WHERE sucursal_nombre ='" + sucursalNombre + "'";
+            string idSucursal = BD.consultaDeUnSoloResultado("select sucursal_codigo_postal from EL_JAPONES_SANGRANDO.Sucursales where sucursal_nombre ='" + sucursalNombre + "'");
+            List<String> lista = new List<String>();
+            lista.Add(update);
+            return BD.correrStoreProcedure(lista) > 0;
+        }
+
+        public static DataTable sucursalesActivas()
+        {
+            return BD.busqueda("select sucursal_nombre,sucursal_codigo_postal,sucursal_direccion from EL_JAPONES_SANGRANDO.Sucursales where sucursal_estado = 1");
+        }
+
+        public static DataTable sucursales()
+        {
+            return BD.busqueda("select sucursal_nombre,sucursal_codigo_postal,sucursal_direccion from EL_JAPONES_SANGRANDO.Sucursales");
+        }
+
+        public static bool crearSucursal(string codigo_postal, string nombre, string direccion)
+        {
+            return BD.ABM("INSERT INTO [EL_JAPONES_SANGRANDO].[Sucursales](sucursal_codigo_postal,sucursal_direccion,sucursal_nombre)values(" + codigo_postal + ",'" + direccion + "','" + nombre + "')") != 0;
+        }
+
+        public static List<String> sucursalesDeUsuario()
+        {
+            string query = "SELECT sucursal_nombre FROM EL_JAPONES_SANGRANDO.Sucursales join EL_JAPONES_SANGRANDO.Usuario_Sucursal ON (usuario_Sucursal_sucursal = sucursal_codigo_postal) WHERE sucursal_estado = 1 AND usuario_Sucursal_usuario = '" + BD.getUsuario() + "'";
+            return BD.listaDeUnCampo(query);
+        }
     }
 }

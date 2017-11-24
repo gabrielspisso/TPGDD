@@ -22,40 +22,22 @@ namespace PagoAgilFrba.Sucursal
             CheckHabilitado.Checked = suc.habilitado;
             TextModificarCodigoPostal.Text = suc.codigoPostal.ToString();
             sucursalNombreViejo = sucursalNombre;
-
-        }
-
-        private void textHabilitado_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Boolean habilitado = CheckHabilitado.Checked;
+            bool habilitado = CheckHabilitado.Checked;
 
             if (textDireccion.Text == "" || textNombre.Text == "" || TextModificarCodigoPostal.Text == "")
             {
                 MessageBox.Show("Complete todos los campos");
                 return;
             }
-            if(BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Sucursales SET sucursal_nombre = '"+textNombre.Text+"',sucursal_direccion = '"+textDireccion.Text+"',sucursal_estado = '"+habilitado+"' WHERE sucursal_nombre = '" + sucursalNombreViejo + "'") > 0){
-
-
+            if (BD.modificarSucursal(habilitado, textNombre.Text, textDireccion.Text, sucursalNombreViejo))
+            {
                 MessageBox.Show("Se pudo modificar la sucursal", "Modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            
             }
         }
 
-
-        private void textNombre_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TextModificarCodigoPostal_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
