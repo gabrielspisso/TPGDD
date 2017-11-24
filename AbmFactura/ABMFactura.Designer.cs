@@ -258,7 +258,6 @@
             this.txtFactura.Name = "txtFactura";
             this.txtFactura.Size = new System.Drawing.Size(144, 20);
             this.txtFactura.TabIndex = 30;
-            this.txtFactura.TextChanged += new System.EventHandler(this.txtFactura_TextChanged);
             // 
             // txtDni
             // 

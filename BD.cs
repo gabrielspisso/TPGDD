@@ -491,6 +491,11 @@ namespace PagoAgilFrba
             return BD.busqueda("select * from EL_JAPONES_SANGRANDO.Empresas where empresa_cuit ='" + cuit + "'");
         }
 
+        public static string nombreEmpresa(string empresa)
+        {
+            return BD.consultaDeUnSoloResultado("Select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_cuit = '" + empresa + "'");
+        }
+
         public static bool modificarEmpresa(int estado, string nombre, string direccion, string cuit, string rubro)
         {
             string subquery = "(SELECT rubro_id FROM EL_JAPONES_SANGRANDO.Rubros WHERE rubro_desc = '" + rubro + "')";
@@ -507,6 +512,156 @@ namespace PagoAgilFrba
         {
             string x = BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Usuario_Rol where Usuario_Rol_usuario = '" + username + "'");
             return Int32.Parse(x) > 0;
+        }
+
+        public static List<string> empresas()
+        {
+            string query = "SELECT empresa_nombre FROM EL_JAPONES_SANGRANDO.Empresas";
+            return BD.listaDeUnCampo(query);
+        }
+
+        public static List<string> empresasActivas()
+        {
+            return BD.listaDeUnCampo("select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_estado = 1");
+        }
+
+        public static string estadoFactura(string factura)
+        {
+            return BD.consultaDeUnSoloResultado("Select factura_estado from EL_JAPONES_SANGRANDO.Facturas where factura_numero = '" + factura + "'");
+        }
+
+        public static DataTable filtroFacturasModif(string cliente, string numero, string empresa)
+        {
+            String query = "SELECT  factura_numero,factura_empresa,factura_cliente from EL_JAPONES_SANGRANDO.Facturas WHERE " +
+                         "factura_cliente LIKE '" + cliente + "%' AND " +
+                         "factura_numero LIKE '" + numero + "%'" +
+                         BD.condicionDeEmpresas(empresa);
+            return BD.busqueda(query);
+        }
+
+        public static DataTable filtroFacturasElim(string cliente, string factura, string empresa)
+        {
+            String query = "SELECT  factura_numero,factura_empresa,factura_cliente from EL_JAPONES_SANGRANDO.Facturas WHERE factura_estado = 1 AND " +
+                          "factura_cliente LIKE '" + cliente + "%' AND " +
+                          "factura_numero LIKE '" + factura + "%'" +
+                          BD.condicionDeEmpresas(empresa);
+            return BD.busqueda(query);
+        }
+
+        public static String condicionDeEmpresas(string empresa)
+        {
+            return (empresa == "") ? "" : " AND factura_empresa =  (select top 1 empresa_cuit from EL_JAPONES_SANGRANDO.Empresas where empresa_nombre = '" + empresa + "')";
+        }
+
+        public static bool eliminarFactura(string numeroDeFactura)
+        {
+            return BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Facturas SET factura_estado = 0 WHERE factura_numero = '" + numeroDeFactura + "'") > 0;
+        }
+
+        public static DataTable factura(string numeroDeFactura)
+        {
+            return BD.busqueda("select * from EL_JAPONES_SANGRANDO.Facturas where factura_numero ='" + numeroDeFactura + "'");
+        }
+
+        public static string facturaUnSoloResultado(string numeroDeFactura)
+        {
+            return BD.consultaDeUnSoloResultado("select * from EL_JAPONES_SANGRANDO.Facturas where factura_numero = " + numeroDeFactura + "");
+        }
+
+        public static bool facturaNoPagada(string numeroDeFactura)
+        {
+            return BD.consultaDeUnSoloResultado("select pago_Factura_factura from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Pago_Factura on (pago_Factura_factura = factura_numero) WHERE factura_numero = '" + numeroDeFactura + "'") == "";
+        }
+
+        public static void cargarFactura(String fechaVenc, String fechaAlta, string factura, string dni, string empresa, ListView.ListViewItemCollection lista)
+        {
+            double sum = 0;
+            string query = "INSERT INTO EL_JAPONES_SANGRANDO.Item_Factura (item_monto, item_cantidad, item_factura) VALUES ";
+            foreach (ListViewItem eachItem in lista)
+            {
+                query += "(" + eachItem.SubItems[0].Text.Replace(',', '.') + "," + eachItem.SubItems[1].Text.Replace(',', '.') + ",'" + factura + "'),";
+                sum += Double.Parse(eachItem.SubItems[0].Text) * Double.Parse(eachItem.SubItems[1].Text);
+            }
+            query = query.Substring(0, query.Length - 1);
+
+            string empresa_cuit = BD.consultaDeUnSoloResultado("(select TOP 1 empresa_cuit from EL_JAPONES_SANGRANDO.Empresas where empresa_nombre = '" + empresa + "')");
+
+            string queryFactura = "INSERT INTO EL_JAPONES_SANGRANDO.Facturas (factura_numero,factura_empresa, factura_cliente, factura_fecha, factura_fecha_vencimiento, factura_total) values ("
+                                    + factura + ",'"
+                                    + empresa_cuit + "',"
+                                    + dni + ",'"
+                                    + fechaAlta + "','"
+                                    + fechaVenc + "',"
+                                    + sum.ToString().Replace(',', '.') + ")";
+
+            if (BD.ABM(queryFactura) > 0)
+            {
+                if (BD.ABM(query) > 0)
+                {
+                    MessageBox.Show("Factura creada correctamente");
+                }
+                else
+                {
+                    BD.ABM("DELETE FROM EL_JAPONES_SANGRANDO.Facturas where factura_numero = '" + factura + "'");
+                    MessageBox.Show("Error al generar los items");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Error al crear la factura, ya existe una factura con ese numero");
+            }
+        }
+
+        public static DataTable facturasElim()
+        {
+            string query = "select DISTINCT factura_numero,(select empresa_nombre from EL_JAPONES_SANGRANDO.EMPRESAS where empresa_cuit = factura_empresa),factura_cliente from EL_JAPONES_SANGRANDO.Facturas where factura_estado = 1";
+            return BD.busqueda(query);
+        }
+
+        public static DataTable facturasModif()
+        {
+            string query = "select DISTINCT factura_numero,(select empresa_nombre from EL_JAPONES_SANGRANDO.EMPRESAS where empresa_cuit = factura_empresa),factura_cliente from EL_JAPONES_SANGRANDO.Facturas";
+            return BD.busqueda(query);
+        }
+
+        public static DataTable items(string numeroDeFactura)
+        {
+            return BD.busqueda("select * from EL_JAPONES_SANGRANDO.Item_Factura where item_factura ='" + numeroDeFactura + "'");
+        }
+
+        public static void modificarFactura(string factura, ListView.ListViewItemCollection lista, bool check, string empresa, string dni, string fechaAlta, string fechaVenc)
+        {
+            string queryEliminarfacturas = "Delete from EL_JAPONES_SANGRANDO.Item_Factura where item_factura = " + factura;
+            double sum = 0;
+            string query = "INSERT INTO EL_JAPONES_SANGRANDO.Item_Factura (item_monto, item_cantidad, item_factura) VALUES ";
+            foreach (ListViewItem eachItem in lista)
+            {
+                query += "(" + eachItem.SubItems[0].Text.Replace(',', '.') + "," + eachItem.SubItems[1].Text.Replace(',', '.') + "," + factura + "),";
+                sum += Double.Parse(eachItem.SubItems[0].Text) * Double.Parse(eachItem.SubItems[1].Text);
+            }
+            query = query.Substring(0, query.Length - 1);
+            string empresa_cuit = BD.consultaDeUnSoloResultado("(select TOP 1 empresa_cuit from EL_JAPONES_SANGRANDO.Empresas where empresa_nombre = '" + empresa + "')");
+            int x = check ? 1 : 0;
+
+            string queryFactura = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET factura_estado = " + x + ", factura_Empresa = '" + empresa_cuit + "', factura_cliente = " + dni + ", factura_fecha = '" + fechaAlta + "', factura_fecha_vencimiento = '" + fechaVenc + "', factura_total =" + sum.ToString().Replace(',', '.') + " where factura_numero ="
+                                    + factura;
+
+
+
+            List<String> listaDeStrings = new List<string>();
+            listaDeStrings.Add(queryFactura);
+            listaDeStrings.Add(queryEliminarfacturas);
+            listaDeStrings.Add(query);
+            if (BD.correrStoreProcedure(listaDeStrings) > 0)
+            {
+                MessageBox.Show("Se modifico correctamente");
+
+            }
+            else
+            {
+                MessageBox.Show("No se pudo modificar la factura, revise los datos ingresados");
+            }
+
         }
     }
 }

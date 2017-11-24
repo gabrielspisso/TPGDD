@@ -72,7 +72,6 @@
             this.txtEmpresa.Name = "txtEmpresa";
             this.txtEmpresa.Size = new System.Drawing.Size(185, 24);
             this.txtEmpresa.TabIndex = 81;
-            this.txtEmpresa.SelectedIndexChanged += new System.EventHandler(this.txtEmpresa_SelectedIndexChanged);
             this.txtEmpresa.TextChanged += new System.EventHandler(this.actualizarlabel);
             // 
             // dateVenc
@@ -152,7 +151,6 @@
             this.listaSeleccionados.TabIndex = 73;
             this.listaSeleccionados.UseCompatibleStateImageBehavior = false;
             this.listaSeleccionados.View = System.Windows.Forms.View.Details;
-            this.listaSeleccionados.SelectedIndexChanged += new System.EventHandler(this.listaSeleccionados_SelectedIndexChanged);
             // 
             // monto
             // 

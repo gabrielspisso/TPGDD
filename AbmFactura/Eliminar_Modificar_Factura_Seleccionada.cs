@@ -17,17 +17,17 @@ namespace PagoAgilFrba.AbmFactura
         {
             InitializeComponent();
 
-            DataTable tabla = BD.busqueda("select * from EL_JAPONES_SANGRANDO.Facturas where factura_numero ='" + numeroDeFactura + "'");
+            DataTable tabla = BD.factura(numeroDeFactura);
             txtDni.Text = BD.devolverColumna(tabla, "factura_cliente");
             txtCantidad.Text = "";
             CheckHabilitado.Checked = BD.devolverColumna(tabla, "factura_estado") == "1";
-            txtEmpresa.DataSource = BD.listaDeUnCampo("Select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_estado = 1 ");
-            txtEmpresa.SelectedItem = BD.consultaDeUnSoloResultado("Select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_cuit = '" + BD.devolverColumna(tabla, "factura_empresa") + "'");
+            txtEmpresa.DataSource = BD.empresasActivas();
+            txtEmpresa.SelectedItem = BD.nombreEmpresa(BD.devolverColumna(tabla, "factura_empresa"));
             txtFactura.Text = BD.devolverColumna(tabla, "factura_numero");
             txtMonto.Text = "";
             dateVenc.Text = BD.devolverColumna(tabla, "factura_fecha_vencimiento");
             dateAlta.Text = BD.devolverColumna(tabla, "factura_fecha");
-            DataTable tabla2 = BD.busqueda("select * from EL_JAPONES_SANGRANDO.Item_Factura where item_factura ='" + numeroDeFactura + "'");
+            DataTable tabla2 = BD.items(numeroDeFactura);
             foreach (DataRow eachItem in tabla2.Rows)
             {
                
@@ -38,16 +38,6 @@ namespace PagoAgilFrba.AbmFactura
             actualizarlabel(null,null);
 
             
-        }
-
-        private void label10_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -64,40 +54,14 @@ namespace PagoAgilFrba.AbmFactura
                 MessageBox.Show("la factura contiene caracteres invalidos");
                 return;
             }
-            string queryEliminarfacturas = "Delete from EL_JAPONES_SANGRANDO.Item_Factura where item_factura = " + txtFactura.Text;
-            double sum = 0;
-            string query = "INSERT INTO EL_JAPONES_SANGRANDO.Item_Factura (item_monto, item_cantidad, item_factura) VALUES "; 
-            foreach (ListViewItem eachItem in listaSeleccionados.Items)
-            {
-                double cantidad = Double.Parse(eachItem.SubItems[1].Text);
-                query += "(" + eachItem.SubItems[0].Text + "," + cantidad+ ",'" + txtFactura.Text + "'),";
-                sum += Double.Parse(eachItem.SubItems[0].Text) * Double.Parse(eachItem.SubItems[1].Text);
-            }
-            query = query.Substring(0, query.Length - 1);
-            formatoFecha.formatoFecha.SetMyCustomFormatYYYYMMDD(dateAlta);
-            formatoFecha.formatoFecha.SetMyCustomFormatYYYYMMDD(dateVenc);
-            string empresa = BD.consultaDeUnSoloResultado("(select TOP 1 empresa_cuit from EL_JAPONES_SANGRANDO.Empresas where empresa_nombre = '" + txtEmpresa.Text + "')");
-            int x = CheckHabilitado.Checked ? 1 : 0;
 
-            string queryFactura = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET factura_estado = '"+ x + "', factura_Empresa = '" + empresa + "', factura_cliente = '" + txtDni.Text + "', factura_fecha = '" + dateAlta.Text + "', factura_fecha_vencimiento = '" + dateVenc.Text + "', factura_total ='"+ sum+"' where factura_numero ='"
-                                    + txtFactura.Text+"'";
-                                    
+            String fechaVenc = dateVenc.Value.ToString("u");
+            fechaVenc = fechaVenc.Substring(0, fechaVenc.Length - 1);
 
-            
-                List<String> listaDeStrings = new List<string>();
-                listaDeStrings.Add(queryFactura);
-                listaDeStrings.Add(queryEliminarfacturas);
-                listaDeStrings.Add(query);
-                if (BD.correrStoreProcedure(listaDeStrings) > 0)
-                {
-                        MessageBox.Show("Se modifico correctamente");
-                   
-                }
-                else
-                {
-                       MessageBox.Show("No se pudo modificar la factura, revise los datos ingresados");
-                }
-           
+            String fechaAlta = dateAlta.Value.ToString("u");
+            fechaAlta = fechaAlta.Substring(0, fechaAlta.Length - 1);
+
+            BD.modificarFactura(txtFactura.Text, listaSeleccionados.Items, CheckHabilitado.Checked, txtEmpresa.Text, txtDni.Text, fechaAlta, fechaVenc);
             this.Close();
         }
 
@@ -138,21 +102,6 @@ namespace PagoAgilFrba.AbmFactura
             actualizarlabel(null,null);
         }
 
-        private void btnVolver_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtDni_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cargarlabel(object sender, EventArgs e)
-        {
-
-        }
-
         private void actualizarlabel(object sender, EventArgs e)
         {
             double sum = 0;
@@ -161,16 +110,6 @@ namespace PagoAgilFrba.AbmFactura
                sum += Double.Parse(eachItem.SubItems[0].Text) * Double.Parse(eachItem.SubItems[1].Text);
             }
            label4.Text = "Total: "+sum.ToString();
-        }
-
-        private void listaSeleccionados_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtEmpresa_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
