@@ -16,7 +16,7 @@ namespace PagoAgilFrba.AbmRol
         {
             InitializeComponent();
             actualizarTodo();
-
+            txtRol.Text = "";
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -126,14 +126,25 @@ namespace PagoAgilFrba.AbmRol
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            
+
             int valor = checkBox2.Checked ? 1 : 0;
-            if(comboModificar.SelectedItem == null){
+            if (comboModificar.SelectedItem == null)
+            {
                 MessageBox.Show("No selecciono ningun rol");
                 return;
             }
+
             string rol = comboModificar.SelectedValue.ToString();
-            
+            if (rol != txtRol.Text)
+            {
+                string x = BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Roles where rol_nombre = '" + txtRol.Text + "'");
+                if (Int32.Parse(x) > 0)
+                {
+                    MessageBox.Show("Ya existe un rol con ese nombre");
+                    return;
+                }
+
+            }
             string queryUpdate = "INSERT INTO EL_JAPONES_SANGRANDO.Rol_Funcionalidad (rol_Funcionalidad_rol,rol_Funcionalidad_funcionalidad) values ";
 
             string funcionalidades = "";
@@ -146,22 +157,33 @@ namespace PagoAgilFrba.AbmRol
                     if (chk.Value != null && chk.Value.ToString() == "T")
                     {
                         string funcionalidadId = r.Cells["funcionalidad_id"].Value.ToString();
-                        funcionalidades += "('" + rol + "'," + funcionalidadId + "),";
+                        funcionalidades += "('" + txtRol.Text + "'," + funcionalidadId + "),";
                     }
                 }
             }
-            if(funcionalidades ==""){
-                queryUpdate= "";
-             }
+            if (funcionalidades == "")
+            {
+                queryUpdate = "";
+            }
             else
             {
-            funcionalidades = funcionalidades.Substring(0, funcionalidades.Length - 1);
+                funcionalidades = funcionalidades.Substring(0, funcionalidades.Length - 1);
             }
             List<String> lista = new List<string>();
-            string update = "UPDATE EL_JAPONES_SANGRANDO.Roles SET rol_estado = " + valor + " WHERE rol_nombre = '" + rol + "'";
+            String queryDelete = "Delete from EL_JAPONES_SANGRANDO.Roles where rol_nombre = '" + rol + "'";
+            string queryInsert = "INSERT INTO EL_JAPONES_SANGRANDO.Roles (rol_nombre) values ('" + txtRol.Text + "')";
+
+            string update = "UPDATE EL_JAPONES_SANGRANDO.Roles SET rol_estado = " + valor + " WHERE rol_nombre = '" + txtRol.Text + "'";
             string delete = "DELETE FROM EL_JAPONES_SANGRANDO.Rol_Funcionalidad where rol_Funcionalidad_rol = '" + rol + "'";
-            lista.Add(update);
+            string updateUsuario = "UPDATE EL_JAPONES_SANGRANDO.Usuario_Rol set usuario_Rol_rol = '" + txtRol.Text + "' where usuario_Rol_rol = '" + rol + "'";
+
+            lista.Add(queryInsert);
+            lista.Add(updateUsuario);
             lista.Add(delete);
+            lista.Add(queryDelete);
+
+            lista.Add(update);
+
             lista.Add(queryUpdate + funcionalidades);
             if (BD.correrStoreProcedure(lista) > 0)
             {
@@ -191,7 +213,7 @@ namespace PagoAgilFrba.AbmRol
                     r.Cells["habilitado"].Value = "F";
             }
             string w = BD.consultaDeUnSoloResultado("select rol_estado from EL_JAPONES_SANGRANDO.Roles where rol_nombre = '" + comboModificar.SelectedValue.ToString() + "'");
-
+            txtRol.Text = comboModificar.SelectedValue.ToString();
             checkBox2.Checked = w == "True";
             }
         }

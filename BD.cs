@@ -228,29 +228,55 @@ namespace PagoAgilFrba
             connection.Close();
             return x;
         }
+        public static void commit()
+        {
+            trans.Commit();
+            con.Close();
+        }
+
+        public static void rollback()
+        {
+            trans.Rollback();
+            con.Close();
+        }
+
+        public static void beginTrans()
+        {
+            con.Open();
+            trans = getConnection().BeginTransaction();
+        }
+        public static void correrEnTransaccion(SqlCommand query)
+        {
+            SqlConnection connection = getConnection();
+            query.Transaction = trans;
+            query.Connection = connection;
+            query.ExecuteNonQuery();
+
+        }
         public static int correrStoreProcedure(List<String> listaDeValores)
         {
             SqlConnection connection = getConnection();
             connection.Open();
-           
-          
-            String y = "BEGIN TRANSACTION;";
+
+
+            String y = "";
             listaDeValores.ForEach(delegate(String name)
             {
-                y += name +";";
+                y += name + ";";
             });
-            y+= "COMMIT;";
-             SqlCommand command = new SqlCommand(y);
-            command.Connection = connection;
-            
-            int x;
+
+            SqlCommand command = new SqlCommand(y);
+
+            int x = 1;
             try
             {
-                x = command.ExecuteNonQuery();
-           
+                BD.correrEnTransaccion(command);
+                BD.commit();
+
             }
             catch (Exception ex)
             {
+                BD.rollback();
                 x = 0;
             }
             connection.Close();
