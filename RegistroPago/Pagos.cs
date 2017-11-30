@@ -257,6 +257,17 @@ namespace PagoAgilFrba.RegistroPago
                      MessageBox.Show("La factura Numero  "+ factura +"no esta disponible para pagar");
                      return;
                 }
+            
+                
+                string w = BD.consultaDeUnSoloResultado("select factura_fecha_vencimiento from EL_JAPONES_SANGRANDO.Facturas where factura_numero = '"+factura+"' ");
+                DateTime fechaVencimiento = Convert.ToDateTime(w);
+                DateTime z = BD.fechaActual();
+                int h = DateTime.Compare(BD.fechaActual(), fechaVencimiento);
+                if (DateTime.Compare(BD.fechaActual(),fechaVencimiento) == 1)
+                {
+                     MessageBox.Show("La factura Numero  "+ factura +" esta vencida");
+                     return;
+                }
                 lista.Add(insert);
                 lista.Add(update);
             }
