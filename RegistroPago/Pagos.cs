@@ -269,5 +269,10 @@ namespace PagoAgilFrba.RegistroPago
             }
         }
 
+        private void dataGridFacturas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
     }
 }

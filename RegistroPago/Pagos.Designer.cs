@@ -56,7 +56,7 @@
             // btnPagar
             // 
             this.btnPagar.Location = new System.Drawing.Point(372, 378);
-            this.btnPagar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnPagar.Margin = new System.Windows.Forms.Padding(2);
             this.btnPagar.Name = "btnPagar";
             this.btnPagar.Size = new System.Drawing.Size(100, 41);
             this.btnPagar.TabIndex = 3;
@@ -90,7 +90,7 @@
             // 
             this.comboMedioDePago.FormattingEnabled = true;
             this.comboMedioDePago.Location = new System.Drawing.Point(168, 398);
-            this.comboMedioDePago.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboMedioDePago.Margin = new System.Windows.Forms.Padding(2);
             this.comboMedioDePago.Name = "comboMedioDePago";
             this.comboMedioDePago.Size = new System.Drawing.Size(118, 21);
             this.comboMedioDePago.TabIndex = 69;
@@ -108,9 +108,9 @@
             this.groupBox1.Controls.Add(this.txtDni);
             this.groupBox1.Controls.Add(this.dataGridFacturas);
             this.groupBox1.Location = new System.Drawing.Point(21, 21);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(482, 327);
             this.groupBox1.TabIndex = 71;
             this.groupBox1.TabStop = false;
@@ -152,7 +152,7 @@
             // 
             this.comboEmpresas.FormattingEnabled = true;
             this.comboEmpresas.Location = new System.Drawing.Point(380, 30);
-            this.comboEmpresas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboEmpresas.Margin = new System.Windows.Forms.Padding(2);
             this.comboEmpresas.Name = "comboEmpresas";
             this.comboEmpresas.Size = new System.Drawing.Size(98, 21);
             this.comboEmpresas.TabIndex = 73;
@@ -172,7 +172,7 @@
             // txtFactura
             // 
             this.txtFactura.Location = new System.Drawing.Point(166, 74);
-            this.txtFactura.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtFactura.Margin = new System.Windows.Forms.Padding(2);
             this.txtFactura.Name = "txtFactura";
             this.txtFactura.Size = new System.Drawing.Size(118, 20);
             this.txtFactura.TabIndex = 71;
@@ -203,7 +203,7 @@
             // txtDni
             // 
             this.txtDni.Location = new System.Drawing.Point(166, 32);
-            this.txtDni.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtDni.Margin = new System.Windows.Forms.Padding(2);
             this.txtDni.Name = "txtDni";
             this.txtDni.Size = new System.Drawing.Size(118, 20);
             this.txtDni.TabIndex = 68;
@@ -213,11 +213,12 @@
             // 
             this.dataGridFacturas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridFacturas.Location = new System.Drawing.Point(33, 176);
-            this.dataGridFacturas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridFacturas.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridFacturas.Name = "dataGridFacturas";
             this.dataGridFacturas.RowTemplate.Height = 24;
             this.dataGridFacturas.Size = new System.Drawing.Size(418, 122);
             this.dataGridFacturas.TabIndex = 67;
+            this.dataGridFacturas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridFacturas_CellContentClick);
             this.dataGridFacturas.SelectionChanged += new System.EventHandler(this.dataGridFacturas_SelectionChanged);
             // 
             // label8
@@ -235,7 +236,7 @@
             // 
             this.comboSucursal.FormattingEnabled = true;
             this.comboSucursal.Location = new System.Drawing.Point(168, 426);
-            this.comboSucursal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboSucursal.Margin = new System.Windows.Forms.Padding(2);
             this.comboSucursal.Name = "comboSucursal";
             this.comboSucursal.Size = new System.Drawing.Size(118, 21);
             this.comboSucursal.TabIndex = 72;
@@ -265,7 +266,7 @@
             // textPagador
             // 
             this.textPagador.Location = new System.Drawing.Point(168, 347);
-            this.textPagador.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textPagador.Margin = new System.Windows.Forms.Padding(2);
             this.textPagador.Name = "textPagador";
             this.textPagador.Size = new System.Drawing.Size(118, 20);
             this.textPagador.TabIndex = 77;
@@ -296,7 +297,7 @@
             this.Controls.Add(this.comboMedioDePago);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.btnPagar);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Pagos";
             this.Text = "Pagos";
             this.Load += new System.EventHandler(this.Pagos_Load);

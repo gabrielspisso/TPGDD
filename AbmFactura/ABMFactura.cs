@@ -91,7 +91,10 @@ namespace PagoAgilFrba.AbmFactura
                 MessageBox.Show("El dni tiene caracteres invalidos");
                 return;
             }
-
+            if(DateTime.Compare(dateAlta.Value, dateVenc.Value) < 1){
+                MessageBox.Show("La fecha de vencimiento es posterior a la de alta");
+                return;
+            }
             if (!reg.IsMatch(txtFactura.Text))
             {
                 MessageBox.Show("la factura contiene caracteres invalidos");
