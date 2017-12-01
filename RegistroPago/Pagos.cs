@@ -224,9 +224,10 @@ namespace PagoAgilFrba.RegistroPago
                 MessageBox.Show(" El dni del pagador contiene caracteres invalidos");
                 return;
             }
-            if (!BD.existeCliente(textPagador.Text))
+            string estado = BD.chequearExistenciaYEstadoDelCliente(textPagador.Text);
+            if (estado != "")
             {
-                MessageBox.Show(" El pagador no esta registrado en el sistema");
+                MessageBox.Show(" El pagador no "+estado+" en el sistema");
                 return;
             }
 
@@ -257,7 +258,7 @@ namespace PagoAgilFrba.RegistroPago
             fecha = fecha.Substring(0, fecha.Length - 1);
             
            
-            string insert2 = "INSERT INTO EL_JAPONES_SANGRANDO.Pagos (pago_nro, pago_sucursal,pago_importe,pago_formaDePago,pago_fecha,pago_cliente) VALUES(" + idPago + "," + sucursal + "," + lblImporte.Text.Replace(",",".") + "," + medio + ",'" + fecha + "',38270412)";
+            string insert2 = "INSERT INTO EL_JAPONES_SANGRANDO.Pagos (pago_nro, pago_sucursal,pago_importe,pago_formaDePago,pago_fecha,pago_cliente) VALUES(" + idPago + "," + sucursal + "," + lblImporte.Text.Replace(",",".") + "," + medio + ",'" + fecha + "',"+textPagador.Text+")";
             List<String> lista = new List<string>();
             lista.Add(insert2);
             foreach (DataGridViewRow row in dataGridFacturas.Rows)
@@ -285,7 +286,6 @@ namespace PagoAgilFrba.RegistroPago
                              MessageBox.Show("La factura Numero  "+ factura +" esta vencida");
                              return;
                         }
-                        MessageBox.Show("La factura Numero  " + factura + " fue elegida");
                         lista.Add(insert);
                         lista.Add(update);
                     }

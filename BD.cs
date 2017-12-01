@@ -904,10 +904,21 @@ namespace PagoAgilFrba
             return BD.busqueda(query);
         }
 
-        public static bool existeCliente(string p)
+        public static string chequearExistenciaYEstadoDelCliente(string p)
         {
             string x = BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Clientes where cliente_DNI = " + p );
-            return Int32.Parse(x) > 0;
+            if (Int32.Parse(x) > 0){
+
+                
+                     x = BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Clientes where cliente_DNI = " + p + "AND cliente_estado = 1");
+                     if (Int32.Parse(x) > 0)
+                     {
+                         return "";
+                     }
+                     else
+                         return "esta habilitado";
+            }
+            return "existe ";
         }
     }
 }
