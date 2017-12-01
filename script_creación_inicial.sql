@@ -406,6 +406,8 @@ values (1437,'Medrano 18550','SUCURSAL N 5000')
 INSERT INTO EL_JAPONES_SANGRANDO.Usuarios (usuario_nombre, usuario_contrasena) values('cobrador',HASHBYTES('SHA2_256', 'w23e'))
 
 INSERT INTO EL_JAPONES_SANGRANDO.Usuario_Sucursal (usuario_Sucursal_sucursal,usuario_Sucursal_usuario)
+values (7210,'admin')
+INSERT INTO EL_JAPONES_SANGRANDO.Usuario_Sucursal (usuario_Sucursal_sucursal,usuario_Sucursal_usuario)
 values (1447,'cobrador')
 INSERT INTO EL_JAPONES_SANGRANDO.Usuario_Sucursal (usuario_Sucursal_sucursal,usuario_Sucursal_usuario)
 values (1437,'cobrador')

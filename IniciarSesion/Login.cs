@@ -31,9 +31,12 @@ namespace PagoAgilFrba.IniciarSesion
                     this.Hide();
                     BD.setUsuario(username);
                     new SeleccionarRol(username).Show();
+
                 }
                 else
                     MessageBox.Show("No tiene ningun rol activo");
+               txtUsername.Text = "";
+               txtPassword.Text = "";
             }
 
         }

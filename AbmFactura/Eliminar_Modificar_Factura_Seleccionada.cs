@@ -42,7 +42,8 @@ namespace PagoAgilFrba.AbmFactura
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            Regex reg = new Regex("[0-9]");
+            Regex reg = new Regex(@"^[0-9]+$");
+
             if (!reg.IsMatch(txtDni.Text))
             {
                 MessageBox.Show("El dni tiene caracteres invalidos");
@@ -58,6 +59,25 @@ namespace PagoAgilFrba.AbmFactura
                 MessageBox.Show("la factura contiene caracteres invalidos");
                 return;
             }
+
+            if (!reg.IsMatch(txtFactura.Text))
+            {
+                MessageBox.Show("la factura contiene caracteres invalidos");
+                return;
+            }
+            String estado = BD.chequearExistenciaYEstadoDelCliente(txtDni.Text);
+            if (estado != "")
+            {
+                MessageBox.Show("El cliente no " + estado + "en el sistema");
+                return;
+            }
+            if (listaSeleccionados.Items.Count == 0)
+            {
+                MessageBox.Show("La factura no tiene items");
+                return;
+            }
+
+
 
             String fechaVenc = dateVenc.Value.ToString("u");
             fechaVenc = fechaVenc.Substring(0, fechaVenc.Length - 1);

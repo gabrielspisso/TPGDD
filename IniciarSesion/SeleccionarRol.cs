@@ -16,6 +16,11 @@ namespace PagoAgilFrba.IniciarSesion
         {
             InitializeComponent();
             comboRoles.DataSource = BD.roles(username);
+            if(comboRoles.Items.Count == 0){
+                MessageBox.Show("Este rol no tiene funcionalidades asignadas");
+                BD.setUsuario("");
+                this.Close();
+            }
         }
 
         private void btnIngresar_Click(object sender, EventArgs e)
@@ -24,14 +29,9 @@ namespace PagoAgilFrba.IniciarSesion
 
 
             this.Hide();
-            if(rol == "cobrador")
-            {
-                 new SeleccionarSucursal().Show();
-            }
-            else
-            {
-                 new AccionesAdmin(rol).Show();
-            }
+            
+            new SeleccionarSucursal(rol).Show();
+            
         }
     }
 }

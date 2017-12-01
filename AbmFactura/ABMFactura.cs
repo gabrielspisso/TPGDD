@@ -106,7 +106,11 @@ namespace PagoAgilFrba.AbmFactura
                 MessageBox.Show("la factura contiene caracteres invalidos");
                 return;
             }
-
+            String estado = BD.chequearExistenciaYEstadoDelCliente(txtDni.Text);
+            if(estado!=""){
+                MessageBox.Show("El cliente no "+estado +"en el sistema");
+                return;
+            }
             if (listaSeleccionados.Items.Count == 0)
             {
                 MessageBox.Show("La factura no tiene items");

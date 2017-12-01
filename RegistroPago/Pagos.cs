@@ -12,18 +12,20 @@ using System.Text.RegularExpressions;
 
 namespace PagoAgilFrba.RegistroPago
 {
-    public partial class Pagos : Form
+    public partial class Pagos : Form, seleccionarCliente
     {
         bool primeraVez;
         public Pagos()
         {
             InitializeComponent();
+           
         }
 
         string queryf = "Select factura_numero, empresa_nombre as Empresa, factura_cliente,factura_fecha,factura_fecha_vencimiento,factura_total from EL_JAPONES_SANGRANDO.Facturas join EL_JAPONES_SANGRANDO.Empresas on (factura_empresa = empresa_cuit) where factura_estado  = 1 AND empresa_estado = 1";
 
         private void Pagos_Load(object sender, EventArgs e)
         {
+            
             dataGridFacturas.DataSource = BD.busqueda(queryf);
             dataGridFacturas.Columns.Clear();
             DataGridViewCheckBoxColumn col1 = new DataGridViewCheckBoxColumn();
@@ -44,21 +46,19 @@ namespace PagoAgilFrba.RegistroPago
             lista.Insert(0,"");
             comboEmpresas.DataSource = lista;
             comboMedioDePago.DataSource = BD.listaDeUnCampo("select formaDePago_desc from EL_JAPONES_SANGRANDO.Formas_De_Pago");
-            if (BD.getSucursal() != "")
-            {
                 comboSucursal.Hide();
                 labelSucursal.Text = BD.getSucursal();
                 comboSucursal.Text = BD.getSucursal();
                 return;
-            }
             
             dateVenc.Value = BD.fechaActual();
             comboSucursal.DataSource = BD.listaDeUnCampo("select sucursal_nombre from EL_JAPONES_SANGRANDO.Sucursales");
         }
 
 
-       
-
+       public void setCliente(String Dni){
+           textPagador.Text = Dni;
+       }
         private bool los4estanvacios()
         {
             return txtDni.Text == "" && primeraVez && txtFactura.Text == "" && comboEmpresas.Text == "";
@@ -201,7 +201,7 @@ namespace PagoAgilFrba.RegistroPago
                 dataGridFacturas.DataSource = BD.busqueda(query2);
 
             }
-            else if(dateVenc.Value != BD.fechaActual())primeraVez = false;
+            else primeraVez = false;
         }
 
         private void dataGridFacturas_SelectionChanged(object sender, EventArgs e)
@@ -354,6 +354,25 @@ namespace PagoAgilFrba.RegistroPago
                 }*/
             }
           
+        }
+
+        private void btnSeleccionar_Click(object sender, EventArgs e)
+        {
+            new elegirCliente(this).Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtDni.Text = "";
+            txtFactura.Text = "";
+            comboEmpresas.SelectedIndex = 0;
+            Pagos_Load(null, null);
+
         }
 
     }

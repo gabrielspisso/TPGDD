@@ -49,13 +49,15 @@
             this.textPagador2 = new System.Windows.Forms.Label();
             this.textPagador = new System.Windows.Forms.TextBox();
             this.labelSucursal = new System.Windows.Forms.Label();
+            this.btnSeleccionar = new System.Windows.Forms.Button();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridFacturas)).BeginInit();
             this.SuspendLayout();
             // 
             // btnPagar
             // 
-            this.btnPagar.Location = new System.Drawing.Point(372, 378);
+            this.btnPagar.Location = new System.Drawing.Point(473, 398);
             this.btnPagar.Margin = new System.Windows.Forms.Padding(2);
             this.btnPagar.Name = "btnPagar";
             this.btnPagar.Size = new System.Drawing.Size(100, 41);
@@ -97,6 +99,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnLimpiar);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.dateVenc);
             this.groupBox1.Controls.Add(this.label4);
@@ -283,11 +286,34 @@
             this.labelSucursal.Size = new System.Drawing.Size(0, 17);
             this.labelSucursal.TabIndex = 79;
             // 
+            // btnSeleccionar
+            // 
+            this.btnSeleccionar.Location = new System.Drawing.Point(297, 345);
+            this.btnSeleccionar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSeleccionar.Name = "btnSeleccionar";
+            this.btnSeleccionar.Size = new System.Drawing.Size(100, 23);
+            this.btnSeleccionar.TabIndex = 80;
+            this.btnSeleccionar.Text = "Seleccionar";
+            this.btnSeleccionar.UseVisualStyleBackColor = true;
+            this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click);
+            // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(380, 113);
+            this.btnLimpiar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(100, 23);
+            this.btnLimpiar.TabIndex = 82;
+            this.btnLimpiar.Text = "Limpiar busqueda";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
             // Pagos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(667, 453);
+            this.Controls.Add(this.btnSeleccionar);
             this.Controls.Add(this.labelSucursal);
             this.Controls.Add(this.textPagador2);
             this.Controls.Add(this.textPagador);
@@ -334,5 +360,7 @@
         private System.Windows.Forms.Label textPagador2;
         private System.Windows.Forms.TextBox textPagador;
         private System.Windows.Forms.Label labelSucursal;
+        private System.Windows.Forms.Button btnSeleccionar;
+        private System.Windows.Forms.Button btnLimpiar;
     }
 }
