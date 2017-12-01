@@ -211,6 +211,8 @@
             // 
             // dataGridFacturas
             // 
+            this.dataGridFacturas.AllowUserToAddRows = false;
+            this.dataGridFacturas.AllowUserToDeleteRows = false;
             this.dataGridFacturas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridFacturas.Location = new System.Drawing.Point(33, 176);
             this.dataGridFacturas.Margin = new System.Windows.Forms.Padding(2);

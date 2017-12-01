@@ -35,9 +35,8 @@ namespace PagoAgilFrba.RegistroPago
             col1.Name = "Seleccionado";
             col1.HeaderText = "Seleccionado";
             col1.DisplayIndex = 0;
-            
-          
-            
+            dataGridFacturas.Columns[0].ReadOnly = false;
+           
 
 
             primeraVez = true;
@@ -115,10 +114,9 @@ namespace PagoAgilFrba.RegistroPago
                    query2 += conAnd(queryEmpresa());
                }
 
+              
                dataGridFacturas.DataSource = BD.busqueda(query2);
-            
-
-
+               
         }
 
 
@@ -203,7 +201,7 @@ namespace PagoAgilFrba.RegistroPago
                 dataGridFacturas.DataSource = BD.busqueda(query2);
 
             }
-            else primeraVez = false;
+            else if(dateVenc.Value != BD.fechaActual())primeraVez = false;
         }
 
         private void dataGridFacturas_SelectionChanged(object sender, EventArgs e)

@@ -35,6 +35,8 @@
             this.txtRolAgregar = new System.Windows.Forms.TextBox();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtRol = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.comboModificar = new System.Windows.Forms.ComboBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
@@ -44,8 +46,6 @@
             this.comboEliminar = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
-            this.txtRol = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.funcionalidadesDGV)).BeginInit();
@@ -74,7 +74,7 @@
             this.tabPage1.Controls.Add(this.btnAceptar);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(574, 230);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Agregar";
@@ -126,10 +126,26 @@
             this.tabPage2.Controls.Add(this.label2);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(574, 230);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Modificar";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(389, 104);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(144, 13);
+            this.label4.TabIndex = 42;
+            this.label4.Text = "Ingrese nuevo nombre del rol";
+            // 
+            // txtRol
+            // 
+            this.txtRol.Location = new System.Drawing.Point(418, 136);
+            this.txtRol.Name = "txtRol";
+            this.txtRol.Size = new System.Drawing.Size(100, 20);
+            this.txtRol.TabIndex = 41;
             // 
             // button1
             // 
@@ -145,7 +161,7 @@
             // 
             this.comboModificar.FormattingEnabled = true;
             this.comboModificar.Location = new System.Drawing.Point(146, 28);
-            this.comboModificar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboModificar.Margin = new System.Windows.Forms.Padding(2);
             this.comboModificar.Name = "comboModificar";
             this.comboModificar.Size = new System.Drawing.Size(115, 21);
             this.comboModificar.TabIndex = 39;
@@ -171,6 +187,7 @@
             this.dataGridFuncModificar.Name = "dataGridFuncModificar";
             this.dataGridFuncModificar.Size = new System.Drawing.Size(346, 150);
             this.dataGridFuncModificar.TabIndex = 37;
+            this.dataGridFuncModificar.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridFuncModificar_CellContentClick);
             // 
             // label2
             // 
@@ -189,7 +206,7 @@
             this.tabPage3.Controls.Add(this.button3);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(574, 230);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Eliminar";
@@ -223,22 +240,6 @@
             this.button3.Text = "Eliminar";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // txtRol
-            // 
-            this.txtRol.Location = new System.Drawing.Point(418, 136);
-            this.txtRol.Name = "txtRol";
-            this.txtRol.Size = new System.Drawing.Size(100, 20);
-            this.txtRol.TabIndex = 41;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(389, 104);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(144, 13);
-            this.label4.TabIndex = 42;
-            this.label4.Text = "Ingrese nuevo nombre del rol";
             // 
             // ABMRol
             // 
