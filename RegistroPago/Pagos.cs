@@ -24,6 +24,22 @@ namespace PagoAgilFrba.RegistroPago
 
         private void Pagos_Load(object sender, EventArgs e)
         {
+            dataGridFacturas.DataSource = BD.busqueda(queryf);
+            dataGridFacturas.Columns.Clear();
+            DataGridViewCheckBoxColumn col1 = new DataGridViewCheckBoxColumn();
+            col1.TrueValue = "T";
+            col1.FalseValue = "F";
+            col1.IndeterminateValue = false;
+            dataGridFacturas.Columns.Add(col1);
+            col1.Selected = true;
+            col1.Name = "Seleccionado";
+            col1.HeaderText = "Seleccionado";
+            col1.DisplayIndex = 0;
+            
+          
+            
+
+
             primeraVez = true;
             List<string> lista = BD.listaDeUnCampo("select empresa_nombre from EL_JAPONES_SANGRANDO.Empresas where empresa_estado = 1");
             lista.Insert(0,"");
@@ -36,7 +52,7 @@ namespace PagoAgilFrba.RegistroPago
                 comboSucursal.Text = BD.getSucursal();
                 return;
             }
-            dataGridFacturas.DataSource = BD.busqueda(queryf);
+            
             dateVenc.Value = BD.fechaActual();
             comboSucursal.DataSource = BD.listaDeUnCampo("select sucursal_nombre from EL_JAPONES_SANGRANDO.Sucursales");
         }
@@ -192,12 +208,7 @@ namespace PagoAgilFrba.RegistroPago
 
         private void dataGridFacturas_SelectionChanged(object sender, EventArgs e)
         {
-            double valor = 0;
-            foreach (DataGridViewRow row in dataGridFacturas.SelectedRows)
-            {
-                valor += double.Parse(row.Cells["factura_total"].Value.ToString());
-            }
-            lblImporte.Text = valor.ToString();
+           
         }
 
         private void btnPagar_Click(object sender, EventArgs e)
@@ -213,6 +224,11 @@ namespace PagoAgilFrba.RegistroPago
             if (!reg.IsMatch(textPagador.Text))
             {
                 MessageBox.Show(" El dni del pagador contiene caracteres invalidos");
+                return;
+            }
+            if (!BD.existeCliente(textPagador.Text))
+            {
+                MessageBox.Show(" El pagador no esta registrado en el sistema");
                 return;
             }
 
@@ -246,42 +262,100 @@ namespace PagoAgilFrba.RegistroPago
             string insert2 = "INSERT INTO EL_JAPONES_SANGRANDO.Pagos (pago_nro, pago_sucursal,pago_importe,pago_formaDePago,pago_fecha,pago_cliente) VALUES(" + idPago + "," + sucursal + "," + lblImporte.Text.Replace(",",".") + "," + medio + ",'" + fecha + "',38270412)";
             List<String> lista = new List<string>();
             lista.Add(insert2);
-            foreach (DataGridViewRow row in dataGridFacturas.SelectedRows)
+            foreach (DataGridViewRow row in dataGridFacturas.Rows)
             {
-                string factura = row.Cells["factura_numero"].Value.ToString();                
-                String insert = "INSERT INTO EL_JAPONES_SANGRANDO.Pago_Factura(pago_Factura_factura,pago_Factura_pago) values ('" + factura + "'," + idPago + ")";
-                String update = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET factura_estado = 2 where factura_numero = '" + factura+"'";
-                string x =BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Facturas where factura_numero = '"+factura+"' AND factura_estado = 1");
-                if (Int32.Parse(x) == 0)
+                if (row.Cells["Seleccionado"].Value != null)
                 {
-                     MessageBox.Show("La factura Numero  "+ factura +"no esta disponible para pagar");
-                     return;
-                }
+                    if(row.Cells["Seleccionado"].Value.ToString() == "T"){
+
+                        string factura = row.Cells["factura_numero"].Value.ToString();                
+                        String insert = "INSERT INTO EL_JAPONES_SANGRANDO.Pago_Factura(pago_Factura_factura,pago_Factura_pago) values ('" + factura + "'," + idPago + ")";
+                        String update = "UPDATE EL_JAPONES_SANGRANDO.Facturas SET factura_estado = 2 where factura_numero = '" + factura+"'";
+                        string x =BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Facturas where factura_numero = '"+factura+"' AND factura_estado = 1");
+                        if (Int32.Parse(x) == 0)
+                        {
+                             MessageBox.Show("La factura Numero  "+ factura +"no esta disponible para pagar");
+                             return;
+                        }
             
                 
-                string w = BD.consultaDeUnSoloResultado("select factura_fecha_vencimiento from EL_JAPONES_SANGRANDO.Facturas where factura_numero = '"+factura+"' ");
-                DateTime fechaVencimiento = Convert.ToDateTime(w);
+                        string w = BD.consultaDeUnSoloResultado("select factura_fecha_vencimiento from EL_JAPONES_SANGRANDO.Facturas where factura_numero = '"+factura+"' ");
+                        DateTime fechaVencimiento = Convert.ToDateTime(w);
               
-                if (DateTime.Compare(BD.fechaActual(),fechaVencimiento) == 1)
-                {
-                     MessageBox.Show("La factura Numero  "+ factura +" esta vencida");
-                     return;
+                        if (DateTime.Compare(BD.fechaActual(),fechaVencimiento) == 1)
+                        {
+                             MessageBox.Show("La factura Numero  "+ factura +" esta vencida");
+                             return;
+                        }
+                        MessageBox.Show("La factura Numero  " + factura + " fue elegida");
+                        lista.Add(insert);
+                        lista.Add(update);
+                    }
                 }
-                lista.Add(insert);
-                lista.Add(update);
-            }
-            if(BD.correrStoreProcedure(lista)>0){
-                MessageBox.Show("Se concreto el pago");
-                Pagos_Load(null,null);
-            }
-            else{
-                MessageBox.Show("Datos erroneos");
-            }
+              }
+                    if(BD.correrStoreProcedure(lista)>0){
+                        MessageBox.Show("Se concreto el pago");
+                        Pagos_Load(null,null);
+                    }
+                    else{
+                        MessageBox.Show("Datos erroneos");
+                    }
+            
         }
 
         private void dataGridFacturas_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            var senderGrid = (DataGridView)sender;
+            
+            if (e.ColumnIndex == 0 && e.RowIndex >= 0)
+            {
+                DataGridViewCheckBoxCell chk2 = (DataGridViewCheckBoxCell)dataGridFacturas.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                if(chk2.Value == null){
+                    chk2.Value = "T";   
+                }
+                else{
+                    chk2.Value = chk2.Value.ToString() == "T" ? "F" : "T";
+                }
+                double valor = 0;
+                foreach (DataGridViewRow r in dataGridFacturas.Rows)
+                {
+                    
+                    if (r != null)
+                    {
+                        DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)r.Cells["Seleccionado"];
 
+                        if (chk.Value != null && chk.Value.ToString() == "T")
+                        {
+                            valor += Double.Parse(dataGridFacturas.Rows[e.RowIndex].Cells["factura_total"].Value.ToString());
+                        }
+                    }
+                }
+                lblImporte.Text = valor.ToString();
+               /* double valor = Double.Parse(lblImporte.Text);
+                try
+                {
+                    DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)dataGridFacturas.Rows[e.RowIndex].Cells[e.RowIndex];
+                   if(chk.Value == null){
+                        valor += double.Parse(dataGridFacturas.Rows[e.RowIndex].Cells["factura_total"].Value.ToString());
+                    }
+                    else{
+                        Boolean check = chk.Value.ToString() == "T";
+                        if(check == false){
+                            valor += double.Parse(dataGridFacturas.Rows[e.RowIndex].Cells["factura_total"].Value.ToString());
+                        }
+                    
+                        else{
+                            valor -= double.Parse(dataGridFacturas.Rows[e.RowIndex].Cells["factura_total"].Value.ToString());
+                        }
+                    }
+                    lblImporte.Text = valor.ToString();
+                }
+                catch (Exception ex)
+                {
+                    lblImporte.Text = "0";
+                }*/
+            }
+          
         }
 
     }

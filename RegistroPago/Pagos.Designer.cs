@@ -111,7 +111,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(482, 327);
+            this.groupBox1.Size = new System.Drawing.Size(579, 327);
             this.groupBox1.TabIndex = 71;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Busqueda";
@@ -216,7 +216,7 @@
             this.dataGridFacturas.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridFacturas.Name = "dataGridFacturas";
             this.dataGridFacturas.RowTemplate.Height = 24;
-            this.dataGridFacturas.Size = new System.Drawing.Size(418, 122);
+            this.dataGridFacturas.Size = new System.Drawing.Size(542, 132);
             this.dataGridFacturas.TabIndex = 67;
             this.dataGridFacturas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridFacturas_CellContentClick);
             this.dataGridFacturas.SelectionChanged += new System.EventHandler(this.dataGridFacturas_SelectionChanged);
@@ -285,7 +285,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(527, 453);
+            this.ClientSize = new System.Drawing.Size(667, 453);
             this.Controls.Add(this.labelSucursal);
             this.Controls.Add(this.textPagador2);
             this.Controls.Add(this.textPagador);

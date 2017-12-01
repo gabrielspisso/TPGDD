@@ -903,5 +903,11 @@ namespace PagoAgilFrba
             string query = "SELECT TOP 5 empresa_nombre as 'Empresa', empresa_cuit as 'CUIT', (COUNT(DISTINCT pago_Factura_pago) * 100 / (SELECT COUNT(*) FROM EL_JAPONES_SANGRANDO.Facturas WHERE factura_estado <> 0 AND factura_empresa = empresa_cuit and DATEPART(QUARTER, factura_fecha) =" + trimestre + " and year(factura_fecha) = " + anio + " )) as '% Facturas Cobradas' FROM EL_JAPONES_SANGRANDO.Empresas JOIN EL_JAPONES_SANGRANDO.Facturas on factura_empresa = empresa_cuit JOIN EL_JAPONES_SANGRANDO.Pago_Factura ON pago_Factura_factura = factura_numero WHERE factura_estado >= 2 AND empresa_estado = 1 AND DATEPART(QUARTER, factura_fecha) = " + trimestre + " and year(factura_fecha) = " + anio + "group by empresa_nombre, empresa_cuit order by 3 DESC";
             return BD.busqueda(query);
         }
+
+        public static bool existeCliente(string p)
+        {
+            string x = BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Clientes where cliente_DNI = " + p );
+            return Int32.Parse(x) > 0;
+        }
     }
 }
