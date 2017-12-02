@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlTypes;
+using System.Text.RegularExpressions;
 
 namespace PagoAgilFrba.AbmCliente
 {
@@ -54,7 +55,17 @@ namespace PagoAgilFrba.AbmCliente
                 MessageBox.Show("Sólo se permiten numeros en el telefono", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
+            Regex expEmail = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            if (!expEmail.IsMatch(textMail.Text))
+            {
+                MessageBox.Show("El formato del mail es incorrecto", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!System.Text.RegularExpressions.Regex.IsMatch(textCodigoPostal.Text, @"^\d+$"))
+            {
+                MessageBox.Show("Sólo se permiten numeros en el codigo postal", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             if (textNombre.Text.Trim() == "" | textApellido.Text.Trim() == "" | txtTelefono.Text.Trim() == "" | textDni.Text.Trim() == "" | textDireccion.Text.Trim() == "" | textDireccion.Text.Trim() == "" | dateTimePickerFechaNac.Text.Trim() == "" | txtTelefono.Text.Trim() == "" )
             {
                 MessageBox.Show("Faltan completar campos obligatorios", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -69,6 +80,11 @@ namespace PagoAgilFrba.AbmCliente
                 String direccion = textDireccion.Text;
                 String fechanacimiento = dateTimePickerFechaNac.Value.ToString("u");
                 fechanacimiento = fechanacimiento.Substring(0, fechanacimiento.Length - 1);
+                if (BD.tieneMailRepetido(mail))
+                {
+                    MessageBox.Show("Ya existe un cliente con ese mail", "Error en seleccion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 if (BD.crearCliente(nombre, apellido, dni, mail, direccion, fechanacimiento, textCodigoPostal.Text,txtTelefono.Text))
                 {
                     MessageBox.Show("Se ingreso correctamente el cliente", "Insertado", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -90,7 +106,8 @@ namespace PagoAgilFrba.AbmCliente
                         MessageBox.Show("Ya existe un cliente con ese DNI");
                         return;
                     }
-                    MessageBox.Show("Ya existe un cliente con ese mail", "Error en seleccion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
+                    
                 }
             }
         }

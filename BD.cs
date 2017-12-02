@@ -437,6 +437,9 @@ namespace PagoAgilFrba
 
         public static void actualizarVistasClientes(DataGridView dge, DataGridView dgm)
         {
+            dge.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgm.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        
             string query = "select cliente_nombre,cliente_apellido,cliente_DNI from EL_JAPONES_SANGRANDO.Clientes";
             dgm.DataSource = BD.busqueda(query);
             query = "select cliente_nombre,cliente_apellido,cliente_DNI from EL_JAPONES_SANGRANDO.Clientes where cliente_estado = 1";
@@ -451,6 +454,10 @@ namespace PagoAgilFrba
         public static string cantidadDeClientesCon(string dni)
         {
             return BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Clientes where cliente_DNI = '" + dni + "'");
+        }
+        public static bool tieneMailRepetido(string mail)
+        {
+            return BD.consultaDeUnSoloResultado("select count(*) from EL_JAPONES_SANGRANDO.Clientes where cliente_mail = '" + mail + "'") != "0";
         }
 
         public static DataTable cliente(string dni)

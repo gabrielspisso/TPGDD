@@ -60,7 +60,7 @@ namespace PagoAgilFrba.Sucursal
             string codigo_postal = textAgregarCodigoPostal.Text;
             string nombre = textAgregarNombre.Text;
             string direccion = textAgregarDireccion.Text;
-            Regex reg = new Regex("[0-9]");
+            Regex reg = new Regex(@"^[0-9]+$");
 
             if(codigo_postal == "" || nombre == "" || direccion == ""){
                 MessageBox.Show("Complete todos los campos");

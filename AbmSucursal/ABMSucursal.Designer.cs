@@ -54,9 +54,9 @@
             this.tabPage2.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.tabPage2.Controls.Add(this.dataGridViewModificarC);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage2.Size = new System.Drawing.Size(823, 286);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Modificar";
@@ -67,7 +67,7 @@
             this.dataGridViewModificarC.AllowUserToDeleteRows = false;
             this.dataGridViewModificarC.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewModificarC.Location = new System.Drawing.Point(8, 7);
-            this.dataGridViewModificarC.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridViewModificarC.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewModificarC.Name = "dataGridViewModificarC";
             this.dataGridViewModificarC.Size = new System.Drawing.Size(807, 270);
             this.dataGridViewModificarC.TabIndex = 23;
@@ -84,33 +84,33 @@
             this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage1.Size = new System.Drawing.Size(823, 286);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Agregar";
             // 
             // textAgregarCodigoPostal
             // 
-            this.textAgregarCodigoPostal.Location = new System.Drawing.Point(153, 114);
-            this.textAgregarCodigoPostal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textAgregarCodigoPostal.Location = new System.Drawing.Point(346, 149);
+            this.textAgregarCodigoPostal.Margin = new System.Windows.Forms.Padding(4);
             this.textAgregarCodigoPostal.Name = "textAgregarCodigoPostal";
             this.textAgregarCodigoPostal.Size = new System.Drawing.Size(191, 22);
             this.textAgregarCodigoPostal.TabIndex = 43;
             // 
             // textAgregarDireccion
             // 
-            this.textAgregarDireccion.Location = new System.Drawing.Point(153, 68);
-            this.textAgregarDireccion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textAgregarDireccion.Location = new System.Drawing.Point(346, 103);
+            this.textAgregarDireccion.Margin = new System.Windows.Forms.Padding(4);
             this.textAgregarDireccion.Name = "textAgregarDireccion";
             this.textAgregarDireccion.Size = new System.Drawing.Size(191, 22);
             this.textAgregarDireccion.TabIndex = 30;
             // 
             // textAgregarNombre
             // 
-            this.textAgregarNombre.Location = new System.Drawing.Point(153, 15);
-            this.textAgregarNombre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textAgregarNombre.Location = new System.Drawing.Point(346, 50);
+            this.textAgregarNombre.Margin = new System.Windows.Forms.Padding(4);
             this.textAgregarNombre.Name = "textAgregarNombre";
             this.textAgregarNombre.Size = new System.Drawing.Size(189, 22);
             this.textAgregarNombre.TabIndex = 26;
@@ -118,7 +118,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 118);
+            this.label3.Location = new System.Drawing.Point(210, 153);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(99, 17);
@@ -127,10 +127,10 @@
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(221, 174);
-            this.btnAceptar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAceptar.Location = new System.Drawing.Point(414, 209);
+            this.btnAceptar.Margin = new System.Windows.Forms.Padding(4);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(100, 23);
+            this.btnAceptar.Size = new System.Drawing.Size(100, 31);
             this.btnAceptar.TabIndex = 34;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
@@ -139,7 +139,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(17, 68);
+            this.label6.Location = new System.Drawing.Point(210, 103);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(71, 17);
@@ -149,7 +149,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 23);
+            this.label1.Location = new System.Drawing.Point(210, 58);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 17);
@@ -162,7 +162,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(1, 0);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(831, 315);
@@ -173,9 +173,9 @@
             this.tabPage3.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.tabPage3.Controls.Add(this.DatagridViewEliminar);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage3.Size = new System.Drawing.Size(823, 286);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Eliminar";
@@ -187,7 +187,7 @@
             this.DatagridViewEliminar.AllowUserToResizeRows = false;
             this.DatagridViewEliminar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DatagridViewEliminar.Location = new System.Drawing.Point(8, 7);
-            this.DatagridViewEliminar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.DatagridViewEliminar.Margin = new System.Windows.Forms.Padding(4);
             this.DatagridViewEliminar.Name = "DatagridViewEliminar";
             this.DatagridViewEliminar.Size = new System.Drawing.Size(807, 270);
             this.DatagridViewEliminar.TabIndex = 23;
@@ -199,7 +199,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(833, 315);
             this.Controls.Add(this.tabControl1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ABMSucursal";
             this.Text = "ABMSucursal";
             this.tabPage2.ResumeLayout(false);

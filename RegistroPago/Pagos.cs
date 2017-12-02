@@ -49,7 +49,6 @@ namespace PagoAgilFrba.RegistroPago
                 comboSucursal.Hide();
                 labelSucursal.Text = BD.getSucursal();
                 comboSucursal.Text = BD.getSucursal();
-                return;
             
             dateVenc.Value = BD.fechaActual();
             comboSucursal.DataSource = BD.listaDeUnCampo("select sucursal_nombre from EL_JAPONES_SANGRANDO.Sucursales");

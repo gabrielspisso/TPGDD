@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,14 +13,17 @@ namespace PagoAgilFrba.AbmCliente
 {
     public partial class Eliminar_Modificar_Cliente_Seleccionado : Form
     {
-        
+        string mailOriginal;
         public Eliminar_Modificar_Cliente_Seleccionado(string dni)
         {
             InitializeComponent();
             DataTable tabla = BD.cliente(dni);
             textDNI.Text = BD.devolverColumna(tabla, "cliente_DNI");
             textCodigoPostal.Text = BD.devolverColumna(tabla, "cliente_codigo_postal");
+            
             textMailN.Text = BD.devolverColumna(tabla, "cliente_mail");
+            mailOriginal = textMailN.Text;
+
             textDireccionN.Text = BD.devolverColumna(tabla, "cliente_direccion");
             textNombreN.Text = BD.devolverColumna(tabla, "cliente_nombre");
             textApellidoN.Text = BD.devolverColumna(tabla, "cliente_apellido");
@@ -45,6 +49,23 @@ namespace PagoAgilFrba.AbmCliente
             if (!System.Text.RegularExpressions.Regex.IsMatch(txttelefono.Text, @"^\d+$"))
             {
                 MessageBox.Show("Sólo se permiten numeros en el Telefono", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!System.Text.RegularExpressions.Regex.IsMatch(textCodigoPostal.Text, @"^\d+$"))
+            {
+                MessageBox.Show("Sólo se permiten numeros en el codigo postal", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            Regex expEmail = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            if (!expEmail.IsMatch(textMailN.Text))
+            {
+                MessageBox.Show("El formato del mail es incorrecto", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (BD.tieneMailRepetido(textMailN.Text) && textMailN.Text != mailOriginal)
+            {
+                MessageBox.Show("Ya existe un cliente con ese mail", "Error en seleccion", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

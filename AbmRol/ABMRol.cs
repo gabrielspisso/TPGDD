@@ -24,7 +24,7 @@ namespace PagoAgilFrba.AbmRol
             String rol = txtRolAgregar.Text;
             if(rol==""){
 
-                MessageBox.Show("No selecciono rol", "Error en seleccion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No ingreso nombre del nuevo rol", "Error en seleccion", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }      
 
@@ -79,7 +79,7 @@ namespace PagoAgilFrba.AbmRol
             col2.Name = "habilitado";
 
             col2.HeaderText = "habilitado";
-
+            txtRolAgregar.Text = "";
 
             dataGridFuncModificar.Columns[0].ReadOnly = true;
             dataGridFuncModificar.Columns[1].ReadOnly = true;
