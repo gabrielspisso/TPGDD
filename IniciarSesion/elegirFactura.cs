@@ -71,7 +71,7 @@ namespace PagoAgilFrba.IniciarSesion
             {
                 String nro = tabla.Rows[e.RowIndex].Cells[1].Value.ToString();
                 DateTime fechaVenc = (DateTime)tabla.Rows[e.RowIndex].Cells[6].Value;
-                if (fechaVenc.CompareTo(DateTime.Now) < 0 && pagada == false)
+                if (fechaVenc.CompareTo(BD.fechaActual()) < 0 && !pagada)
                 {
                     MessageBox.Show("La factura esta vencida", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -79,7 +79,7 @@ namespace PagoAgilFrba.IniciarSesion
                 else
                 {
                     reg.setFactura(nro);
-                    if (pagada == true)
+                    if (pagada)
                         this.Close();
                 }
 
