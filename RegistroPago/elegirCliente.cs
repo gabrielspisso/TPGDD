@@ -20,30 +20,24 @@ namespace PagoAgilFrba.RegistroPago
         {
             this.abm = abm;
             InitializeComponent();
-            this.filtrar();
+            this.filtrar(null,null);
         }
 
         private void cargarTabla(SqlCommand query)
         {
             dt = BD.busqueda(query);
+            dt.Columns.Remove("cliente_estado");
             listadoClientes.DataSource = dt;
-            dt.Columns["cliente_DNI"].ColumnName = "DNI";
-            dt.Columns["cliente_nombre"].ColumnName = "Nombre";
-            dt.Columns["cliente_apellido"].ColumnName = "Apellido";
-            dt.Columns["cliente_fecha_nacimiento"].ColumnName = "Fecha de Nacimiento";
-            dt.Columns["cliente_mail"].ColumnName = "Mail";
-            dt.Columns["cliente_direccion"].ColumnName = "Direccion";
-            dt.Columns["cliente_codigo_postal"].ColumnName = "Codigo Postal";
-            dt.Columns["cliente_telefono"].ColumnName = "Telefono";
-            dt.Columns["cliente_estado"].ColumnName = "Estado";
+
+
             foreach (DataColumn c in dt.Columns)
                 c.ReadOnly = true;
         }
 
-        public void filtrar()
+        public void filtrar(object sender, EventArgs e)
         {
 
-            SqlCommand query = new SqlCommand("SELECT * FROM EL_JAPONES_SANGRANDO.Clientes WHERE cliente_estado = 1 AND (cliente_DNI = '" + filtroDNI.Text + "' OR '" + filtroDNI.Text + "' = '') AND (cliente_apellido LIKE '%" + filtroApellido.Text + "%' OR '" + filtroApellido.Text + "' = '') AND (cliente_nombre LIKE '%" + filtroNombre.Text + "%' OR '" + filtroNombre.Text + "' = '') ORDER BY cliente_apellido");
+            SqlCommand query = new SqlCommand("SELECT * FROM EL_JAPONES_SANGRANDO.Clientes WHERE cliente_estado = 1 AND (cliente_DNI LIKE '" + filtroDNI.Text + "%' OR '" + filtroDNI.Text + "' = '') AND (cliente_apellido LIKE '" + filtroApellido.Text + "%' OR '" + filtroApellido.Text + "' = '') AND (cliente_nombre LIKE '" + filtroNombre.Text + "%' OR '" + filtroNombre.Text + "' = '') ORDER BY cliente_apellido");
             this.cargarTabla(query);
         }
 
@@ -61,28 +55,14 @@ namespace PagoAgilFrba.RegistroPago
 
             }
         }
-
-        private void btnLimpiar_Click(object sender, EventArgs e)
-        {
-            filtroApellido.Text = "";
-            filtroDNI.Text = "";
-            filtroNombre.Text = "";
-            this.filtrar();
-        }
-
-       
+    
 
         private void btnLimpiar_Click_1(object sender, EventArgs e)
         {
             filtroApellido.Text = "";
             filtroDNI.Text = "";
             filtroNombre.Text = "";
-            this.filtrar();
-        }
-
-        private void btnFiltrar_Click_1(object sender, EventArgs e)
-        {
-            this.filtrar();
+            this.filtrar(null,null);
         }
 
     

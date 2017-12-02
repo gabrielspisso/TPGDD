@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace PagoAgilFrba.IniciarSesion
 {
-    public partial class AccionesAdmin : Form
+    public partial class AccionesAdmin : Form,seleccionarFactura
     {
         string rolSeleccionado;
         public AccionesAdmin(string rol)
@@ -25,6 +25,11 @@ namespace PagoAgilFrba.IniciarSesion
         }
         public AccionesAdmin() {
             InitializeComponent();
+        }
+
+        public void setFactura(string factura)
+        {
+            textFacturaDev.Text = factura;
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -51,11 +56,14 @@ namespace PagoAgilFrba.IniciarSesion
                     if (BD.devolverFactura(factura_numero, motivo))
                     {
                         MessageBox.Show("Factura devuelta", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        textFacturaDev.Text = "";
+                        richTextDev.Text = "";
                     }
                     else
                     {
                         MessageBox.Show("No se pudo devolver la factura", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+
                 }
             }
             else
@@ -313,6 +321,11 @@ namespace PagoAgilFrba.IniciarSesion
         private void AccionesAdmin_FormClosing(object sender, FormClosingEventArgs e)
         {
             new Login().Show();
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            new elegirFactura(this,true).ShowDialog();
         }
 
     }

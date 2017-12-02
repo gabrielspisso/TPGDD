@@ -114,3 +114,4 @@ C:\Users\lukas\Downloads\TPGDD\obj\Debug\PagoAgilFrba.Properties.Resources.resou
 C:\Users\lukas\Downloads\TPGDD\obj\Debug\PagoAgilFrba.RegistroPago.elegirCliente.resources
 C:\Users\lukas\Downloads\TPGDD\obj\Debug\PagoAgilFrba.RegistroPago.Pagos.resources
 C:\Users\lukas\Downloads\TPGDD\obj\Debug\PagoAgilFrba.csproj.GenerateResource.Cache
+C:\Users\lukas\Downloads\TPGDD\obj\Debug\PagoAgilFrba.IniciarSesion.elegirFactura.resources

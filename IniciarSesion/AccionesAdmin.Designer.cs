@@ -34,6 +34,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.dateRendicion1 = new System.Windows.Forms.DateTimePicker();
             this.comboPorcentaje = new System.Windows.Forms.ComboBox();
             this.lblGanancia = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -64,7 +65,7 @@
             this.richTextDev = new System.Windows.Forms.RichTextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
-            this.dateRendicion1 = new System.Windows.Forms.DateTimePicker();
+            this.button2 = new System.Windows.Forms.Button();
             this.Acciones.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -157,6 +158,15 @@
             this.tabPage3.Size = new System.Drawing.Size(715, 286);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Rendición de Facturas cobradas ";
+            // 
+            // dateRendicion1
+            // 
+            this.dateRendicion1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateRendicion1.Location = new System.Drawing.Point(170, 30);
+            this.dateRendicion1.Margin = new System.Windows.Forms.Padding(4);
+            this.dateRendicion1.Name = "dateRendicion1";
+            this.dateRendicion1.Size = new System.Drawing.Size(189, 22);
+            this.dateRendicion1.TabIndex = 80;
             // 
             // comboPorcentaje
             // 
@@ -456,6 +466,7 @@
             // tabPage5
             // 
             this.tabPage5.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.tabPage5.Controls.Add(this.button2);
             this.tabPage5.Controls.Add(this.textFacturaDev);
             this.tabPage5.Controls.Add(this.button8);
             this.tabPage5.Controls.Add(this.richTextDev);
@@ -493,7 +504,7 @@
             this.richTextDev.Location = new System.Drawing.Point(195, 114);
             this.richTextDev.Margin = new System.Windows.Forms.Padding(4);
             this.richTextDev.Name = "richTextDev";
-            this.richTextDev.Size = new System.Drawing.Size(301, 117);
+            this.richTextDev.Size = new System.Drawing.Size(366, 117);
             this.richTextDev.TabIndex = 7;
             this.richTextDev.Text = "";
             // 
@@ -517,14 +528,16 @@
             this.label20.TabIndex = 4;
             this.label20.Text = "Factura";
             // 
-            // dateRendicion1
+            // button2
             // 
-            this.dateRendicion1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateRendicion1.Location = new System.Drawing.Point(170, 30);
-            this.dateRendicion1.Margin = new System.Windows.Forms.Padding(4);
-            this.dateRendicion1.Name = "dateRendicion1";
-            this.dateRendicion1.Size = new System.Drawing.Size(189, 22);
-            this.dateRendicion1.TabIndex = 80;
+            this.button2.Location = new System.Drawing.Point(415, 52);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(146, 25);
+            this.button2.TabIndex = 19;
+            this.button2.Text = "Seleccionar";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // AccionesAdmin
             // 
@@ -594,6 +607,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DataGridView dataGridRendiciones;
         private System.Windows.Forms.DateTimePicker dateRendicion1;
+        private System.Windows.Forms.Button button2;
 
     }
 }
