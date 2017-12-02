@@ -102,6 +102,12 @@
       <DependentUpon>Eliminar_Modificar_Sucursal_Seleccionada.cs</DependentUpon>
     </Compile>
     <Compile Include="BD.cs" />
+    <Compile Include="Devolucion\Devolucion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Devolucion\Devolucion.Designer.cs">
+      <DependentUpon>Devolucion.cs</DependentUpon>
+    </Compile>
     <Compile Include="IniciarSesion\elegirFactura.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,11 +146,11 @@
       <DependentUpon>SeleccionarRol.cs</DependentUpon>
     </Compile>
     <Compile Include="seleccionarCliente.cs" />
-    <Compile Include="ListadoEstadistico\Form1.cs">
+    <Compile Include="ListadoEstadistico\Listado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ListadoEstadistico\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ListadoEstadistico\Listado.Designer.cs">
+      <DependentUpon>Listado.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -194,6 +200,9 @@
     <EmbeddedResource Include="AbmSucursal\Eliminar_Modificar_Sucursal_Seleccionada.resx">
       <DependentUpon>Eliminar_Modificar_Sucursal_Seleccionada.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Devolucion\Devolucion.resx">
+      <DependentUpon>Devolucion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IniciarSesion\Acciones.resx">
       <DependentUpon>Acciones.cs</DependentUpon>
     </EmbeddedResource>
@@ -212,6 +221,9 @@
     <EmbeddedResource Include="IniciarSesion\SeleccionarRol.resx">
       <DependentUpon>SeleccionarRol.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ListadoEstadistico\Listado.resx">
+      <DependentUpon>Listado.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -226,6 +238,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RegistroPago\Pagos.resx">
       <DependentUpon>Pagos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Rendicion\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

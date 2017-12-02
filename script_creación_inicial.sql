@@ -387,7 +387,7 @@ INSERT INTO EL_JAPONES_SANGRANDO.Usuarios (usuario_nombre, usuario_contrasena) v
 
 --
 INSERT INTO EL_JAPONES_SANGRANDO.Funcionalidades(funcionalidad_descripcion)
-values('ABM_ROL'),('ABM_CLIENTE'),('ABM_EMPRESA'),('ABM_SUCURSAL'),('ABM_FACTURA'),('REGISTRO_DE_PAGO_DE_FACTURAS'),('LISTADO_ESTADISTICO'),('RENDICION_DE_FACTURAS_COBRADAS'),('DEVOLUCION')
+values('ABM_ROL'),('ABM_CLIENTE'),('ABM_EMPRESA'),('ABM_SUCURSAL'),('ABM_FACTURA'),('PAGO_DE_FACTURAS'),('LISTADO_ESTADISTICO'),('RENDICION_DE_FACTURAS'),('DEVOLUCIONES')
 
 --Vinculo los roles con la funcionalidades que tienen
 INSERT INTO EL_JAPONES_SANGRANDO.Rol_Funcionalidad(rol_Funcionalidad_rol, rol_Funcionalidad_funcionalidad)

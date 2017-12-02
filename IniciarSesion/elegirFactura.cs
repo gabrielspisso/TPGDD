@@ -30,7 +30,7 @@ namespace PagoAgilFrba.IniciarSesion
             dt.Rows.InsertAt(dr, 0);
             filtroEmpresa.DisplayMember = "empresa_nombre";
             filtroEmpresa.DataSource = dt;
-            this.filtrar();
+            this.filtrar(null,null);
         }
 
         private void cargarTabla(SqlCommand query)
@@ -39,21 +39,24 @@ namespace PagoAgilFrba.IniciarSesion
             listadoClientes.DataSource = dt;
             foreach (DataColumn c in dt.Columns)
                 c.ReadOnly = true;
+
         }
 
         public void filtrar(object sender, EventArgs e)
         {
+            String fecha = BD.fechaActual().ToString("u");
+            fecha = fecha.Substring(0, fecha.Length - 1);
             SqlCommand query;
             if (pagada == false)
-                query = new SqlCommand("SELECT factura_numero, cliente_nombre, cliente_apellido, empresa_nombre, factura_fecha, factura_fecha_vencimiento, factura_total, factura_estado  FROM EL_JAPONES_SANGRANDO.Facturas JOIN EL_JAPONES_SANGRANDO.Clientes ON factura_cliente = cliente_DNI JOIN EL_JAPONES_SANGRANDO.Empresas ON factura_empresa = empresa_cuit WHERE factura_estado = 1 AND empresa_estado = 1 AND (factura_numero LIKE '" + filtroNumero.Text + "%' OR '" + filtroNumero.Text + "' = '') AND (CONCAT(cliente_nombre, ' ',cliente_apellido) LIKE '%" + filtroCliente.Text + "%' OR '" + filtroCliente.Text + "' = '') AND (empresa_nombre LIKE '%" + filtroEmpresa.Text + "%' OR '" + filtroEmpresa.Text + "' = '') ORDER BY factura_numero");
+                query = new SqlCommand("SELECT factura_numero, cliente_nombre, cliente_apellido, empresa_nombre, factura_fecha, factura_fecha_vencimiento, factura_total  FROM EL_JAPONES_SANGRANDO.Facturas JOIN EL_JAPONES_SANGRANDO.Clientes ON factura_cliente = cliente_DNI JOIN EL_JAPONES_SANGRANDO.Empresas ON factura_empresa = empresa_cuit WHERE factura_estado = 1 AND empresa_estado = 1 AND (factura_numero LIKE '" + filtroNumero.Text + "%' OR '" + filtroNumero.Text + "' = '') AND (CONCAT(cliente_nombre, ' ',cliente_apellido) LIKE '%" + filtroCliente.Text + "%' OR '" + filtroCliente.Text + "' = '') AND (empresa_nombre LIKE '%" + filtroEmpresa.Text + "%' OR '" + filtroEmpresa.Text + "' = '') and (year(factura_fecha_vencimiento) > year('" + fecha + "') OR (year(factura_fecha_vencimiento) = year('" + fecha + "') AND month(factura_fecha_vencimiento) > month('" + fecha + "')) OR (year(factura_fecha_vencimiento) = year('" + fecha + "') AND Month(factura_fecha_vencimiento) = Month('" + fecha + "') AND DAY(factura_fecha_vencimiento) >= DAY('" + fecha + "')  )) ORDER BY factura_numero");
             else
-                query = new SqlCommand("SELECT factura_numero, cliente_nombre, cliente_apellido, empresa_nombre, factura_fecha, factura_fecha_vencimiento, factura_total, factura_estado  FROM EL_JAPONES_SANGRANDO.Facturas JOIN EL_JAPONES_SANGRANDO.Clientes ON factura_cliente = cliente_DNI JOIN EL_JAPONES_SANGRANDO.Empresas ON factura_empresa = empresa_cuit WHERE factura_estado = 2 AND (factura_numero LIKE '" + filtroNumero.Text + "%' OR '" + filtroNumero.Text + "' = '') AND (CONCAT(cliente_nombre, ' ',cliente_apellido) LIKE '%" + filtroCliente.Text + "%' OR '" + filtroCliente.Text + "' = '') AND (empresa_nombre LIKE '%" + filtroEmpresa.Text + "%' OR '" + filtroEmpresa.Text + "' = '') ORDER BY factura_numero");
+                query = new SqlCommand("SELECT factura_numero, cliente_nombre, cliente_apellido, empresa_nombre, factura_fecha, factura_fecha_vencimiento, factura_total  FROM EL_JAPONES_SANGRANDO.Facturas JOIN EL_JAPONES_SANGRANDO.Clientes ON factura_cliente = cliente_DNI JOIN EL_JAPONES_SANGRANDO.Empresas ON factura_empresa = empresa_cuit WHERE factura_estado = 2 AND (factura_numero LIKE '" + filtroNumero.Text + "%' OR '" + filtroNumero.Text + "' = '') AND (CONCAT(cliente_nombre, ' ',cliente_apellido) LIKE '%" + filtroCliente.Text + "%' OR '" + filtroCliente.Text + "' = '') AND (empresa_nombre LIKE '%" + filtroEmpresa.Text + "%' OR '" + filtroEmpresa.Text + "' = '') ORDER BY factura_numero");
             this.cargarTabla(query);
         }
 
         private void btnFiltrar_Click_1(object sender, EventArgs e)
         {
-            this.filtrar();
+            this.filtrar(null,null);
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -61,7 +64,7 @@ namespace PagoAgilFrba.IniciarSesion
             filtroCliente.Text = "";
             filtroEmpresa.SelectedIndex = 0;
             filtroNumero.Text = "";
-            this.filtrar();
+            this.filtrar(null,null);
         }
 
         private void listadoClientes_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
@@ -86,10 +89,6 @@ namespace PagoAgilFrba.IniciarSesion
             }
         }
 
-        private void filtrar()
-        {
-
-        }
 
     }
 }

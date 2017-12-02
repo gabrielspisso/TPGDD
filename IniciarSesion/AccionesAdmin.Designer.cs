@@ -30,8 +30,6 @@
         {
             this.Acciones = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.comboAccion = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dateRendicion1 = new System.Windows.Forms.DateTimePicker();
@@ -60,12 +58,20 @@
             this.cmbTipo = new System.Windows.Forms.ComboBox();
             this.label17 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
             this.textFacturaDev = new System.Windows.Forms.TextBox();
             this.button8 = new System.Windows.Forms.Button();
             this.richTextDev = new System.Windows.Forms.RichTextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
             this.Acciones.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -93,8 +99,14 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.tabPage1.Controls.Add(this.comboAccion);
-            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.button10);
+            this.tabPage1.Controls.Add(this.button11);
+            this.tabPage1.Controls.Add(this.button12);
+            this.tabPage1.Controls.Add(this.button5);
+            this.tabPage1.Controls.Add(this.button7);
+            this.tabPage1.Controls.Add(this.button9);
+            this.tabPage1.Controls.Add(this.button4);
+            this.tabPage1.Controls.Add(this.button3);
             this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
@@ -103,34 +115,16 @@
             this.tabPage1.Size = new System.Drawing.Size(715, 286);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Acciones";
-            // 
-            // comboAccion
-            // 
-            this.comboAccion.FormattingEnabled = true;
-            this.comboAccion.Location = new System.Drawing.Point(184, 49);
-            this.comboAccion.Margin = new System.Windows.Forms.Padding(4);
-            this.comboAccion.Name = "comboAccion";
-            this.comboAccion.Size = new System.Drawing.Size(275, 24);
-            this.comboAccion.TabIndex = 2;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 53);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(169, 17);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Seleccione Funcionalidad";
+            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(515, 53);
+            this.button1.Location = new System.Drawing.Point(45, 34);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 28);
+            this.button1.Size = new System.Drawing.Size(185, 49);
             this.button1.TabIndex = 0;
-            this.button1.Text = "Ingresar";
+            this.button1.Text = "ABM ROL";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
@@ -167,6 +161,7 @@
             this.dateRendicion1.Name = "dateRendicion1";
             this.dateRendicion1.Size = new System.Drawing.Size(189, 22);
             this.dateRendicion1.TabIndex = 80;
+            this.dateRendicion1.ValueChanged += new System.EventHandler(this.dateRendicion1_ValueChanged);
             // 
             // comboPorcentaje
             // 
@@ -199,6 +194,7 @@
             this.lblGanancia.Size = new System.Drawing.Size(16, 17);
             this.lblGanancia.TabIndex = 30;
             this.lblGanancia.Text = "0";
+            this.lblGanancia.Click += new System.EventHandler(this.lblGanancia_Click);
             // 
             // label4
             // 
@@ -209,6 +205,7 @@
             this.label4.Size = new System.Drawing.Size(128, 17);
             this.label4.TabIndex = 29;
             this.label4.Text = "Ganancia empresa";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // dataGridRendiciones
             // 
@@ -220,6 +217,7 @@
             this.dataGridRendiciones.RowTemplate.Height = 24;
             this.dataGridRendiciones.Size = new System.Drawing.Size(355, 209);
             this.dataGridRendiciones.TabIndex = 28;
+            this.dataGridRendiciones.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridRendiciones_CellContentClick);
             // 
             // lblCantFacturas
             // 
@@ -230,6 +228,7 @@
             this.lblCantFacturas.Size = new System.Drawing.Size(16, 17);
             this.lblCantFacturas.TabIndex = 27;
             this.lblCantFacturas.Text = "0";
+            this.lblCantFacturas.Click += new System.EventHandler(this.lblCantFacturas_Click);
             // 
             // lblImporte
             // 
@@ -240,6 +239,7 @@
             this.lblImporte.Size = new System.Drawing.Size(16, 17);
             this.lblImporte.TabIndex = 25;
             this.lblImporte.Text = "0";
+            this.lblImporte.Click += new System.EventHandler(this.lblImporte_Click);
             // 
             // comboEmpresa
             // 
@@ -260,6 +260,7 @@
             this.label26.Size = new System.Drawing.Size(198, 17);
             this.label26.TabIndex = 23;
             this.label26.Text = "Cantidad de facturas rendidas";
+            this.label26.Click += new System.EventHandler(this.label26_Click);
             // 
             // label24
             // 
@@ -270,6 +271,7 @@
             this.label24.Size = new System.Drawing.Size(55, 17);
             this.label24.TabIndex = 21;
             this.label24.Text = "Importe";
+            this.label24.Click += new System.EventHandler(this.label24_Click);
             // 
             // label23
             // 
@@ -280,6 +282,7 @@
             this.label23.Size = new System.Drawing.Size(64, 17);
             this.label23.TabIndex = 20;
             this.label23.Text = "Empresa";
+            this.label23.Click += new System.EventHandler(this.label23_Click);
             // 
             // label22
             // 
@@ -290,6 +293,7 @@
             this.label22.Size = new System.Drawing.Size(155, 17);
             this.label22.TabIndex = 19;
             this.label22.Text = "Porcentaje de comisión";
+            this.label22.Click += new System.EventHandler(this.label22_Click);
             // 
             // label18
             // 
@@ -300,6 +304,7 @@
             this.label18.Size = new System.Drawing.Size(129, 17);
             this.label18.TabIndex = 15;
             this.label18.Text = "Fecha de rendicion";
+            this.label18.Click += new System.EventHandler(this.label18_Click);
             // 
             // button6
             // 
@@ -480,6 +485,17 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Devoluciones";
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(415, 52);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(146, 25);
+            this.button2.TabIndex = 19;
+            this.button2.Text = "Seleccionar";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
             // textFacturaDev
             // 
             this.textFacturaDev.Location = new System.Drawing.Point(195, 52);
@@ -528,16 +544,93 @@
             this.label20.TabIndex = 4;
             this.label20.Text = "Factura";
             // 
-            // button2
+            // button3
             // 
-            this.button2.Location = new System.Drawing.Point(415, 52);
-            this.button2.Margin = new System.Windows.Forms.Padding(4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(146, 25);
-            this.button2.TabIndex = 19;
-            this.button2.Text = "Seleccionar";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            this.button3.Location = new System.Drawing.Point(266, 34);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(185, 49);
+            this.button3.TabIndex = 1;
+            this.button3.Text = "ABM CLIENTE";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(492, 34);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(185, 49);
+            this.button4.TabIndex = 2;
+            this.button4.Text = "ABM EMPRESA";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(492, 108);
+            this.button5.Margin = new System.Windows.Forms.Padding(4);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(185, 49);
+            this.button5.TabIndex = 5;
+            this.button5.Text = "PAGO DE FACTURAS";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(266, 108);
+            this.button7.Margin = new System.Windows.Forms.Padding(4);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(185, 49);
+            this.button7.TabIndex = 4;
+            this.button7.Text = "ABM FACTURA";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(45, 108);
+            this.button9.Margin = new System.Windows.Forms.Padding(4);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(185, 49);
+            this.button9.TabIndex = 3;
+            this.button9.Text = "ABM SUCURSAL";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(492, 185);
+            this.button10.Margin = new System.Windows.Forms.Padding(4);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(185, 49);
+            this.button10.TabIndex = 8;
+            this.button10.Text = "LISTADO ESTADISTICO";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(266, 185);
+            this.button11.Margin = new System.Windows.Forms.Padding(4);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(185, 49);
+            this.button11.TabIndex = 7;
+            this.button11.Text = "DEVOLUCIONES";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(45, 185);
+            this.button12.Margin = new System.Windows.Forms.Padding(4);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(185, 49);
+            this.button12.TabIndex = 6;
+            this.button12.Text = "RENDICION DE FACTURAS";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // AccionesAdmin
             // 
@@ -553,7 +646,6 @@
             this.Load += new System.EventHandler(this.AccionesAdmin_Load);
             this.Acciones.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridRendiciones)).EndInit();
@@ -574,15 +666,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.NumericUpDown añoNUD;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Button btnConsultar;
-        private System.Windows.Forms.DataGridView dataGridEstadisticas;
-        private System.Windows.Forms.ComboBox cmbTrimestre;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.ComboBox cmbTipo;
-        private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Button button6;
@@ -596,8 +679,6 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox textFacturaDev;
-        private System.Windows.Forms.ComboBox comboAccion;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label lblCantFacturas;
         private System.Windows.Forms.Label lblImporte;
@@ -608,6 +689,23 @@
         private System.Windows.Forms.DataGridView dataGridRendiciones;
         private System.Windows.Forms.DateTimePicker dateRendicion1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.NumericUpDown añoNUD;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Button btnConsultar;
+        private System.Windows.Forms.DataGridView dataGridEstadisticas;
+        private System.Windows.Forms.ComboBox cmbTrimestre;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.ComboBox cmbTipo;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
 
     }
 }
