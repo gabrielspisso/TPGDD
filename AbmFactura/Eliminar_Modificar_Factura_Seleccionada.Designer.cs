@@ -51,12 +51,13 @@
             this.label4 = new System.Windows.Forms.Label();
             this.CheckHabilitado = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnAceptar
             // 
             this.btnAceptar.Location = new System.Drawing.Point(605, 453);
-            this.btnAceptar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAceptar.Margin = new System.Windows.Forms.Padding(4);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(100, 28);
             this.btnAceptar.TabIndex = 64;
@@ -67,7 +68,7 @@
             // txtEmpresa
             // 
             this.txtEmpresa.FormattingEnabled = true;
-            this.txtEmpresa.Location = new System.Drawing.Point(517, 78);
+            this.txtEmpresa.Location = new System.Drawing.Point(519, 105);
             this.txtEmpresa.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtEmpresa.Name = "txtEmpresa";
             this.txtEmpresa.Size = new System.Drawing.Size(185, 24);
@@ -78,7 +79,7 @@
             // 
             this.dateVenc.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateVenc.Location = new System.Drawing.Point(515, 162);
-            this.dateVenc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateVenc.Margin = new System.Windows.Forms.Padding(4);
             this.dateVenc.Name = "dateVenc";
             this.dateVenc.Size = new System.Drawing.Size(189, 22);
             this.dateVenc.TabIndex = 80;
@@ -87,7 +88,7 @@
             // 
             this.dateAlta.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateAlta.Location = new System.Drawing.Point(159, 162);
-            this.dateAlta.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateAlta.Margin = new System.Windows.Forms.Padding(4);
             this.dateAlta.Name = "dateAlta";
             this.dateAlta.Size = new System.Drawing.Size(189, 22);
             this.dateAlta.TabIndex = 79;
@@ -95,7 +96,7 @@
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(137, 340);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(100, 28);
             this.button3.TabIndex = 78;
@@ -116,7 +117,7 @@
             // txtCantidad
             // 
             this.txtCantidad.Location = new System.Drawing.Point(108, 287);
-            this.txtCantidad.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCantidad.Margin = new System.Windows.Forms.Padding(4);
             this.txtCantidad.Name = "txtCantidad";
             this.txtCantidad.Size = new System.Drawing.Size(189, 22);
             this.txtCantidad.TabIndex = 76;
@@ -134,7 +135,7 @@
             // txtMonto
             // 
             this.txtMonto.Location = new System.Drawing.Point(108, 242);
-            this.txtMonto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMonto.Margin = new System.Windows.Forms.Padding(4);
             this.txtMonto.Name = "txtMonto";
             this.txtMonto.Size = new System.Drawing.Size(189, 22);
             this.txtMonto.TabIndex = 74;
@@ -185,7 +186,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(417, 80);
+            this.label2.Location = new System.Drawing.Point(376, 108);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(64, 17);
@@ -195,7 +196,7 @@
             // txtFactura
             // 
             this.txtFactura.Location = new System.Drawing.Point(159, 112);
-            this.txtFactura.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtFactura.Margin = new System.Windows.Forms.Padding(4);
             this.txtFactura.Name = "txtFactura";
             this.txtFactura.ReadOnly = true;
             this.txtFactura.Size = new System.Drawing.Size(191, 22);
@@ -204,7 +205,7 @@
             // txtDni
             // 
             this.txtDni.Location = new System.Drawing.Point(160, 63);
-            this.txtDni.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtDni.Margin = new System.Windows.Forms.Padding(4);
             this.txtDni.Name = "txtDni";
             this.txtDni.Size = new System.Drawing.Size(189, 22);
             this.txtDni.TabIndex = 68;
@@ -233,7 +234,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(324, 453);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 28);
             this.button2.TabIndex = 82;
@@ -257,8 +258,8 @@
             // 
             this.CheckHabilitado.AllowDrop = true;
             this.CheckHabilitado.AutoSize = true;
-            this.CheckHabilitado.Location = new System.Drawing.Point(572, 116);
-            this.CheckHabilitado.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CheckHabilitado.Location = new System.Drawing.Point(528, 135);
+            this.CheckHabilitado.Margin = new System.Windows.Forms.Padding(4);
             this.CheckHabilitado.Name = "CheckHabilitado";
             this.CheckHabilitado.Size = new System.Drawing.Size(93, 21);
             this.CheckHabilitado.TabIndex = 85;
@@ -268,18 +269,30 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(420, 117);
+            this.label5.Location = new System.Drawing.Point(376, 136);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(71, 17);
             this.label5.TabIndex = 84;
             this.label5.Text = "Habilitado";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(379, 63);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(94, 25);
+            this.button1.TabIndex = 86;
+            this.button1.Text = "Seleccionar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Eliminar_Modificar_Factura_Seleccionada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(763, 496);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.CheckHabilitado);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -301,7 +314,7 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAceptar);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Eliminar_Modificar_Factura_Seleccionada";
             this.Text = "Eliminar_Modificar_Factura_Seleccionada";
             this.ResumeLayout(false);
@@ -334,6 +347,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox CheckHabilitado;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button button1;
 
     }
 }

@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using PagoAgilFrba.formatoFecha;
 namespace PagoAgilFrba.AbmFactura
 {
-    public partial class Eliminar_Modificar_Factura_Seleccionada : Form
+    public partial class Eliminar_Modificar_Factura_Seleccionada : Form,seleccionarCliente
     {
         public Eliminar_Modificar_Factura_Seleccionada(string numeroDeFactura)
         {
@@ -40,6 +40,11 @@ namespace PagoAgilFrba.AbmFactura
             
         }
 
+        public void setCliente(String DNI)
+        {
+            txtDni.Text = DNI;
+        }
+
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             Regex reg = new Regex(@"^[0-9]+$");
@@ -49,9 +54,9 @@ namespace PagoAgilFrba.AbmFactura
                 MessageBox.Show("El dni tiene caracteres invalidos");
                 return;
             }
-            if (DateTime.Compare(dateAlta.Value, dateVenc.Value) < 1)
+            if (DateTime.Compare(dateVenc.Value,dateAlta.Value) < 0)
             {
-                MessageBox.Show("La fecha de vencimiento es posterior a la de alta");
+                MessageBox.Show("La fecha de vencimiento es anterior a la de alta");
                 return;
             }
             if (!reg.IsMatch(txtFactura.Text))
@@ -134,6 +139,11 @@ namespace PagoAgilFrba.AbmFactura
                sum += Double.Parse(eachItem.SubItems[0].Text) * Double.Parse(eachItem.SubItems[1].Text);
             }
            label4.Text = "Total: "+sum.ToString();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new RegistroPago.elegirCliente(this).ShowDialog();
         }
     }
 }

@@ -30,6 +30,7 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.txtEmpresa = new System.Windows.Forms.ComboBox();
             this.dateVenc = new System.Windows.Forms.DateTimePicker();
             this.dateAlta = new System.Windows.Forms.DateTimePicker();
@@ -82,7 +83,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(0, 1);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(827, 473);
@@ -91,6 +92,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.txtEmpresa);
             this.tabPage1.Controls.Add(this.dateVenc);
             this.tabPage1.Controls.Add(this.dateAlta);
@@ -110,17 +112,28 @@
             this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage1.Size = new System.Drawing.Size(819, 444);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Agregar";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(382, 15);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(116, 25);
+            this.button1.TabIndex = 66;
+            this.button1.Text = "Seleccionar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // txtEmpresa
             // 
             this.txtEmpresa.FormattingEnabled = true;
-            this.txtEmpresa.Location = new System.Drawing.Point(520, 30);
+            this.txtEmpresa.Location = new System.Drawing.Point(517, 64);
             this.txtEmpresa.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtEmpresa.Name = "txtEmpresa";
             this.txtEmpresa.Size = new System.Drawing.Size(185, 24);
@@ -130,7 +143,7 @@
             // 
             this.dateVenc.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateVenc.Location = new System.Drawing.Point(517, 114);
-            this.dateVenc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateVenc.Margin = new System.Windows.Forms.Padding(4);
             this.dateVenc.Name = "dateVenc";
             this.dateVenc.Size = new System.Drawing.Size(189, 22);
             this.dateVenc.TabIndex = 64;
@@ -139,7 +152,7 @@
             // 
             this.dateAlta.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateAlta.Location = new System.Drawing.Point(161, 114);
-            this.dateAlta.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateAlta.Margin = new System.Windows.Forms.Padding(4);
             this.dateAlta.Name = "dateAlta";
             this.dateAlta.Size = new System.Drawing.Size(189, 22);
             this.dateAlta.TabIndex = 63;
@@ -147,7 +160,7 @@
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(133, 316);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(100, 28);
             this.button3.TabIndex = 62;
@@ -168,7 +181,7 @@
             // txtCantidad
             // 
             this.txtCantidad.Location = new System.Drawing.Point(111, 239);
-            this.txtCantidad.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCantidad.Margin = new System.Windows.Forms.Padding(4);
             this.txtCantidad.Name = "txtCantidad";
             this.txtCantidad.Size = new System.Drawing.Size(189, 22);
             this.txtCantidad.TabIndex = 60;
@@ -186,7 +199,7 @@
             // txtMonto
             // 
             this.txtMonto.Location = new System.Drawing.Point(111, 194);
-            this.txtMonto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMonto.Margin = new System.Windows.Forms.Padding(4);
             this.txtMonto.Name = "txtMonto";
             this.txtMonto.Size = new System.Drawing.Size(189, 22);
             this.txtMonto.TabIndex = 58;
@@ -194,7 +207,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(327, 390);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 28);
             this.button2.TabIndex = 57;
@@ -248,7 +261,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(420, 32);
+            this.label2.Location = new System.Drawing.Point(379, 67);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(64, 17);
@@ -258,7 +271,7 @@
             // btnAceptar
             // 
             this.btnAceptar.Location = new System.Drawing.Point(628, 390);
-            this.btnAceptar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAceptar.Margin = new System.Windows.Forms.Padding(4);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(116, 28);
             this.btnAceptar.TabIndex = 34;
@@ -269,7 +282,7 @@
             // txtFactura
             // 
             this.txtFactura.Location = new System.Drawing.Point(161, 64);
-            this.txtFactura.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtFactura.Margin = new System.Windows.Forms.Padding(4);
             this.txtFactura.Name = "txtFactura";
             this.txtFactura.Size = new System.Drawing.Size(191, 22);
             this.txtFactura.TabIndex = 30;
@@ -277,9 +290,9 @@
             // txtDni
             // 
             this.txtDni.Location = new System.Drawing.Point(163, 15);
-            this.txtDni.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtDni.Margin = new System.Windows.Forms.Padding(4);
             this.txtDni.Name = "txtDni";
-            this.txtDni.Size = new System.Drawing.Size(189, 22);
+            this.txtDni.Size = new System.Drawing.Size(187, 22);
             this.txtDni.TabIndex = 26;
             // 
             // label6
@@ -314,9 +327,9 @@
             this.tabPage2.Controls.Add(this.textModCliente);
             this.tabPage2.Controls.Add(this.label14);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage2.Size = new System.Drawing.Size(819, 444);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Modificar";
@@ -325,7 +338,7 @@
             // 
             this.comboBoxModEmpresa.FormattingEnabled = true;
             this.comboBoxModEmpresa.Location = new System.Drawing.Point(172, 101);
-            this.comboBoxModEmpresa.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxModEmpresa.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxModEmpresa.Name = "comboBoxModEmpresa";
             this.comboBoxModEmpresa.Size = new System.Drawing.Size(195, 24);
             this.comboBoxModEmpresa.TabIndex = 45;
@@ -367,8 +380,9 @@
             this.dataGridViewModificarC.AllowUserToDeleteRows = false;
             this.dataGridViewModificarC.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewModificarC.Location = new System.Drawing.Point(393, 16);
-            this.dataGridViewModificarC.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridViewModificarC.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewModificarC.Name = "dataGridViewModificarC";
+            this.dataGridViewModificarC.ReadOnly = true;
             this.dataGridViewModificarC.Size = new System.Drawing.Size(417, 256);
             this.dataGridViewModificarC.TabIndex = 23;
             this.dataGridViewModificarC.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewModificarC_CellContentClick);
@@ -376,7 +390,7 @@
             // textModNumeroFactura
             // 
             this.textModNumeroFactura.Location = new System.Drawing.Point(172, 155);
-            this.textModNumeroFactura.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textModNumeroFactura.Margin = new System.Windows.Forms.Padding(4);
             this.textModNumeroFactura.Name = "textModNumeroFactura";
             this.textModNumeroFactura.Size = new System.Drawing.Size(195, 22);
             this.textModNumeroFactura.TabIndex = 21;
@@ -385,7 +399,7 @@
             // textModCliente
             // 
             this.textModCliente.Location = new System.Drawing.Point(172, 52);
-            this.textModCliente.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textModCliente.Margin = new System.Windows.Forms.Padding(4);
             this.textModCliente.Name = "textModCliente";
             this.textModCliente.Size = new System.Drawing.Size(195, 22);
             this.textModCliente.TabIndex = 20;
@@ -413,9 +427,9 @@
             this.tabPage4.Controls.Add(this.textEliminarNumeroCliente);
             this.tabPage4.Controls.Add(this.label21);
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
-            this.tabPage4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage4.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage4.Size = new System.Drawing.Size(819, 444);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Eliminar";
@@ -424,7 +438,7 @@
             // 
             this.comboboxEliminarEmpresa.FormattingEnabled = true;
             this.comboboxEliminarEmpresa.Location = new System.Drawing.Point(172, 105);
-            this.comboboxEliminarEmpresa.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboboxEliminarEmpresa.Margin = new System.Windows.Forms.Padding(4);
             this.comboboxEliminarEmpresa.Name = "comboboxEliminarEmpresa";
             this.comboboxEliminarEmpresa.Size = new System.Drawing.Size(195, 24);
             this.comboboxEliminarEmpresa.TabIndex = 45;
@@ -466,8 +480,9 @@
             this.datagridViewEliminar.AllowUserToDeleteRows = false;
             this.datagridViewEliminar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.datagridViewEliminar.Location = new System.Drawing.Point(375, 16);
-            this.datagridViewEliminar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.datagridViewEliminar.Margin = new System.Windows.Forms.Padding(4);
             this.datagridViewEliminar.Name = "datagridViewEliminar";
+            this.datagridViewEliminar.ReadOnly = true;
             this.datagridViewEliminar.Size = new System.Drawing.Size(417, 256);
             this.datagridViewEliminar.TabIndex = 23;
             this.datagridViewEliminar.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.datagridViewEliminar_CellContentClick);
@@ -475,7 +490,7 @@
             // textEliminarNumeroFactura
             // 
             this.textEliminarNumeroFactura.Location = new System.Drawing.Point(172, 155);
-            this.textEliminarNumeroFactura.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textEliminarNumeroFactura.Margin = new System.Windows.Forms.Padding(4);
             this.textEliminarNumeroFactura.Name = "textEliminarNumeroFactura";
             this.textEliminarNumeroFactura.Size = new System.Drawing.Size(195, 22);
             this.textEliminarNumeroFactura.TabIndex = 21;
@@ -484,7 +499,7 @@
             // textEliminarNumeroCliente
             // 
             this.textEliminarNumeroCliente.Location = new System.Drawing.Point(172, 52);
-            this.textEliminarNumeroCliente.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textEliminarNumeroCliente.Margin = new System.Windows.Forms.Padding(4);
             this.textEliminarNumeroCliente.Name = "textEliminarNumeroCliente";
             this.textEliminarNumeroCliente.Size = new System.Drawing.Size(195, 22);
             this.textEliminarNumeroCliente.TabIndex = 20;
@@ -506,7 +521,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(840, 475);
             this.Controls.Add(this.tabControl1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ABMFactura";
             this.Text = "ABMFactura";
             this.Load += new System.EventHandler(this.ABMFactura_Load);
@@ -565,5 +580,6 @@
         private System.Windows.Forms.DateTimePicker dateVenc;
         private System.Windows.Forms.DateTimePicker dateAlta;
         private System.Windows.Forms.ComboBox txtEmpresa;
+        private System.Windows.Forms.Button button1;
     }
 }

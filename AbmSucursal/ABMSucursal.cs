@@ -78,7 +78,7 @@ namespace PagoAgilFrba.Sucursal
                 actualizar();
             }
             else{
-                 MessageBox.Show("Ya existe una sucursal con el mismo codigo postal o nombre", "Estado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                 MessageBox.Show("Ya existe una sucursal con el mismo codigo postal", "Estado", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -88,7 +88,7 @@ namespace PagoAgilFrba.Sucursal
 
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
             {
-                new Eliminar_Modificar_Sucursal_Seleccionada(dataGridViewModificarC.Rows[e.RowIndex].Cells["sucursal_nombre"].Value.ToString()).ShowDialog();
+                new Eliminar_Modificar_Sucursal_Seleccionada(dataGridViewModificarC.Rows[e.RowIndex].Cells["sucursal_codigo_postal"].Value.ToString()).ShowDialog();
                 actualizar();
             }
         }
@@ -97,11 +97,11 @@ namespace PagoAgilFrba.Sucursal
         {
             var senderGrid = (DataGridView)sender;
 
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
-                e.RowIndex >= 0)
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
             {
                 string sucursalNombre = DatagridViewEliminar.Rows[e.RowIndex].Cells["sucursal_nombre"].Value.ToString();
-                if (BD.eliminarSucursal(sucursalNombre))
+                string sucursalCodigoPostal = DatagridViewEliminar.Rows[e.RowIndex].Cells["sucursal_codigo_postal"].Value.ToString();
+                if (BD.eliminarSucursal(sucursalCodigoPostal))
                 {
                     MessageBox.Show("Se elimino la sucursal " + sucursalNombre, "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     actualizar();

@@ -17,6 +17,10 @@ namespace PagoAgilFrba.IniciarSesion
         {
             rolSeleccionado = rol;
             InitializeComponent();
+            cmbTipo.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbTrimestre.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboEmpresa.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboPorcentaje.DropDownStyle = ComboBoxStyle.DropDownList;
             dataGridEstadisticas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
         public AccionesAdmin() {
@@ -154,7 +158,7 @@ namespace PagoAgilFrba.IniciarSesion
 
                 this.Close();
             }
-
+            comboAccion.DropDownStyle = ComboBoxStyle.DropDownList;
             comboAccion.DataSource = lista;
             Acciones.Controls.Remove(tabPage3);
             Acciones.Controls.Remove(tabPage4);
@@ -166,9 +170,9 @@ namespace PagoAgilFrba.IniciarSesion
             List<string> empresas = BD.empresasActivasConNombre();
             empresas.Insert(0, "");
             comboEmpresa.DataSource = empresas;
-            dateRendicion.MinDate = new DateTime(fechaActual.Year, fechaActual.Month, 1);
-            dateRendicion.MaxDate = (new DateTime(fechaActual.Year, fechaActual.Month, 1)).AddMonths(1).AddDays(-1);
-  
+            dateRendicion1.MinDate = new DateTime(fechaActual.Year, fechaActual.Month, 1);
+            dateRendicion1.MaxDate = (new DateTime(fechaActual.Year, fechaActual.Month, 1)).AddMonths(1).AddDays(-1);
+            dateRendicion1.Value = BD.fechaActual();
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -253,9 +257,9 @@ namespace PagoAgilFrba.IniciarSesion
                 return;
             }
 
-            String fecharendicion = dateRendicion.Value.ToString("u");
+            String fecharendicion = dateRendicion1.Value.ToString("u");
             fecharendicion = fecharendicion.Substring(0, fecharendicion.Length - 1);
-            if (BD.seRindioEsteMes(dateRendicion.Value.Month, dateRendicion.Value.Year, comboEmpresa.Text))
+            if (BD.seRindioEsteMes(dateRendicion1.Value.Month, dateRendicion1.Value.Year, comboEmpresa.Text))
             {
                 MessageBox.Show("Esta empresa ya rindio en este mes", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -267,9 +271,13 @@ namespace PagoAgilFrba.IniciarSesion
                 return;
             }
 
-            if (BD.actualizarFacturasRendicion(dateRendicion, comboEmpresa.Text, lblImporte.Text, comboPorcentaje.Text, lblCantFacturas.Text, lblGanancia.Text, dataGridRendiciones))
+            if (BD.actualizarFacturasRendicion(dateRendicion1, comboEmpresa.Text, lblImporte.Text, comboPorcentaje.Text, lblCantFacturas.Text, lblGanancia.Text, dataGridRendiciones))
             {
-            MessageBox.Show("Rendicion registrada");
+                MessageBox.Show("Rendicion registrada");
+                comboBox1_SelectedIndexChanged(null, null);
+                lblCantFacturas.Text = "0";
+                lblGanancia.Text = "0";
+                lblImporte.Text = "0";
            }
             else{
                 MessageBox.Show("No se pudo realizar la rendicion");
@@ -278,10 +286,15 @@ namespace PagoAgilFrba.IniciarSesion
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblCantFacturas.Text = "0";
+            lblGanancia.Text = "0";
+            lblImporte.Text = "0";
             if (comboEmpresa.Text == "")
             {
+                dataGridRendiciones.DataSource = null;
                 return;
             }
+
             DateTime fechaActual = BD.fechaActual();
             dataGridRendiciones.DataSource = BD.facturasCobradasDeEmpresa(fechaActual, comboEmpresa.Text);
           

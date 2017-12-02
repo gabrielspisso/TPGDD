@@ -303,10 +303,10 @@ namespace PagoAgilFrba
             }
         }
 
-        public static sucursal devolverSucursal(String sucursalNombre){
+        public static sucursal devolverSucursal(String CP){
             SqlConnection connection = getConnection();
-            SqlCommand loginCommand = new SqlCommand("SELECT * FROM EL_JAPONES_SANGRANDO.Sucursales WHERE sucursal_nombre=@sucursal_nombre");
-            loginCommand.Parameters.AddWithValue("sucursal_nombre", sucursalNombre);
+            SqlCommand loginCommand = new SqlCommand("SELECT * FROM EL_JAPONES_SANGRANDO.Sucursales WHERE sucursal_codigo_postal=@sucursal_codigo_postal");
+            loginCommand.Parameters.AddWithValue("sucursal_codigo_postal", CP);
             loginCommand.Connection = connection;
 
             connection.Open();
@@ -564,7 +564,7 @@ namespace PagoAgilFrba
 
         public static DataTable filtroFacturasModif(string cliente, string numero, string empresa)
         {
-            String query = "SELECT  factura_numero,(select empresa_nombre from EL_JAPONES_SANGRANDO.EMPRESAS where empresa_cuit = factura_empresa) 'empresa',factura_cliente from EL_JAPONES_SANGRANDO.Facturas WHERE " +
+            String query = "SELECT  factura_numero,(select empresa_nombre from EL_JAPONES_SANGRANDO.EMPRESAS where empresa_cuit = factura_empresa) 'empresa',factura_cliente from EL_JAPONES_SANGRANDO.Facturas WHERE factura_estado <= 1 AND " +
                          "factura_cliente LIKE '" + cliente + "%' AND " +
                          "factura_numero LIKE '" + numero + "%'" +
                          BD.condicionDeEmpresas(empresa);
@@ -652,7 +652,7 @@ namespace PagoAgilFrba
 
         public static DataTable facturasModif()
         {
-            string query = "select DISTINCT factura_numero,(select empresa_nombre from EL_JAPONES_SANGRANDO.EMPRESAS where empresa_cuit = factura_empresa) 'empresa',factura_cliente from EL_JAPONES_SANGRANDO.Facturas";
+            string query = "select DISTINCT factura_numero,(select empresa_nombre from EL_JAPONES_SANGRANDO.EMPRESAS where empresa_cuit = factura_empresa) 'empresa',factura_cliente from EL_JAPONES_SANGRANDO.Facturas where factura_estado <= 1";
             return BD.busqueda(query);
         }
 
@@ -696,15 +696,15 @@ namespace PagoAgilFrba
 
         }
 
-        public static bool modificarSucursal(bool habilitado, string nombre, string direccion, string nombreViejo)
+        public static bool modificarSucursal(bool habilitado, string nombre, string direccion, string CP)
         {
-            return BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Sucursales SET sucursal_nombre = '" + nombre + "',sucursal_direccion = '" + direccion + "',sucursal_estado = '" + habilitado + "' WHERE sucursal_nombre = '" + nombreViejo + "'") > 0;
+            return BD.ABM("UPDATE EL_JAPONES_SANGRANDO.Sucursales SET sucursal_nombre = '" + nombre + "',sucursal_direccion = '" + direccion + "',sucursal_estado = '" + habilitado + "' WHERE sucursal_codigo_postal = '" + CP + "'") > 0;
         }
 
-        public static bool eliminarSucursal(string sucursalNombre)
+        public static bool eliminarSucursal(string CP)
         {
-            string update = "UPDATE EL_JAPONES_SANGRANDO.Sucursales SET sucursal_estado = 0 WHERE sucursal_nombre ='" + sucursalNombre + "'";
-            string idSucursal = BD.consultaDeUnSoloResultado("select sucursal_codigo_postal from EL_JAPONES_SANGRANDO.Sucursales where sucursal_nombre ='" + sucursalNombre + "'");
+            string update = "UPDATE EL_JAPONES_SANGRANDO.Sucursales SET sucursal_estado = 0 WHERE sucursal_codigo_postal = '" + CP + "'";
+            string idSucursal = BD.consultaDeUnSoloResultado("select sucursal_codigo_postal from EL_JAPONES_SANGRANDO.Sucursales where sucursal_codigo_postal = '" + CP + "'");
             List<String> lista = new List<String>();
             lista.Add(update);
             return BD.correrStoreProcedure(lista) > 0;

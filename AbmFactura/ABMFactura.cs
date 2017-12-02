@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 
 namespace PagoAgilFrba.AbmFactura
 {
-    public partial class ABMFactura : Form
+    public partial class ABMFactura : Form,seleccionarCliente
     {
         public ABMFactura()
         {
@@ -25,6 +25,11 @@ namespace PagoAgilFrba.AbmFactura
             dateAlta.Value = BD.fechaActual();
             dateVenc.Value = BD.fechaActual();
 
+        }
+
+        public void setCliente(String DNI)
+        {
+            txtDni.Text = DNI;
         }
 
         private void cargarGrids()
@@ -91,8 +96,8 @@ namespace PagoAgilFrba.AbmFactura
                 MessageBox.Show("El dni tiene caracteres invalidos");
                 return;
             }
-            if(DateTime.Compare(dateAlta.Value, dateVenc.Value) < 1){
-                MessageBox.Show("La fecha de vencimiento es posterior a la de alta");
+            if(DateTime.Compare(dateVenc.Value,dateAlta.Value) < 0){
+                MessageBox.Show("La fecha de vencimiento es anterior a la de alta");
                 return;
             }
             if (!reg.IsMatch(txtFactura.Text))
@@ -195,6 +200,11 @@ namespace PagoAgilFrba.AbmFactura
         private void comboBoxModEmpresa_SelectedIndexChanged(object sender, EventArgs e)
         {
             cargarGrids();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new RegistroPago.elegirCliente(this).ShowDialog();
         }
 
     }
