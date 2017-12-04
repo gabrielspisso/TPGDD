@@ -42,10 +42,9 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(39, 369);
-            this.btnLimpiar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnLimpiar.Location = new System.Drawing.Point(29, 300);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(141, 28);
+            this.btnLimpiar.Size = new System.Drawing.Size(106, 23);
             this.btnLimpiar.TabIndex = 46;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
@@ -57,10 +56,9 @@
             this.listadoClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.listadoClientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Elegir});
-            this.listadoClientes.Location = new System.Drawing.Point(220, 58);
-            this.listadoClientes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listadoClientes.Location = new System.Drawing.Point(165, 47);
             this.listadoClientes.Name = "listadoClientes";
-            this.listadoClientes.Size = new System.Drawing.Size(868, 383);
+            this.listadoClientes.Size = new System.Drawing.Size(651, 311);
             this.listadoClientes.TabIndex = 44;
             this.listadoClientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.listadoClientes_CellContentClick);
             // 
@@ -74,66 +72,60 @@
             // 
             // filtroNombre
             // 
-            this.filtroNombre.Location = new System.Drawing.Point(16, 298);
-            this.filtroNombre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.filtroNombre.Location = new System.Drawing.Point(12, 242);
             this.filtroNombre.Name = "filtroNombre";
-            this.filtroNombre.Size = new System.Drawing.Size(195, 22);
+            this.filtroNombre.Size = new System.Drawing.Size(147, 20);
             this.filtroNombre.TabIndex = 42;
             this.filtroNombre.TextChanged += new System.EventHandler(this.filtrar);
             // 
             // filtroApellido
             // 
-            this.filtroApellido.Location = new System.Drawing.Point(16, 214);
-            this.filtroApellido.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.filtroApellido.Location = new System.Drawing.Point(12, 174);
             this.filtroApellido.Name = "filtroApellido";
-            this.filtroApellido.Size = new System.Drawing.Size(195, 22);
+            this.filtroApellido.Size = new System.Drawing.Size(147, 20);
             this.filtroApellido.TabIndex = 40;
             this.filtroApellido.TextChanged += new System.EventHandler(this.filtrar);
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(15, 263);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Location = new System.Drawing.Point(11, 214);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(129, 17);
+            this.label12.Size = new System.Drawing.Size(96, 13);
             this.label12.TabIndex = 39;
             this.label12.Text = "Buscar por nombre";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(19, 84);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Location = new System.Drawing.Point(14, 68);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(104, 17);
+            this.label13.Size = new System.Drawing.Size(80, 13);
             this.label13.TabIndex = 38;
             this.label13.Text = "Buscar por DNI";
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(19, 172);
-            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Location = new System.Drawing.Point(14, 140);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(130, 17);
+            this.label14.Size = new System.Drawing.Size(97, 13);
             this.label14.TabIndex = 37;
             this.label14.Text = "Buscar por apellido";
             // 
             // filtroDNI
             // 
-            this.filtroDNI.Location = new System.Drawing.Point(16, 122);
-            this.filtroDNI.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.filtroDNI.Location = new System.Drawing.Point(12, 99);
             this.filtroDNI.Name = "filtroDNI";
-            this.filtroDNI.Size = new System.Drawing.Size(195, 22);
+            this.filtroDNI.Size = new System.Drawing.Size(147, 20);
             this.filtroDNI.TabIndex = 47;
             this.filtroDNI.TextChanged += new System.EventHandler(this.filtrar);
             // 
             // elegirCliente
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1080, 490);
+            this.ClientSize = new System.Drawing.Size(810, 398);
             this.Controls.Add(this.filtroDNI);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.listadoClientes);
@@ -142,9 +134,9 @@
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label14);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "elegirCliente";
             this.Text = "Elegir Cliente";
+            this.Load += new System.EventHandler(this.elegirCliente_Load);
             ((System.ComponentModel.ISupportInitialize)(this.listadoClientes)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

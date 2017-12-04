@@ -110,8 +110,13 @@ namespace PagoAgilFrba.AbmFactura
             {
                 try
                 {
-                    Int32.Parse(txtMonto.Text);
-                    Int32.Parse(txtCantidad.Text);
+                    if (Double.Parse(txtMonto.Text) <= 0 || Int32.Parse(txtCantidad.Text) <= 0)
+                    {
+                        MessageBox.Show("No se pueden ingresar valores negativos o ceros en el monto / cantidad", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtCantidad.Text = "";
+                        txtMonto.Text = "";
+                        return;
+                    }   
                 }
                 catch (Exception ex)
                 {

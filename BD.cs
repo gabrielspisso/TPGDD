@@ -565,8 +565,8 @@ namespace PagoAgilFrba
         public static DataTable filtroFacturasModif(string cliente, string numero, string empresa)
         {
             String query = "SELECT  factura_numero,(select empresa_nombre from EL_JAPONES_SANGRANDO.EMPRESAS where empresa_cuit = factura_empresa) 'empresa',factura_cliente from EL_JAPONES_SANGRANDO.Facturas WHERE factura_estado <= 1 AND " +
-                         "factura_cliente LIKE '" + cliente + "%' AND " +
-                         "factura_numero LIKE '" + numero + "%'" +
+                         "factura_cliente LIKE '%" + cliente + "%' AND " +
+                         "factura_numero LIKE '%" + numero + "%'" +
                          BD.condicionDeEmpresas(empresa);
             return BD.busqueda(query);
         }
@@ -614,6 +614,10 @@ namespace PagoAgilFrba
                 query += "(" + eachItem.SubItems[0].Text.Replace(',', '.') + "," + eachItem.SubItems[1].Text.Replace(',', '.') + ",'" + factura + "'),";
                 sum += Double.Parse(eachItem.SubItems[0].Text) * Double.Parse(eachItem.SubItems[1].Text);
             }
+            if(sum <= 0){
+                MessageBox.Show("Las facturas no pueden tener un importe negativo en su totalidad");
+                return;
+            }
             query = query.Substring(0, query.Length - 1);
 
             string empresa_cuit = BD.consultaDeUnSoloResultado("(select TOP 1 empresa_cuit from EL_JAPONES_SANGRANDO.Empresas where empresa_nombre = '" + empresa + "')");
@@ -626,6 +630,7 @@ namespace PagoAgilFrba
                                     + fechaVenc + "',"
                                     + sum.ToString().Replace(',', '.') + ")";
 
+            
             if (BD.ABM(queryFactura) > 0)
             {
                 if (BD.ABM(query) > 0)
@@ -671,6 +676,11 @@ namespace PagoAgilFrba
                 query += "(" + eachItem.SubItems[0].Text.Replace(',', '.') + "," + eachItem.SubItems[1].Text.Replace(',', '.') + "," + factura + "),";
                 sum += Double.Parse(eachItem.SubItems[0].Text) * Double.Parse(eachItem.SubItems[1].Text);
             }
+            if (sum <= 0)
+            {
+                MessageBox.Show("No se pudo modificar debido a que el importe total de la factura es negativo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            } 
             query = query.Substring(0, query.Length - 1);
             string empresa_cuit = BD.consultaDeUnSoloResultado("(select TOP 1 empresa_cuit from EL_JAPONES_SANGRANDO.Empresas where empresa_nombre = '" + empresa + "')");
             int x = check ? 1 : 0;

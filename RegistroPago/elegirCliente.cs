@@ -37,7 +37,7 @@ namespace PagoAgilFrba.RegistroPago
         public void filtrar(object sender, EventArgs e)
         {
 
-            SqlCommand query = new SqlCommand("SELECT * FROM EL_JAPONES_SANGRANDO.Clientes WHERE cliente_estado = 1 AND (cliente_DNI LIKE '" + filtroDNI.Text + "%' OR '" + filtroDNI.Text + "' = '') AND (cliente_apellido LIKE '" + filtroApellido.Text + "%' OR '" + filtroApellido.Text + "' = '') AND (cliente_nombre LIKE '" + filtroNombre.Text + "%' OR '" + filtroNombre.Text + "' = '') ORDER BY cliente_apellido");
+            SqlCommand query = new SqlCommand("SELECT * FROM EL_JAPONES_SANGRANDO.Clientes WHERE cliente_estado = 1 AND (cliente_DNI LIKE '%" + filtroDNI.Text + "%' OR '" + filtroDNI.Text + "' = '') AND (cliente_apellido LIKE '%" + filtroApellido.Text + "%' OR '%" + filtroApellido.Text + "%' = '') AND (cliente_nombre LIKE '%" + filtroNombre.Text + "%' OR '" + filtroNombre.Text + "' = '') ORDER BY cliente_apellido");
             this.cargarTabla(query);
         }
 
@@ -63,6 +63,11 @@ namespace PagoAgilFrba.RegistroPago
             filtroDNI.Text = "";
             filtroNombre.Text = "";
             this.filtrar(null,null);
+        }
+
+        private void elegirCliente_Load(object sender, EventArgs e)
+        {
+
         }
 
     
