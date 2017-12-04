@@ -478,15 +478,15 @@ namespace PagoAgilFrba
 
         public static String condicionRubro(string rubro)
         {
-            return (rubro == "") ? "" : "AND rubro_desc = '" + rubro + "'";
+            return (rubro == "") ? "" : "AND rubro_desc = '%" + rubro + "'";
         }
 
         public static DataTable filtroEmpresasElim(string nombre, string cuit, string rubro)
         {
             String query = "SELECT empresa_nombre,rubro_desc,empresa_cuit FROM EL_JAPONES_SANGRANDO.Empresas join EL_JAPONES_SANGRANDO.Rubros on empresa_rubro = rubro_id WHERE " +
                          "empresa_estado = 1 AND " +
-                         "empresa_nombre LIKE '" + nombre + "%' AND " +
-                         "empresa_cuit LIKE '" + cuit + "%' " +
+                         "empresa_nombre LIKE '%" + nombre + "%' AND " +
+                         "empresa_cuit LIKE '%" + cuit + "%' " +
                          BD.condicionRubro(rubro);
             return BD.busqueda(query);
         }
@@ -494,8 +494,8 @@ namespace PagoAgilFrba
         public static DataTable filtroEmpresasModif(string nombre, string cuit, string rubro)
         {
             String query = "SELECT empresa_nombre,rubro_desc,empresa_cuit FROM EL_JAPONES_SANGRANDO.Empresas join EL_JAPONES_SANGRANDO.Rubros on empresa_rubro = rubro_id WHERE " +
-                         "empresa_nombre LIKE '" + nombre + "%' AND " +
-                         "empresa_cuit LIKE '" + cuit + "%' " +
+                         "empresa_nombre LIKE '%" + nombre + "%' AND " +
+                         "empresa_cuit LIKE '%" + cuit + "%' " +
                          BD.condicionRubro(rubro);
             return BD.busqueda(query);
         }
