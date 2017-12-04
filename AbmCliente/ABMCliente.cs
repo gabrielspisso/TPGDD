@@ -45,7 +45,12 @@ namespace PagoAgilFrba.AbmCliente
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (!System.Text.RegularExpressions.Regex.IsMatch(textDni.Text, @"^\d+$"))
+            if (textNombre.Text.Trim() == "" | textApellido.Text.Trim() == "" | txtTelefono.Text.Trim() == "" | textDni.Text.Trim() == "" | textDireccion.Text.Trim() == "" | textDireccion.Text.Trim() == "" | dateTimePickerFechaNac.Text.Trim() == "" | txtTelefono.Text.Trim() == "")
+            {
+                MessageBox.Show("Faltan completar campos obligatorios", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+          if (!System.Text.RegularExpressions.Regex.IsMatch(textDni.Text, @"^\d+$"))
             {
                 MessageBox.Show("Sólo se permiten numeros en el DNI", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -66,11 +71,7 @@ namespace PagoAgilFrba.AbmCliente
                 MessageBox.Show("Sólo se permiten numeros en el codigo postal", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (textNombre.Text.Trim() == "" | textApellido.Text.Trim() == "" | txtTelefono.Text.Trim() == "" | textDni.Text.Trim() == "" | textDireccion.Text.Trim() == "" | textDireccion.Text.Trim() == "" | dateTimePickerFechaNac.Text.Trim() == "" | txtTelefono.Text.Trim() == "" )
-            {
-                MessageBox.Show("Faltan completar campos obligatorios", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+           
             else
             {
                 String nombre = textNombre.Text;
@@ -94,7 +95,7 @@ namespace PagoAgilFrba.AbmCliente
                     textMail.Text = "";
                     textCodigoPostal.Text = "";
                     textDireccion.Text = "";
-                    dateTimePickerFechaNac.Text = "";
+                    dateTimePickerFechaNac.Value = BD.fechaActual();
                     txtTelefono.Text = "";
                     BD.actualizarVistasClientes(datagridEliminar,dataViewModificar);
                 }

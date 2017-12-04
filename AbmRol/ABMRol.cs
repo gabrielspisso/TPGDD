@@ -116,7 +116,11 @@ namespace PagoAgilFrba.AbmRol
                 MessageBox.Show("No selecciono ningun rol");
                 return;
             }
-
+            if (txtRol.Text.Trim() == "")
+            {
+                MessageBox.Show("El campo del nuevo nombre no puede estar vacio");
+                return;
+            }
             string rol = comboModificar.SelectedValue.ToString();
             if (rol != txtRol.Text)
             {
