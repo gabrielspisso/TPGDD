@@ -406,8 +406,8 @@ namespace PagoAgilFrba
         public static DataTable filtroClienteEliminar(string nombre, string apellido, string dni)
         {
             String query = "SELECT cliente_nombre,cliente_apellido,cliente_DNI FROM EL_JAPONES_SANGRANDO.Clientes WHERE cliente_estado = 1 AND " +
-                           "cliente_nombre LIKE '" + nombre + "%' AND " +
-                           "cliente_apellido LIKE '" + apellido + "%' " +
+                           "cliente_nombre LIKE '%" + nombre + "%' AND " +
+                           "cliente_apellido LIKE '%" + apellido + "%' " +
                            BD.condicionDNI(dni);
             return BD.busqueda(query);
         }
@@ -415,15 +415,15 @@ namespace PagoAgilFrba
         public static DataTable filtroClienteModificar(string nombre, string apellido, string dni)
         {
             String query = "SELECT cliente_nombre,cliente_apellido,cliente_DNI FROM EL_JAPONES_SANGRANDO.Clientes WHERE " +
-                           "cliente_nombre LIKE '" + nombre + "%' AND " +
-                           "cliente_apellido LIKE '" + apellido + "%' " +
+                           "cliente_nombre LIKE '%" + nombre + "%' AND " +
+                           "cliente_apellido LIKE '%" + apellido + "%' " +
                            BD.condicionDNI(dni);
             return BD.busqueda(query);
         }
 
         public static String condicionDNI(String dni)
         {
-            return (dni == "") ? "" : "AND cliente_DNI like '" + dni + "%'";
+            return (dni == "") ? "" : "AND cliente_DNI like '%" + dni + "%'";
         }
 
         public static void eliminarCliente(string x, DataGridView dge, DataGridView dgm)
