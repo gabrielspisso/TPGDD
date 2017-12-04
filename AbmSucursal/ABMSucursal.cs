@@ -21,6 +21,10 @@ namespace PagoAgilFrba.Sucursal
 
         private void actualizar()
         {
+            textAgregarCodigoPostal.Text = "";
+
+            textAgregarDireccion.Text = "";
+            textAgregarNombre.Text = "";
             DataGridViewButtonColumn buttons = new DataGridViewButtonColumn();
             {
                 buttons.HeaderText = "Modificar";
@@ -105,6 +109,7 @@ namespace PagoAgilFrba.Sucursal
                 {
                     MessageBox.Show("Se elimino la sucursal " + sucursalNombre, "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     actualizar();
+                    
                 }
                 else
                 {

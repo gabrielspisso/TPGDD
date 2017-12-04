@@ -57,6 +57,11 @@ namespace PagoAgilFrba.AbmEmpresa
 
         private void cargarGrids()
         {
+             textNuevoNombre.Text = "";
+            textNuevoDirec.Text = "";
+            textNuevoCuit.Text = "";
+            textBox1.Text =""; 
+            textBox2.Text = "";
             List<String> lista = BD.rubros();
             comboNuevoRubro.DataSource = lista;
             lista.Insert(0, "");

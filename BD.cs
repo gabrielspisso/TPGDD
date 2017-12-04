@@ -704,7 +704,6 @@ namespace PagoAgilFrba
         public static bool eliminarSucursal(string CP)
         {
             string update = "UPDATE EL_JAPONES_SANGRANDO.Sucursales SET sucursal_estado = 0 WHERE sucursal_codigo_postal = '" + CP + "'";
-            string idSucursal = BD.consultaDeUnSoloResultado("select sucursal_codigo_postal from EL_JAPONES_SANGRANDO.Sucursales where sucursal_codigo_postal = '" + CP + "'");
             List<String> lista = new List<String>();
             lista.Add(update);
             return BD.correrStoreProcedure(lista) > 0;
