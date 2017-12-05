@@ -38,7 +38,7 @@ namespace PagoAgilFrba.Rendicion
                 return;
 
             }
-            if (dataGridRendiciones.Rows.Count == 1)//El data grid automaticamente rellena automaticamente una fila vacia al final
+            if (dataGridRendiciones.Rows.Count == 0)//El data grid automaticamente rellena automaticamente una fila vacia al final
             {
                 MessageBox.Show("No hay facturas para realizar la rendicion");
                 return;

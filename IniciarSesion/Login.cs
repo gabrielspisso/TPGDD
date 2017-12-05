@@ -43,7 +43,14 @@ namespace PagoAgilFrba.IniciarSesion
 
         private void Login_FormClosing(object sender, FormClosingEventArgs e)
         {
+            try{
+
             Application.Exit();
+
+            }
+            catch( Exception ex){
+
+            }    
         }
     }
 }
