@@ -24,6 +24,7 @@ namespace PagoAgilFrba.AbmEmpresa
             comboBox1.Text = BD.devolverColumna(tabla, "empresa_rubro");
             textCuit.Text = BD.devolverColumna(tabla, "empresa_cuit");
             CheckHabilitado.Checked = BD.devolverColumna(tabla, "empresa_estado") == "True";
+            cambio = false;
         }
 
         private void Eliminar_Modificar_Empresa_Seleccionada_Load(object sender, EventArgs e)
