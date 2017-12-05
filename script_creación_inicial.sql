@@ -393,6 +393,9 @@ values('ABM_ROL'),('ABM_CLIENTE'),('ABM_EMPRESA'),('ABM_SUCURSAL'),('ABM_FACTURA
 INSERT INTO EL_JAPONES_SANGRANDO.Rol_Funcionalidad(rol_Funcionalidad_rol, rol_Funcionalidad_funcionalidad)
 values('administrador',1),('administrador',2),('administrador',3),('administrador',4),('administrador',5),('administrador',6),('administrador',7),('administrador',8),('administrador',9)
 
+INSERT INTO EL_JAPONES_SANGRANDO.Rol_Funcionalidad(rol_Funcionalidad_rol, rol_Funcionalidad_funcionalidad)
+values('cobrador',6),('cobrador',2),('cobrador',3),('cobrador',4),('cobrador',5)
+
 --Le asigno el perfil de administrador al admin
 INSERT INTO EL_JAPONES_SANGRANDO.Usuario_Rol(usuario_Rol_usuario, usuario_Rol_rol) values ('admin', 'administrador')
 
@@ -413,3 +416,5 @@ INSERT INTO EL_JAPONES_SANGRANDO.Usuario_Sucursal (usuario_Sucursal_sucursal,usu
 values (1437,'cobrador')
 
 INSERT INTO EL_JAPONES_SANGRANDO.Usuario_Rol(usuario_Rol_usuario, usuario_Rol_rol) values ('cobrador', 'cobrador')
+
+INSERT INTO EL_JAPONES_SANGRANDO.Usuario_Rol(usuario_Rol_usuario, usuario_Rol_rol) values ('admin', 'cobrador')
