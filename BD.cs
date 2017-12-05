@@ -423,7 +423,7 @@ namespace PagoAgilFrba
 
         public static String condicionDNI(String dni)
         {
-            return (dni == "") ? "" : "AND cliente_DNI like '%" + dni + "%'";
+            return (dni == "") ? "" : "AND cliente_DNI = '" + dni + "'";
         }
 
         public static void eliminarCliente(string x, DataGridView dge, DataGridView dgm)

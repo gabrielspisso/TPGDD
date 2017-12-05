@@ -122,3 +122,7 @@ C:\Users\lukas\Downloads\TPGDD\obj\Debug\PagoAgilFrba.Rendicion.Rendicion.resour
 C:\Users\lukas\Downloads\TPGDD\obj\Debug\PagoAgilFrba.csproj.GenerateResource.Cache
 C:\Users\lukas\Downloads\TPGDD\obj\Debug\PagoAgilFrba.exe
 C:\Users\lukas\Downloads\TPGDD\obj\Debug\PagoAgilFrba.pdb
+C:\Users\santy\OneDrive\Documents\GitHub\TPGDD\obj\Debug\PagoAgilFrba.Devolucion.Devolucion.resources
+C:\Users\santy\OneDrive\Documents\GitHub\TPGDD\obj\Debug\PagoAgilFrba.IniciarSesion.elegirFactura.resources
+C:\Users\santy\OneDrive\Documents\GitHub\TPGDD\obj\Debug\PagoAgilFrba.ListadoEstadistico.Listado.resources
+C:\Users\santy\OneDrive\Documents\GitHub\TPGDD\obj\Debug\PagoAgilFrba.Rendicion.Rendicion.resources
