@@ -30,6 +30,14 @@
         {
             this.Acciones = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dateRendicion1 = new System.Windows.Forms.DateTimePicker();
@@ -64,14 +72,6 @@
             this.richTextDev = new System.Windows.Forms.RichTextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
             this.Acciones.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -116,6 +116,94 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Acciones";
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(492, 185);
+            this.button10.Margin = new System.Windows.Forms.Padding(4);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(185, 49);
+            this.button10.TabIndex = 8;
+            this.button10.Text = "LISTADO ESTADISTICO";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(266, 185);
+            this.button11.Margin = new System.Windows.Forms.Padding(4);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(185, 49);
+            this.button11.TabIndex = 7;
+            this.button11.Text = "DEVOLUCIONES";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(45, 185);
+            this.button12.Margin = new System.Windows.Forms.Padding(4);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(185, 49);
+            this.button12.TabIndex = 6;
+            this.button12.Text = "RENDICION DE FACTURAS";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(492, 108);
+            this.button5.Margin = new System.Windows.Forms.Padding(4);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(185, 49);
+            this.button5.TabIndex = 5;
+            this.button5.Text = "PAGO DE FACTURAS";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(266, 108);
+            this.button7.Margin = new System.Windows.Forms.Padding(4);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(185, 49);
+            this.button7.TabIndex = 4;
+            this.button7.Text = "ABM ";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(45, 108);
+            this.button9.Margin = new System.Windows.Forms.Padding(4);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(185, 49);
+            this.button9.TabIndex = 3;
+            this.button9.Text = "ABM HOTEL";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(492, 34);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(185, 49);
+            this.button4.TabIndex = 2;
+            this.button4.Text = "ABM USUARIO";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(266, 34);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(185, 49);
+            this.button3.TabIndex = 1;
+            this.button3.Text = "ABM CLIENTE";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // button1
             // 
@@ -543,94 +631,6 @@
             this.label20.Size = new System.Drawing.Size(56, 17);
             this.label20.TabIndex = 4;
             this.label20.Text = "Factura";
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(266, 34);
-            this.button3.Margin = new System.Windows.Forms.Padding(4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(185, 49);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "ABM CLIENTE";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(492, 34);
-            this.button4.Margin = new System.Windows.Forms.Padding(4);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(185, 49);
-            this.button4.TabIndex = 2;
-            this.button4.Text = "ABM EMPRESA";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(492, 108);
-            this.button5.Margin = new System.Windows.Forms.Padding(4);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(185, 49);
-            this.button5.TabIndex = 5;
-            this.button5.Text = "PAGO DE FACTURAS";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(266, 108);
-            this.button7.Margin = new System.Windows.Forms.Padding(4);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(185, 49);
-            this.button7.TabIndex = 4;
-            this.button7.Text = "ABM FACTURA";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // button9
-            // 
-            this.button9.Location = new System.Drawing.Point(45, 108);
-            this.button9.Margin = new System.Windows.Forms.Padding(4);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(185, 49);
-            this.button9.TabIndex = 3;
-            this.button9.Text = "ABM SUCURSAL";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // button10
-            // 
-            this.button10.Location = new System.Drawing.Point(492, 185);
-            this.button10.Margin = new System.Windows.Forms.Padding(4);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(185, 49);
-            this.button10.TabIndex = 8;
-            this.button10.Text = "LISTADO ESTADISTICO";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // button11
-            // 
-            this.button11.Location = new System.Drawing.Point(266, 185);
-            this.button11.Margin = new System.Windows.Forms.Padding(4);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(185, 49);
-            this.button11.TabIndex = 7;
-            this.button11.Text = "DEVOLUCIONES";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // button12
-            // 
-            this.button12.Location = new System.Drawing.Point(45, 185);
-            this.button12.Margin = new System.Windows.Forms.Padding(4);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(185, 49);
-            this.button12.TabIndex = 6;
-            this.button12.Text = "RENDICION DE FACTURAS";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // AccionesAdmin
             // 

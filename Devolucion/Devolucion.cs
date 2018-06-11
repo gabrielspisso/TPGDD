@@ -67,5 +67,10 @@ namespace PagoAgilFrba.Devolucion
             new IniciarSesion.elegirFactura(this, true).ShowDialog();
             this.Show();
         }
+
+        private void Devolucion_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
