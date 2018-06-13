@@ -154,3 +154,6 @@ C:\Users\santy\Desktop\TPGDD\obj\Debug\PagoAgilFrba.RegistroPago.elegirCliente.r
 C:\Users\santy\Desktop\TPGDD\obj\Debug\PagoAgilFrba.RegistroPago.Pagos.resources
 C:\Users\santy\Desktop\TPGDD\obj\Debug\PagoAgilFrba.Rendicion.Rendicion.resources
 C:\Users\santy\Desktop\TPGDD\obj\Debug\PagoAgilFrba.csproj.GenerateResource.Cache
+C:\Users\lukas\Desktop\TPGDD\bin\Debug\PagoAgilFrba.exe.config
+C:\Users\lukas\Desktop\TPGDD\obj\Debug\PagoAgilFrba.exe
+C:\Users\lukas\Desktop\TPGDD\obj\Debug\PagoAgilFrba.pdb
